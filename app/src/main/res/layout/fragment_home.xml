@@ -8,7 +8,8 @@
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#000000">
 
         <LinearLayout
             android:id="@+id/titleNav"
@@ -24,6 +25,7 @@
                 android:layout_marginRight="64pt"
                 android:text="Inventum"
                 android:textAlignment="viewStart"
+                android:textColor="#0091EA"
                 android:textSize="34sp"
                 android:textStyle="italic" />
         </LinearLayout>
@@ -35,6 +37,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="80pt"
             android:text="Welcome to Inventum USERNAME!"
+            android:textColor="#0091EA"
             android:textSize="18sp" />
 
         <FrameLayout
@@ -53,13 +56,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="26pt"
-                    android:text="Liked Music" />
+                    android:backgroundTint="#0091EA"
+                    android:text="Liked Music"
+                    android:textColor="#000000" />
 
                 <Button
                     android:id="@+id/playLists"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Playlists" />
+                    android:backgroundTint="#0091EA"
+                    android:text="Playlists"
+                    android:textColor="#000000" />
 
             </LinearLayout>
 
@@ -75,13 +82,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="26pt"
-                    android:text="Top Tracks" />
+                    android:backgroundTint="#0091EA"
+                    android:text="Top Tracks"
+                    android:textColor="#000000" />
 
                 <Button
                     android:id="@+id/vibes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Your Vibes" />
+                    android:backgroundTint="#0091EA"
+                    android:text="Your Vibes"
+                    android:textColor="#000000" />
 
             </LinearLayout>
         </FrameLayout>
@@ -93,6 +104,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="80pt"
             android:text="***** HOLD BUTTON IMAGE *****"
+            android:textColor="#FFFFFF"
             android:textSize="18sp" />
 
     </FrameLayout>
