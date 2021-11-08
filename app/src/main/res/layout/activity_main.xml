@@ -7,9 +7,96 @@
     tools:context=".MainActivity">
 
     <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/container" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/titleNav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/inventumTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@android:dimen/app_icon_size"
+                android:layout_marginTop="@android:dimen/app_icon_size"
+                android:layout_marginRight="64pt"
+                android:text="Inventum"
+                android:textAlignment="viewStart"
+                android:textSize="34sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/welcomeUserTXT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="80pt"
+            android:text="Welcome to Inventum USERNAME!"
+            android:textSize="18sp" />
+
+        <FrameLayout
+            android:id="@+id/panelContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:id="@+id/topPanel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/likedMusic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="26pt"
+                    android:text="Liked Music" />
+
+                <Button
+                    android:id="@+id/playLists"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Playlists" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/bottomPanel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/panelOne"
+                android:layout_marginTop="32pt">
+
+                <Button
+                    android:id="@+id/topTracks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="26pt"
+                    android:text="Top Tracks" />
+
+                <Button
+                    android:id="@+id/vibes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your Vibes" />
+
+            </LinearLayout>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/imageButtonHoldTXT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="80pt"
+            android:text="***** HOLD BUTTON IMAGE *****"
+            android:textSize="18sp" />
+
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
