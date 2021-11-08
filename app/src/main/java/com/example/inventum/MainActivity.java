@@ -1,11 +1,14 @@
 package com.example.inventum;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.MenuItem;
 
+import com.google.android.material.navigation.NavigationBarView;
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
@@ -19,10 +22,16 @@ public class MainActivity extends AppCompatActivity {
     private static final String CLIENT_ID = "fbbdb761618c4c6db1d1be2f596a6560";
     private static final String REDIRECT_URI = "http://localhost:8888/callback";
     private SpotifyAppRemote mSpotifyAppRemote;
+    private NavigationBarView bottomNavigationView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        bottomNavigationView = findViewById(R.id.bottomnav);
+        bottomNavigationView.setOnItemSelectedListener(bottomnavFunction);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
     }
 
     @Override
@@ -74,4 +83,24 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private NavigationBarView.OnItemSelectedListener bottomnavFunction = new NavigationBarView.OnItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(MenuItem item) {
+            Fragment fragment = null;
+            switch (item.getItemId()){
+                case R.id.home:
+                    fragment = new HomeFragment();
+                    break;
+                case R.id.search:
+                    fragment = new SearchFragment();
+                    break;
+                case R.id.user:
+                    fragment = new UserFragment();
+                    break;
+            }
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+            return true;
+        }
+    };
 }
