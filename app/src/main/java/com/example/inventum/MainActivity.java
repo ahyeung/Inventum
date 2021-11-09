@@ -3,6 +3,7 @@ package com.example.inventum;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
                             .build();
 
             SpotifyAppRemote.connect(this, connectionParams,
+
                     new Connector.ConnectionListener() {
 
                         public void onConnected(SpotifyAppRemote spotifyAppRemote) {
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
                             // Now you can start interacting with App Remote
                             //connected();
-                            Intent intent = new Intent(getApplicationContext(), Authenticated.class);
+                            Intent intent = new Intent(MainActivity.this, Authenticated.class);
                             startActivity(intent);
 
                         }
