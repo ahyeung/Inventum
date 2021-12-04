@@ -3,6 +3,7 @@ package com.example.inventum;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -38,12 +39,18 @@ public class Authenticated extends AppCompatActivity {
     private SpotifyAppRemote mSpotifyAppRemote;
     private NavigationBarView bottomNavigationView;
 
+    static String AUTH_TOKEN = "";
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authenticated);
 
         bottomNavigationView = findViewById(R.id.bottomnav);
         bottomNavigationView.setOnItemSelectedListener(bottomnavFunction);
+
+        Intent intent = getIntent();
+        AUTH_TOKEN = intent.getStringExtra("token");
+        Log.w("Authenticated", "///////////TOKEN///////// " + AUTH_TOKEN);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
     }
@@ -85,7 +92,7 @@ public class Authenticated extends AppCompatActivity {
 
     private void connected() {
         // Play a playlist
-        mSpotifyAppRemote.getPlayerApi().play("spotify:playlist:37i9dQZF1DX2sUQwD7tbmL");
+        //mSpotifyAppRemote.getPlayerApi().play("spotify:playlist:37i9dQZF1DX2sUQwD7tbmL");
 
         // Subscribe to PlayerState
         mSpotifyAppRemote.getPlayerApi()
@@ -97,10 +104,12 @@ public class Authenticated extends AppCompatActivity {
                     }
                 });
 
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
         String trackID = "11dFghVXANMlKmJXsNCbNl";
 
         // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        //RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         //TODO: Need to pull market form user info
         String market = "US";
         String url = "https://api.spotify.com/v1/tracks/" + trackID + "?market=" + market;
@@ -137,10 +146,10 @@ public class Authenticated extends AppCompatActivity {
         ) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                //TODO: Authorization should not be hardcoded
+                String auth = "Bearer " + AUTH_TOKEN;
                 Map<String, String>  params = new HashMap<String, String>();
                 params.put("Content-Type", "application/json");
-                params.put("Authorization:", "Bearer BQD4amFZMlsNYgNa4rjSjKg_eU_okStJPcQNPnehSRIa3JkEq189qaXhpoZ5So9cD4W2KiPbhkPr6olpJBUYCZPmT77U4KpHqeprxOVlIChqP6uRoefnMxNRikqMOKi8xuxQy4bz-ySjw2Y8FLup5aE");
+                params.put("Authorization:", auth);
                 params.put("Host", "api.spotify.com");
 
                 return params;
