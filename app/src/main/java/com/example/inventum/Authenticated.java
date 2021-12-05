@@ -107,66 +107,22 @@ public class Authenticated extends AppCompatActivity {
                     }
                 });
 
+        // Instantiate RequestQueue
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
+        // Get needed track info for the request
         String trackID = "11dFghVXANMlKmJXsNCbNl";
-
-        // Instantiate the RequestQueue.
-        //RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        //TODO: Need to pull market form user info
         String market = "US";
-        String url = "https://api.spotify.com/v1/tracks/" + trackID + "?market=" + market;
 
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        Log.d("Authenticated", response.substring(0,500));
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            Log.d("Authenticated", jsonObject.getJSONObject("album").getString("album_type"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Authenticated", "That didn't work!");
+        // Get the requested track
+        StringRequest stringRequest = RemoteAPI.getTrack(AUTH_TOKEN, trackID, market);
 
-                // see error response
-                String body = "";
-                //get status code here
-                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                //get response body and parse with appropriate encoding
-                if(error.networkResponse.data!=null) {
-                    try {
-                        body = new String(error.networkResponse.data,"UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                }
-                //do stuff with the body...
-                Log.e("Authenticated", body);
-            }
-        }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                String auth = "Bearer " + AUTH_TOKEN;
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("Content-Type", "application/json");
-                params.put("Authorization:", auth);
-                params.put("Host", "api.spotify.com");
-
-                return params;
-            }
-        };
+        // Get track features
+        StringRequest stringRequest1 = RemoteAPI.getTrackAudioFeatures(AUTH_TOKEN, trackID);
 
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
+        queue.add(stringRequest1);
     }
 
     private NavigationBarView.OnItemSelectedListener bottomnavFunction = new NavigationBarView.OnItemSelectedListener() {
