@@ -9,9 +9,7 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.spotify.android.appremote.api.ConnectionParams;
@@ -21,6 +19,9 @@ import com.spotify.android.appremote.api.SpotifyAppRemote;
 import com.spotify.protocol.client.Subscription;
 import com.spotify.protocol.types.PlayerState;
 import com.spotify.protocol.types.Track;
+import com.spotify.sdk.android.auth.AuthorizationClient;
+import com.spotify.sdk.android.auth.AuthorizationRequest;
+import com.spotify.sdk.android.auth.AuthorizationResponse;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
     private SpotifyAppRemote mSpotifyAppRemote;
     private NavigationBarView bottomNavigationView;
 
-    // Tempporary fix. Can't run in the user fragment?
-    private float x1,x2;
-    static final int MIN_DISTANCE = 150;
+    // Request code will be used to verify if result comes from the login activity. Can be set to any integer.
+    private static final int REQUEST_CODE = 1337;
+    static String AUTH_TOKEN = "";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void authenticateUser(View v) {
+        /*
             ConnectionParams connectionParams =
                     new ConnectionParams.Builder(CLIENT_ID)
                             .setRedirectUri(REDIRECT_URI)
@@ -66,30 +68,50 @@ public class MainActivity extends AppCompatActivity {
                             // Something went wrong when attempting to connect! Handle errors here
                         }
                     });
+         */
+
+        AuthorizationRequest.Builder builder =
+                new AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI);
+
+        builder.setScopes(new String[]{"streaming"});
+        AuthorizationRequest request = builder.build();
+
+        AuthorizationClient.openLoginActivity(this, REQUEST_CODE, request);
     }
 
-
     @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
-        switch(event.getAction())
-        {
-            case MotionEvent.ACTION_DOWN:
-                x1 = event.getX();
-                break;
-            case MotionEvent.ACTION_UP:
-                x2 = event.getX();
-                float deltaX = x2 - x1;
-                if (Math.abs(deltaX) > MIN_DISTANCE)
-                {
-                    Toast.makeText(this, "left2right swipe", Toast.LENGTH_SHORT).show ();
-                }
-                else
-                {
-                    // consider as something else - a screen tap for example
-                }
-                break;
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+
+        // Check if result comes from the correct activity
+        if (requestCode == REQUEST_CODE) {
+            AuthorizationResponse response = AuthorizationClient.getResponse(resultCode, intent);
+
+            switch (response.getType()) {
+                // Response was successful and contains auth token
+                case TOKEN:
+                    // Handle successful response
+                    Log.d("MyActivity", "Connected");
+                    AUTH_TOKEN = response.getAccessToken();
+                    response.getCode();
+                    Log.d("MyActivity", "Token: " + AUTH_TOKEN);
+                    Log.w("MyActivity", "-------------- Expires in: " + response.getExpiresIn());
+                    Intent connect = new Intent(MainActivity.this, Authenticated.class);
+                    connect.putExtra("token", AUTH_TOKEN);
+                    startActivity(connect);
+                    break;
+
+                // Auth flow returned an error
+                case ERROR:
+                    // Handle error response
+                    Log.e("MyActivity", "Connection error");
+                    break;
+
+                // Most likely auth flow was cancelled
+                default:
+                    // Handle other cases
+                    Log.e("MyActivity", "Could not connect");
+            }
         }
-        return super.onTouchEvent(event);
     }
 }
