@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,21 +13,27 @@
         android:layout_height="wrap_content"
         android:text="Keywords"
         android:textSize="26sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
 
 
     <EditText
         android:id="@+id/keywordsInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
         android:background="@color/black"
         android:minWidth="200dp"
         android:minHeight="40dp"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/basicSearch"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias="0.05" />
 
     <TextView
         android:id="@+id/includeExplicit"
@@ -36,58 +43,79 @@
         android:layout_gravity="center_horizontal"
         android:textSize="26sp"
         android:textColor="@color/black"
-        android:layout_marginTop="225dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/keywordsInput"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias="0.1"/>
 
     <Button
+        android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="20dp"
         android:minHeight="20dp"
         android:background="@drawable/backwithborder"
-        android:layout_marginTop="225dp"
-        android:layout_marginLeft="310dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/keywordsInput"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintHorizontal_bias="0.85"/>
 
     <TextView
         android:id="@+id/genreInc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text= "Genres Included"
-        android:layout_gravity="center_horizontal"
         android:textSize="26sp"
         android:textColor="@color/black"
-        android:layout_marginTop="300dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/includeExplicit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias="0.1"/>
 
     <EditText
         android:id="@+id/genreIncSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="350dp"
         android:background="@color/black"
         android:minWidth="200dp"
         android:minHeight="40dp"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/genreInc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias="0.05" />
 
     <TextView
         android:id="@+id/genreExc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text= "Genres Excluded"
-        android:layout_gravity="center_horizontal"
         android:textSize="26sp"
         android:textColor="@color/black"
-        android:layout_marginTop="475dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/genreIncSearch"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias="0.15"/>
 
     <EditText
         android:id="@+id/genreExcSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="525dp"
         android:background="@color/black"
         android:minWidth="200dp"
         android:minHeight="40dp"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/genreExc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
 
     <Button
         android:id="@+id/advancedSearch"
@@ -96,7 +124,10 @@
         android:text="Advanced Search"
         android:backgroundTint="@color/inventum"
         android:textColor="@color/black"
-        android:layout_marginTop="650dp"
-        android:layout_gravity="center_horizontal"/>
+        app:layout_constraintTop_toBottomOf="@+id/genreExcSearch"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
