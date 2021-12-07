@@ -43,6 +43,7 @@ public class Authenticated extends AppCompatActivity {
     private NavigationBarView bottomNavigationView;
 
     static String AUTH_TOKEN = "";
+    static String MARKET = "";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +86,30 @@ public class Authenticated extends AppCompatActivity {
                         // Something went wrong when attempting to connect! Handle errors here
                     }
                 });
+
+        // Set up auth in order to refresh as needed
+        //TODO: set up auth refresh
+
+        // Get user info
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+        Response.Listener<String> listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Display the first 500 characters of the response string.
+                Log.d("Authenticated", response.substring(0,50));
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    MARKET = jsonObject.getString("country");
+                    Log.d("Authenticated", "TESTING " + MARKET);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        StringRequest stringRequest = RemoteAPI.getUser(listener, AUTH_TOKEN);
+        queue.add(stringRequest);
     }
 
     @Override
@@ -112,13 +137,45 @@ public class Authenticated extends AppCompatActivity {
 
         // Get needed track info for the request
         String trackID = "11dFghVXANMlKmJXsNCbNl";
-        String market = "US";
+        String market = MARKET;
+
+        final String[] testString = {"test"};
+
+        // Determine what to do with the response
+        Response.Listener<String> listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Display the first 500 characters of the response string.
+                Log.d("Authenticated", response.substring(0,500));
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    testString[0] = jsonObject.getJSONObject("album").getString("album_type");
+                    Log.d("Authenticated", "TESTING " + testString[0]);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        Response.Listener<String> listener1 = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Display the first 500 characters of the response string.
+                Log.d("Authenticated", response.substring(0,500));
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    Log.d("Authenticated", jsonObject.getString("danceability"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
 
         // Get the requested track
-        StringRequest stringRequest = RemoteAPI.getTrack(AUTH_TOKEN, trackID, market);
+        StringRequest stringRequest = RemoteAPI.getTrack(listener, AUTH_TOKEN, trackID, market);
 
         // Get track features
-        StringRequest stringRequest1 = RemoteAPI.getTrackAudioFeatures(AUTH_TOKEN, trackID);
+        StringRequest stringRequest1 = RemoteAPI.getTrackAudioFeatures(listener1, AUTH_TOKEN, trackID);
 
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
