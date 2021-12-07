@@ -3,27 +3,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchFragment">
+    tools:context=".SearchFragment"
+    android:background="@color/inventum" >
 
     <TextView
         android:id="@+id/basicSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Keywords"
-        android:textSize="18sp"
+        android:textSize="26sp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp" />
+        android:layout_marginTop="100dp"
+        android:textColor="#000000" />
 
 
     <EditText
         android:id="@+id/keywordsInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="150dp"
         android:background="@color/black"
         android:minWidth="200dp"
         android:minHeight="40dp"
-        android:textColor="#FFFFFF"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/includeExplicit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text= "Include Explicit"
+        android:layout_gravity="center_horizontal"
+        android:textSize="26sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="225dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="20dp"
+        android:minHeight="20dp"
+        android:background="@drawable/backwithborder"
+        android:layout_marginTop="225dp"
+        android:layout_marginLeft="310dp"/>
+
+    <TextView
+        android:id="@+id/genreInc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text= "Genres Included"
+        android:layout_gravity="center_horizontal"
+        android:textSize="26sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="300dp"/>
+
+    <EditText
+        android:id="@+id/genreIncSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="350dp"
+        android:background="@color/black"
+        android:minWidth="200dp"
+        android:minHeight="40dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/genreExc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text= "Genres Excluded"
+        android:layout_gravity="center_horizontal"
+        android:textSize="26sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="475dp"/>
+
+    <EditText
+        android:id="@+id/genreExcSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="525dp"
+        android:background="@color/black"
+        android:minWidth="200dp"
+        android:minHeight="40dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/advancedSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Advanced Search"
+        android:backgroundTint="@color/inventum"
+        android:textColor="@color/black"
+        android:layout_marginTop="650dp"
+        android:layout_gravity="center_horizontal"/>
 
 </FrameLayout>
