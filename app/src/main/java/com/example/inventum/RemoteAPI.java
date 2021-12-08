@@ -138,7 +138,7 @@ public class RemoteAPI {
     }
 
     public static StringRequest getRecommendations(Response.Listener<String> listener, String token, String seed_genres, String seed_artists,
-                                                   String seed_tracks, String market, String limit, int target_acousticness, int target_danceability,
+                                                   String seed_tracks, String market, int limit, int target_acousticness, int target_danceability,
                                                    int target_duration_ms, int target_energy, int target_instrumentalness, int target_liveness,
                                                    int target_loudness, int target_popularity, int target_speechiness, int target_tempo,
                                                    int target_valence) {
@@ -169,7 +169,7 @@ public class RemoteAPI {
         if (market != null && !market.isEmpty()) {
             url = url + "&market=" + market;
         }
-        if (limit != null && !limit.isEmpty()) {
+        if (limit >= 0 && limit <= 50) {
             url = url + "&limit=" + limit;
         }
         if (target_acousticness >= 0 && target_acousticness <= 1) {
@@ -222,7 +222,7 @@ public class RemoteAPI {
         };
     }
 
-    public static StringRequest search (Response.Listener<String> listener, String token, String query, String market, String type) {
+    public static StringRequest search(Response.Listener<String> listener, String token, String query, String market, String type) {
 
         String url = "https://api.spotify.com/v1/recommendations/?q=" + query + "&type=" + type + "&market=" + market;
 
@@ -242,7 +242,7 @@ public class RemoteAPI {
         };
     }
 
-    public static StringRequest getGenres (Response.Listener<String> listener, String token) {
+    public static StringRequest getGenres(Response.Listener<String> listener, String token) {
 
         String url = "https://api.spotify.com/v1/recommendations/available-genre-seeds";
 
@@ -262,7 +262,7 @@ public class RemoteAPI {
         };
     }
 
-    public static StringRequest getGlobalTopSongs (Response.Listener<String> listener, String token, String market) {
+    public static StringRequest getGlobalTopSongs(Response.Listener<String> listener, String token, String market) {
 
         // limit currently set to return 25 tracks
         String url = "https://api.spotify.com/v1/playlists/37i9dQZEVXbNG2KDcFcKOF/tracks?limit=25&market=" + market;
