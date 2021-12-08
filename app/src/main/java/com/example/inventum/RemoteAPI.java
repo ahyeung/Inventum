@@ -157,30 +157,77 @@ public class RemoteAPI {
         return stringRequest;
     }
 
-    public static StringRequest getRecommendations(String token, String genres, String market, String limit) {
-        String url = "https://api.spotify.com/v1/recommendations/?seed_genres=" + genres;
+    public static StringRequest getRecommendations(Response.Listener<String> listener, String token, String seed_genres, String seed_artists,
+                                                   String seed_tracks, String market, String limit, int target_acousticness, int target_danceability,
+                                                   int target_duration_ms, int target_energy, int target_instrumentalness, int target_liveness,
+                                                   int target_loudness, int target_popularity, int target_speechiness, int target_tempo,
+                                                   int target_valence) {
+        String url = "https://api.spotify.com/v1/recommendations/?";
 
+        if (seed_genres != null && !seed_genres.isEmpty()) {
+            if (url.endsWith("?")) {
+                url = url + "seed_genres=" + seed_genres;
+            } else {
+                url = url + "&seed_genres=" + seed_genres;
+            }
+        }
+        if (seed_artists != null && !seed_artists.isEmpty()) {
+            if (url.endsWith("?")) {
+                url = url + "seed_artists=" + seed_artists;
+            } else {
+                url = url + "&seed_artists=" + seed_artists;
+            }
+        }
+        if (seed_tracks != null && !seed_tracks.isEmpty()) {
+            if (url.endsWith("?")) {
+                url = url + "seed_tracks=" + seed_tracks;
+            } else {
+                url = url + "&seed_tracks=" + seed_tracks;
+            }
+        }
         if (market != null && !market.isEmpty()) {
             url = url + "&market=" + market;
         }
         if (limit != null && !limit.isEmpty()) {
             url = url + "&limit=" + limit;
         }
+        if (target_acousticness >= 0 && target_acousticness <= 1) {
+            url = url + "&target_acousticness=" + target_acousticness;
+        }
+        if (target_danceability >= 0 && target_danceability <= 1) {
+            url = url + "&target_danceability=" + target_danceability;
+        }
+        if (target_energy >= 0 && target_energy <= 1) {
+            url = url + "&target_energy=" + target_energy;
+        }
+        if (target_instrumentalness >= 0 && target_instrumentalness <= 1) {
+            url = url + "&target_instrumentalness=" + target_instrumentalness;
+        }
+        if (target_liveness >= 0 && target_liveness <= 1) {
+            url = url + "&target_liveness=" + target_liveness;
+        }
+        if (target_loudness >= 0 && target_loudness <= 1) {
+            url = url + "&target_loudness=" + target_loudness;
+        }
+        if (target_popularity >= 0 && target_popularity <= 1) {
+            url = url + "&target_popularity=" + target_popularity;
+        }
+        if (target_speechiness >= 0 && target_speechiness <= 1) {
+            url = url + "&target_speechiness=" + target_speechiness;
+        }
+        if (target_valence >= 0 && target_valence <= 1) {
+            url = url + "&target_valence=" + target_valence;
+        }
+        if (target_duration_ms >= 0) {
+            url = url + "&target_duration_ms=" + target_duration_ms;
+        }
+        if (target_tempo >= 0) {
+            url = url + "&target_tempo=" + target_tempo;
+        }
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        Log.d("Authenticated", response.substring(0,500));
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
+                listener, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("Authenticated", "That didn't work!");
