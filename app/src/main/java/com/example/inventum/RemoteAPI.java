@@ -25,7 +25,7 @@ public class RemoteAPI {
             //get status code here
             String statusCode = String.valueOf(error.networkResponse.statusCode);
             //get response body and parse with appropriate encoding
-            if(error.networkResponse.data!=null) {
+            if(error.networkResponse.data != null) {
                 try {
                     body = new String(error.networkResponse.data,"UTF-8");
                 } catch (UnsupportedEncodingException e) {

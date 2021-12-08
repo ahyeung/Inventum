@@ -26,6 +26,7 @@ import com.spotify.protocol.client.Subscription;
 import com.spotify.protocol.types.PlayerState;
 import com.spotify.protocol.types.Track;
 import com.spotify.sdk.android.auth.AuthorizationClient;
+import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
 
 import org.json.JSONException;
@@ -34,6 +35,9 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Authenticated extends AppCompatActivity {
 
@@ -43,6 +47,7 @@ public class Authenticated extends AppCompatActivity {
     private NavigationBarView bottomNavigationView;
 
     static String AUTH_TOKEN = "";
+    private static final int REQUEST_CODE = 1337;
     static String MARKET = "";
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +92,6 @@ public class Authenticated extends AppCompatActivity {
                     }
                 });
 
-        // Set up auth in order to refresh as needed
-        //TODO: set up auth refresh
-
         // Get user info
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
@@ -131,6 +133,24 @@ public class Authenticated extends AppCompatActivity {
                         Log.d("MainActivity", track.name + " by " + track.artist.name);
                     }
                 });
+
+        // Refresh token after every 3500 seconds
+        Runnable helloRunnable = new Runnable() {
+            public void run() {
+                AuthorizationRequest.Builder builder =
+                        new AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI);
+
+                builder.setScopes(new String[]{"streaming", "user-read-private"});
+                AuthorizationRequest request = builder.build();
+
+                AuthorizationClient.openLoginActivity(Authenticated.this, REQUEST_CODE, request);
+
+                Log.d("Authenticated","---------------------- Hello world");
+            }
+        };
+
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        executor.scheduleAtFixedRate(helloRunnable, 0, 3500, TimeUnit.SECONDS);
 
         // Instantiate RequestQueue
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
@@ -201,4 +221,36 @@ public class Authenticated extends AppCompatActivity {
             return true;
         }
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+
+        // Check if result comes from the correct activity
+        if (requestCode == REQUEST_CODE) {
+            AuthorizationResponse response = AuthorizationClient.getResponse(resultCode, intent);
+
+            switch (response.getType()) {
+                // Response was successful and contains auth token
+                case TOKEN:
+                    // Handle successful response
+                    Log.d("MyActivity", "Connected");
+                    AUTH_TOKEN = response.getAccessToken();
+                    Log.d("MyActivity", "Token: " + AUTH_TOKEN);
+                    Log.w("MyActivity", "-------------- Expires in: " + response.getExpiresIn());
+                    break;
+
+                // Auth flow returned an error
+                case ERROR:
+                    // Handle error response
+                    Log.e("MyActivity", "Connection error");
+                    break;
+
+                // Most likely auth flow was cancelled
+                default:
+                    // Handle other cases
+                    Log.e("MyActivity", "Could not connect");
+            }
+        }
+    }
 }

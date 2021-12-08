@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
                     // Handle successful response
                     Log.d("MyActivity", "Connected");
                     AUTH_TOKEN = response.getAccessToken();
-                    response.getCode();
                     Log.d("MyActivity", "Token: " + AUTH_TOKEN);
                     Log.w("MyActivity", "-------------- Expires in: " + response.getExpiresIn());
                     Intent connect = new Intent(MainActivity.this, Authenticated.class);
