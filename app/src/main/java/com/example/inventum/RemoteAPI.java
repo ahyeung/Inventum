@@ -14,34 +14,35 @@ import java.util.Map;
 
 public class RemoteAPI {
 
+    public static Response.ErrorListener errorListener = new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            Log.e("RemoteAPI", "That didn't work!");
+
+            // see error response
+            String body = "";
+            //get status code here
+            String statusCode = String.valueOf(error.networkResponse.statusCode);
+            //get response body and parse with appropriate encoding
+            if(error.networkResponse.data!=null) {
+                try {
+                    body = new String(error.networkResponse.data,"UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+            //do stuff with the body...
+            Log.e("RemoteSPI", body);
+        }
+    };
+
     public static StringRequest getTrack(Response.Listener<String> listener, String token, String trackID, String market) {
 
         String url = "https://api.spotify.com/v1/tracks/" + trackID + "?market=" + market;
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                listener, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Authenticated", "That didn't work!");
-
-                // see error response
-                String body = "";
-                //get status code here
-                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                //get response body and parse with appropriate encoding
-                if(error.networkResponse.data!=null) {
-                    try {
-                        body = new String(error.networkResponse.data,"UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                }
-                //do stuff with the body...
-                Log.e("Authenticated", body);
-            }
-        }
-        ) {
+        return new StringRequest(Request.Method.GET, url,
+                listener, errorListener) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 String auth = "Bearer " + token;
@@ -53,38 +54,14 @@ public class RemoteAPI {
                 return params;
             }
         };
-
-        // Add the request to the RequestQueue.
-        return stringRequest;
     }
 
     public static StringRequest getTracks(Response.Listener<String> listener, String token, String trackIDs, String market) {
         String url = "https://api.spotify.com/v1/tracks?" + trackIDs + "&market=" + market;
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                listener, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Authenticated", "That didn't work!");
-
-                // see error response
-                String body = "";
-                //get status code here
-                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                //get response body and parse with appropriate encoding
-                if(error.networkResponse.data!=null) {
-                    try {
-                        body = new String(error.networkResponse.data,"UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                }
-                //do stuff with the body...
-                Log.e("Authenticated", body);
-            }
-        }
-        ) {
+        return new StringRequest(Request.Method.GET, url,
+                listener, errorListener) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 String auth = "Bearer " + token;
@@ -96,9 +73,6 @@ public class RemoteAPI {
                 return params;
             }
         };
-
-        // Add the request to the RequestQueue.
-        return stringRequest;
     }
 
     public static StringRequest getTrackAudioFeatures(Response.Listener<String> listener, String token, String trackID) {
@@ -106,29 +80,8 @@ public class RemoteAPI {
         String url = "https://api.spotify.com/v1/audio-features/" + trackID;
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                listener, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Authenticated", "That didn't work!");
-
-                // see error response
-                String body = "";
-                //get status code here
-                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                //get response body and parse with appropriate encoding
-                if(error.networkResponse.data!=null) {
-                    try {
-                        body = new String(error.networkResponse.data,"UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                }
-                //do stuff with the body...
-                Log.e("Authenticated", body);
-            }
-        }
-        ) {
+        return new StringRequest(Request.Method.GET, url,
+                listener, errorListener) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 String auth = "Bearer " + token;
@@ -140,38 +93,14 @@ public class RemoteAPI {
                 return params;
             }
         };
-
-        // Add the request to the RequestQueue.
-        return stringRequest;
     }
 
     public static StringRequest getTracksAudioFeatures(Response.Listener<String> listener, String token, String trackIDs) {
         String url = "https://api.spotify.com/v1/audio-features?" + trackIDs;
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                listener, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Authenticated", "That didn't work!");
-
-                // see error response
-                String body = "";
-                //get status code here
-                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                //get response body and parse with appropriate encoding
-                if(error.networkResponse.data!=null) {
-                    try {
-                        body = new String(error.networkResponse.data,"UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                }
-                //do stuff with the body...
-                Log.e("Authenticated", body);
-            }
-        }
-        ) {
+        return new StringRequest(Request.Method.GET, url,
+                listener, errorListener) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 String auth = "Bearer " + token;
@@ -183,9 +112,6 @@ public class RemoteAPI {
                 return params;
             }
         };
-
-        // Add the request to the RequestQueue.
-        return stringRequest;
     }
 
     public static StringRequest getUser(Response.Listener<String> listener, String token) {
@@ -193,29 +119,8 @@ public class RemoteAPI {
         String url = "https://api.spotify.com/v1/me/";
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                listener, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Authenticated", "That didn't work!");
-
-                // see error response
-                String body = "";
-                //get status code here
-                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                //get response body and parse with appropriate encoding
-                if(error.networkResponse.data!=null) {
-                    try {
-                        body = new String(error.networkResponse.data,"UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                }
-                //do stuff with the body...
-                Log.e("Authenticated", body);
-            }
-        }
-        ) {
+        return new StringRequest(Request.Method.GET, url,
+                listener, errorListener) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 String auth = "Bearer " + token;
@@ -227,9 +132,6 @@ public class RemoteAPI {
                 return params;
             }
         };
-
-        // Add the request to the RequestQueue.
-        return stringRequest;
     }
 
     public static StringRequest getRecommendations(Response.Listener<String> listener, String token, String seed_genres, String seed_artists,
@@ -301,29 +203,8 @@ public class RemoteAPI {
         }
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                listener, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Authenticated", "That didn't work!");
-
-                // see error response
-                String body = "";
-                //get status code here
-                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                //get response body and parse with appropriate encoding
-                if(error.networkResponse.data!=null) {
-                    try {
-                        body = new String(error.networkResponse.data,"UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                }
-                //do stuff with the body...
-                Log.e("Authenticated", body);
-            }
-        }
-        ) {
+        return new StringRequest(Request.Method.GET, url,
+                listener, errorListener) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 String auth = "Bearer " + token;
@@ -335,8 +216,6 @@ public class RemoteAPI {
                 return params;
             }
         };
-
-        return stringRequest;
     }
 
     public static StringRequest search (Response.Listener<String> listener, String token, String query, String market, String type) {
@@ -344,29 +223,8 @@ public class RemoteAPI {
         String url = "https://api.spotify.com/v1/recommendations/?q=" + query + "&type=" + type + "&market=" + market;
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                listener, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Authenticated", "That didn't work!");
-
-                // see error response
-                String body = "";
-                //get status code here
-                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                //get response body and parse with appropriate encoding
-                if(error.networkResponse.data!=null) {
-                    try {
-                        body = new String(error.networkResponse.data,"UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                }
-                //do stuff with the body...
-                Log.e("Authenticated", body);
-            }
-        }
-        ) {
+        return new StringRequest(Request.Method.GET, url,
+                listener, errorListener) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 String auth = "Bearer " + token;
@@ -378,7 +236,5 @@ public class RemoteAPI {
                 return params;
             }
         };
-
-        return stringRequest;
     }
 }
