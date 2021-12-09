@@ -1,16 +1,27 @@
 package com.example.inventum;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class RemoteAPI {
 
@@ -33,7 +44,7 @@ public class RemoteAPI {
                 }
             }
             //do stuff with the body...
-            Log.e("RemoteSPI", body);
+            Log.e("RemoteAPI", body);
         }
     };
 
@@ -59,7 +70,11 @@ public class RemoteAPI {
 
     public static StringRequest getTracks(Response.Listener<String> listener, String token, String trackIDs, String market) {
 
-        String url = "https://api.spotify.com/v1/tracks?" + trackIDs + "&market=" + market;
+        String url = "https://api.spotify.com/v1/tracks?ids=" + trackIDs;
+
+        if (market != null && !market.isEmpty()) {
+            url = url + "&market=" + market;
+        }
 
         // Request a string response from the provided URL.
         return new StringRequest(Request.Method.GET, url,
@@ -99,7 +114,7 @@ public class RemoteAPI {
 
     public static StringRequest getTracksAudioFeatures(Response.Listener<String> listener, String token, String trackIDs) {
 
-        String url = "https://api.spotify.com/v1/audio-features?" + trackIDs;
+        String url = "https://api.spotify.com/v1/audio-features?ids=" + trackIDs;
 
         // Request a string response from the provided URL.
         return new StringRequest(Request.Method.GET, url,
@@ -265,7 +280,11 @@ public class RemoteAPI {
     public static StringRequest getGlobalTopSongs(Response.Listener<String> listener, String token, String market) {
 
         // limit currently set to return 25 tracks
-        String url = "https://api.spotify.com/v1/playlists/37i9dQZEVXbNG2KDcFcKOF/tracks?limit=25&market=" + market;
+        String url = "https://api.spotify.com/v1/playlists/37i9dQZEVXbNG2KDcFcKOF/tracks?limit=25";
+
+        if (market != null && !market.isEmpty()) {
+            url = url + "&market=" + market;
+        }
 
         // Request a string response from the provided URL.
         return new StringRequest(Request.Method.GET, url,
@@ -281,5 +300,85 @@ public class RemoteAPI {
                 return params;
             }
         };
+    }
+
+    public static String parseTopTracksResponse(JSONObject response) {
+        String trackIDs = "";
+
+        try {
+            JSONArray array = response.getJSONArray("items");
+            for (int i = 1; i < array.length(); i++) {
+                JSONObject object = array.getJSONObject(i);
+                trackIDs = trackIDs + object.getJSONObject("track").getString("id") + ",";
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if (!trackIDs.isEmpty()) {
+            return trackIDs.substring(0, trackIDs.length() - 1);
+        }
+        return trackIDs;
+    }
+
+    public static ArrayList<invTrack> getTrackList(String token, String trackIDs, String market, Context applicationContext) throws JSONException, ExecutionException, InterruptedException {
+        final JSONObject[] tracks = {null};
+        final JSONObject[] tracks_expanded = {null};
+
+        Response.Listener<String> track_listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Display the first 500 characters of the response string.
+                Log.d("Authenticated", response.substring(0,500));
+                try {
+                    tracks[0] = new JSONObject(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        Response.Listener<String> expanded_listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Display the first 500 characters of the response string.
+                Log.d("Authenticated", response.substring(0,500));
+                try {
+                    tracks_expanded[0] = new JSONObject(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(applicationContext);
+        StringRequest trackRequest = RemoteAPI.getTracks(track_listener, token, trackIDs, market);
+        StringRequest expandedRequest = RemoteAPI.getTracksAudioFeatures(expanded_listener, token, trackIDs);
+        queue.add(trackRequest);
+        queue.add(expandedRequest);
+
+        ArrayList<invTrack> trackArrayList = new ArrayList<>();
+
+        StringRequest tracks_response = getTracks(track_listener, token, trackIDs, market);
+
+        JSONArray tracksArray = tracks[0].getJSONArray("tracks");
+        //JSONArray expandedArray = tracks_expanded[0].getJSONArray("audio_features");
+        for (int i = 0; i < tracksArray.length(); i ++) {
+            JSONObject trackObject = tracksArray.getJSONObject(i);
+            //JSONObject expandedObject = expandedArray.getJSONObject(i);
+
+            trackArrayList.add(new invTrack(
+                    trackObject.getString("id"),
+                    trackObject.getString("name"),
+                    trackObject.getString("artist"),
+                    trackObject.getJSONObject("album").getString("name"),
+                    trackObject.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url"),
+                    //expandedObject.getString("energy")
+                    ".5"
+            ));
+        }
+
+        return trackArrayList;
     }
 }

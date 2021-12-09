@@ -20,14 +20,14 @@ public class TopTracks extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_tracks);
 
-        RecyclerView tracksNav = (RecyclerView) findViewById(R.id.tracksView);
+        //RecyclerView tracksNav = (RecyclerView) findViewById(R.id.tracksView);
 
         initTracks(20);
 
         TracksAdapter adapter = new TracksAdapter(tracks);
 
-        tracksNav.setAdapter(adapter);
-        tracksNav.setLayoutManager(new LinearLayoutManager(this));
+        //tracksNav.setAdapter(adapter);
+        //tracksNav.setLayoutManager(new LinearLayoutManager(this));
 
     }
 
@@ -38,7 +38,7 @@ public class TopTracks extends AppCompatActivity {
         String artist = "SAMPLE ARTIST";
 
         for (int i = 0; i < numTracks; i++) {
-            tracks.add(new invTrack(title, artist));
+            //tracks.add(new invTrack(title, artist));
         }
     }
 

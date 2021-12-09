@@ -61,6 +61,27 @@ public class Authenticated extends AppCompatActivity {
         AUTH_TOKEN = intent.getStringExtra("token");
         Log.w("Authenticated", "///////////TOKEN///////// " + AUTH_TOKEN);
 
+        // Get user info
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+        Response.Listener<String> listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Display the first 500 characters of the response string.
+                Log.d("Authenticated", response.substring(0,50));
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    MARKET = jsonObject.getString("country");
+                    Log.d("Authenticated", "TESTING " + MARKET);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        StringRequest stringRequest = RemoteAPI.getUser(listener, AUTH_TOKEN);
+        queue.add(stringRequest);
+
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
     }
 
@@ -91,27 +112,6 @@ public class Authenticated extends AppCompatActivity {
                         // Something went wrong when attempting to connect! Handle errors here
                     }
                 });
-
-        // Get user info
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-
-        Response.Listener<String> listener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                // Display the first 500 characters of the response string.
-                Log.d("Authenticated", response.substring(0,50));
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    MARKET = jsonObject.getString("country");
-                    Log.d("Authenticated", "TESTING " + MARKET);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-        StringRequest stringRequest = RemoteAPI.getUser(listener, AUTH_TOKEN);
-        queue.add(stringRequest);
     }
 
     @Override
@@ -158,6 +158,7 @@ public class Authenticated extends AppCompatActivity {
         // Get needed track info for the request
         String trackID = "11dFghVXANMlKmJXsNCbNl";
         String market = MARKET;
+        String trackIDs = "5PjdY0CKGZdEuoNab3yDmX,5Z9KJZvQzH6PFmb8SNkxuk,4fouWK6XVHhzl78KzQ1UjL,7rglLriMNBPAyuJOMGwi39,02MWAaffLxlfxAUY7c5dvx,5enxwA8aAbwZbf5qCHORXi,1r9xUipOqoNwggBpENDsvJ,0bYg9bo50gSsH3LtXe2SQn,50nfwKoDiSYg8zOCREWAm5,2B4GHvToeLTOBB4QLzW3Ni,3Kkjo3cT83cw09VJyrLNwX,3rmo8F54jFF8OgYsqTxm5d,2FRnf9qhLbvw8fu4IBXx78,20on25jryn53hWghthWWW3,46HNZY1i7O6jwTA7Slo2PI,6Uj1ctrBOjOas8xZXGqKk4,7sMBvZCSUl99bJLXZaLa0b,4ZtFanR9U6ndgddUvNcjcG,7hU3IHwjX150XLoTVmjD0q,0lLdorYw7lVrJydTINhWdI,2Xr1dTzJee307rmrkt8c0g,2gQPv5jvVPqU2a9HhMNO1v,00Blm7zeNqgYLPtW6zg8cj,7vQbuQcyTflfCIOu3Uzzya";
 
         final String[] testString = {"test"};
 
@@ -191,15 +192,33 @@ public class Authenticated extends AppCompatActivity {
             }
         };
 
+        Response.Listener<String> listener2 = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Display the first 500 characters of the response string.
+                Log.d("Authenticated", response.substring(0,500));
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    Log.d("Authenticated", jsonObject.getJSONArray("tracks").getJSONObject(0).getString("name"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
         // Get the requested track
         StringRequest stringRequest = RemoteAPI.getTrack(listener, AUTH_TOKEN, trackID, market);
 
         // Get track features
         StringRequest stringRequest1 = RemoteAPI.getTrackAudioFeatures(listener1, AUTH_TOKEN, trackID);
 
+        // Get multiple tracks
+        StringRequest stringRequest2 = RemoteAPI.getTracks(listener2, AUTH_TOKEN, trackIDs, MARKET);
+
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
         queue.add(stringRequest1);
+        queue.add(stringRequest2);
     }
 
     private NavigationBarView.OnItemSelectedListener bottomnavFunction = new NavigationBarView.OnItemSelectedListener() {
