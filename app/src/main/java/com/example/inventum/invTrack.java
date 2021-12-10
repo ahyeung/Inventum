@@ -41,4 +41,12 @@ public class invTrack {
     public String getAlbum() {
         return trackAlbum;
     }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public String getEnergy() {
+        return trackEnergy;
+    }
 }
