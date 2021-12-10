@@ -12,59 +12,126 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="57dp"
         android:text="Track Name"
         android:textColor="#FFFFFF"
         android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/volume"
+        android:id="@+id/artistName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Volume"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/trackName"
-        app:layout_constraintVertical_bias="0.5" />
+        tools:text="Artist Name" />
+
+    <ImageView
+        android:id="@+id/trackArtView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginBottom="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/albumName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/artistName"
+        app:srcCompat="@android:drawable/ic_dialog_alert" />
 
     <TextView
-        android:id="@+id/instrumentalness"
+        android:id="@+id/albumName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Instrumentalness"
+        android:layout_marginStart="58dp"
+        android:layout_marginBottom="279dp"
+        android:text="Album: TYPE, NAME"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/volume"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/danceability"
+        android:id="@+id/trackPopularity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Danceability"
+        android:layout_marginTop="17dp"
+        android:text="Popularity: SCORE"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/instrumentalness"
-        app:layout_constraintVertical_bias="0.1" />
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/albumName"
+        app:layout_constraintTop_toBottomOf="@+id/albumName" />
+
+    <TextView
+        android:id="@+id/trackDanceScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Danceability: SCORE"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/trackPopularity"
+        app:layout_constraintTop_toBottomOf="@+id/trackPopularity" />
+
+    <TextView
+        android:id="@+id/trackTempoScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="58dp"
+        android:text="Tempo: SCORE"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/trackDanceScore" />
+
+    <TextView
+        android:id="@+id/trackLiveness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Liveness: SCORE"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/trackDanceScore"
+        app:layout_constraintTop_toBottomOf="@+id/trackDanceScore" />
+
+    <TextView
+        android:id="@+id/trackValenceScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Valence: SCORE"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/trackTempoScore"
+        app:layout_constraintTop_toBottomOf="@+id/trackTempoScore" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="25dp"
+        android:backgroundTint="@color/inventum"
+        android:text="Back"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/trackLiveness"
+        app:layout_constraintTop_toBottomOf="@+id/trackLiveness" />
+
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="1dp"
+        android:backgroundTint="@color/inventum"
+        android:text="Search"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/trackValenceScore"
+        app:layout_constraintTop_toBottomOf="@+id/trackValenceScore" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
