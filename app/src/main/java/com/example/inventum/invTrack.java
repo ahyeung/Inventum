@@ -17,7 +17,7 @@ public class invTrack implements Serializable {
     //descriptive track meta data
     String trackTitle;
     String[] trackArtist;
-    String trackArtistUI;
+    String trackArtistUI = "";
     String trackAlbum;
     String albumType;
     String popularity;
@@ -54,6 +54,15 @@ public class invTrack implements Serializable {
         this.loudness = loudness;
         this.instrumentalness = instrumentalness;
         this.duration_ms = duration_ms;
+
+        for (int i = 0; i < artist.length; i++) {
+            if (artist.length == 1) {
+                this.trackArtistUI = artist[0];
+            } else {
+                this.trackArtistUI = trackArtistUI + ", " + artist[i];
+            }
+        }
+
     }
 
     public String getID() {
