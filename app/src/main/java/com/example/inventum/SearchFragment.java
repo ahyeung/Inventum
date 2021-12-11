@@ -28,8 +28,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_search, container, false);
-        Button b = (Button) v.findViewById(R.id.advancedSearch);
-        b.setOnClickListener(this);
+        Button aSearch = (Button) v.findViewById(R.id.advancedSearch);
+        aSearch.setOnClickListener(this);
+        Button findR = (Button) v.findViewById(R.id.findResults);
+        findR.setOnClickListener(this);
         return v;
     }
 
@@ -38,15 +40,26 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 //        FragmentManager manager = getParentFragmentManager();
 //        FragmentTransaction transaction = manager.beginTransaction();
 //        transaction.replace(R.id.search, new AdvSearchFragment()).commit();
-
-        TextView tV1 = (TextView) getView().findViewById(R.id.genreInc);
-        TextView tV2 = (TextView) getView().findViewById(R.id.genreExc);
-        EditText eV1 = (EditText) getView().findViewById(R.id.genreIncSearch);
-        EditText eV2 = (EditText) getView().findViewById(R.id.genreExcSearch);
-        tV1.setVisibility(View.VISIBLE);
-        tV2.setVisibility(View.VISIBLE);
-        eV1.setVisibility(View.VISIBLE);
-        eV2.setVisibility(View.VISIBLE);
-
+        switch (view.getId()) {
+            case R.id.advancedSearch:
+                TextView tV1 = (TextView) getView().findViewById(R.id.genreInc);
+                TextView tV2 = (TextView) getView().findViewById(R.id.genreExc);
+                EditText eV1 = (EditText) getView().findViewById(R.id.genreIncSearch);
+                EditText eV2 = (EditText) getView().findViewById(R.id.genreExcSearch);
+                Button b = (Button) getView().findViewById(R.id.advancedSearch);
+                tV1.setVisibility(View.VISIBLE);
+                tV2.setVisibility(View.VISIBLE);
+                eV1.setVisibility(View.VISIBLE);
+                eV2.setVisibility(View.VISIBLE);
+                b.setVisibility(View.INVISIBLE);
+                break;
+            case R.id.findResults:
+                // FIXME
+                break;
+            default:
+                break;
+        }
     }
+
+    public
 }

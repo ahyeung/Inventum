@@ -108,7 +108,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintVertical_bias="0.3"
+        android:onClick="onClick" />
+
+    <Button
+        android:id="@+id/findResults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find Results"
+        android:backgroundTint="@color/inventum"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/advancedSearch"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias="0.1"
         android:onClick="onClick" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
