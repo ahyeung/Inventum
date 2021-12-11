@@ -12,6 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.security.acl.Group;
 
 public class SearchFragment extends Fragment implements View.OnClickListener {
 
@@ -31,10 +35,18 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
     public void onClick(View view) {
 //        Fragment fragment = new AdvSearchFragment();
-        FragmentManager manager = getParentFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.search, new AdvSearchFragment()).commit();
+//        FragmentManager manager = getParentFragmentManager();
+//        FragmentTransaction transaction = manager.beginTransaction();
+//        transaction.replace(R.id.search, new AdvSearchFragment()).commit();
 
+        TextView tV1 = (TextView) getView().findViewById(R.id.genreInc);
+        TextView tV2 = (TextView) getView().findViewById(R.id.genreExc);
+        EditText eV1 = (EditText) getView().findViewById(R.id.genreIncSearch);
+        EditText eV2 = (EditText) getView().findViewById(R.id.genreExcSearch);
+        tV1.setVisibility(View.VISIBLE);
+        tV2.setVisibility(View.VISIBLE);
+        eV1.setVisibility(View.VISIBLE);
+        eV2.setVisibility(View.VISIBLE);
 
     }
 }
