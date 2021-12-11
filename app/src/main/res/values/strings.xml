@@ -3,4 +3,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="switch1">Switch1:</string>
+    <string name="togglebutton">ToggleButton</string>
+    <string name="friends">Friends</string>
+    <string name="your_tracks">Your Tracks</string>
+    <string name="track_or_playlist">Track or Playlist</string>
 </resources>
