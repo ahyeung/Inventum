@@ -89,7 +89,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    MARKET = jsonObject.getString("country");
+                    //MARKET = jsonObject.getString("country");
+                    Log.d("Search", response);
 
                     JSONArray artists = jsonObject.getJSONArray("artists");
                     JSONArray tracks = jsonObject.getJSONArray("tracks");

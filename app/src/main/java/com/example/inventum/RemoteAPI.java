@@ -239,7 +239,11 @@ public class RemoteAPI {
 
     public static StringRequest search(Response.Listener<String> listener, String token, String query, String market, String type) {
 
-        String url = "https://api.spotify.com/v1/recommendations/?q=" + query + "&type=" + type + "&market=" + market;
+        String url = "https://api.spotify.com/v1/search?q=" + query + "&type=" + type;
+
+        if (market != null && !market.isEmpty()) {
+            url = url + "&market=" + market;
+        }
 
         // Request a string response from the provided URL.
         return new StringRequest(Request.Method.GET, url,
