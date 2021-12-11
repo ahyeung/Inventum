@@ -82,7 +82,12 @@ public class Authenticated extends AppCompatActivity {
         StringRequest stringRequest = RemoteAPI.getUser(listener, AUTH_TOKEN);
         queue.add(stringRequest);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
+        String id = getIntent().getStringExtra("track");
+        if (id != null && !id.isEmpty()) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new SearchFragment()).commit();
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
+        }
     }
 
     @Override

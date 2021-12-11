@@ -70,7 +70,9 @@ public class TrackInfo extends AppCompatActivity {
     }
 
     public void searchClicked(View view) {
-
+        Intent intent = new Intent(this, Authenticated.class);
+        intent.putExtra("track", track.getID());
+        startActivity(intent);
     }
 
     public static Drawable LoadTrackURL(String url) {
