@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/inventum_background"
     tools:context=".UserFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-
     <ListView
-        android:layout_width="186dp"
-        android:layout_height="214dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="109dp"
-        android:layout_marginTop="268dp" >
+        android:id="@+id/tracksListView"
+        android:layout_width="223dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="120dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toggleButton" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
-    </ListView>
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="120dp"
-        android:checked="true"
-        android:switchMinWidth="56dp"
-        android:text="@string/switch1"
-        android:textOff="OFF"
-        android:textOn="ON" />
-</FrameLayout>
+    <ToggleButton
+        android:id="@+id/toggleButton"
+        android:layout_width="220dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginBottom="39dp"
+        android:text="@string/track_or_playlist"
+        android:textOff="@string/your_tracks"
+        android:textOn="@string/friends"
+        app:layout_constraintBottom_toTopOf="@+id/tracksListView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

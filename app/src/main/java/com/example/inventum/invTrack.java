@@ -26,8 +26,15 @@ public class invTrack {
     String valence;
     String energy;
 
+    // Other metadata
+    String speechiness;
+    String loudness;
+    String instrumentalness;
+    String duration_ms;
+
     public invTrack(String id, String title, String[] artist, String album, String albumType, String image_url, String energy,
-                    String danceability, String liveness, String acousticness, String popularity, String valence, String tempo) {
+                    String danceability, String liveness, String acousticness, String popularity, String valence, String tempo,
+                    String speechiness, String loudness, String instrumentalness, String duration_ms) {
         this.trackID = id;
         this.trackTitle = title;
         this.trackArtist = artist;
@@ -41,6 +48,10 @@ public class invTrack {
         this.popularity = popularity;
         this.valence = valence;
         this.tempo = tempo;
+        this.speechiness = speechiness;
+        this.loudness = loudness;
+        this.instrumentalness = instrumentalness;
+        this.duration_ms = duration_ms;
     }
 
     public String getID() {

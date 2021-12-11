@@ -111,7 +111,11 @@ public class HomeFragment extends Fragment {
                                                         expandedObject.getString("acousticness"),
                                                         trackObject.getString("popularity"),
                                                         expandedObject.getString("valence"),
-                                                        expandedObject.getString("tempo")
+                                                        expandedObject.getString("tempo"),
+                                                        expandedObject.getString("speechiness"),
+                                                        expandedObject.getString("loudness"),
+                                                        expandedObject.getString("instrumentalness"),
+                                                        trackObject.getString("duration_ms")
                                                ));
                                             }
 
