@@ -12,16 +12,14 @@
         android:id="@+id/toggleButton"
         android:layout_width="220dp"
         android:layout_height="54dp"
-        android:layout_marginTop="136dp"
-        android:layout_marginBottom="39dp"
         android:text="@string/track_or_playlist"
         android:textOff="Genres"
         android:textOn="Keywords"
-        app:layout_constraintBottom_toTopOf="@+id/basicSearch"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintVertical_bias="0.05"/>
 
     <TextView
         android:id="@+id/basicSearch"
@@ -30,11 +28,11 @@
         android:text="Keywords"
         android:textSize="26sp"
         android:textColor="#000000"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toggleButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.02" />
 
 
     <EditText
