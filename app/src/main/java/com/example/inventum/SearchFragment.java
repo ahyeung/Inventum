@@ -1,32 +1,37 @@
 package com.example.inventum;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.acl.Group;
 import java.util.ArrayList;
 
 public class SearchFragment extends Fragment implements View.OnClickListener {
 
     JSONObject TOP_TRACKS;
     ArrayList<invTrack> trackList;
+    static String MARKET = "";
+    final JSONObject[] tracks = {null};
+    final JSONObject[] tracks_expanded = {null};
 
     public SearchFragment() {
         // Required empty public constructor
@@ -67,6 +72,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 if (advSB.getVisibility() == View.INVISIBLE) {
                     String searchStr = eV1.getText().toString();
                     initialSearch(searchStr);
+                    advSB.setVisibility(View.VISIBLE);
                 }
                 break;
             default:
@@ -75,14 +81,51 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     }
 
     public void initialSearch(String s) {
-        ArrayList<String> displayNotes = new ArrayList<>();
-        ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(),
-                android.R.layout.simple_list_item_1, displayNotes);
-        ListView listView = (ListView) getView().findViewById(R.id.tracksListView);
-        listView.setAdapter(adapter);
+        ArrayList<String> displayList = new ArrayList<>();
+        RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
-        // Add onItemClickListener
+        // Populate ListView
+        Response.Listener<String> listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    MARKET = jsonObject.getString("country");
 
+                    tracks_expanded[0] = new JSONObject(response);
 
+                    ArrayList<invTrack> trackArrayList = new ArrayList<>();
+                    JSONArray tracksArray = tracks[0].getJSONArray("tracks");
+                    JSONArray expandedArray = tracks_expanded[0].getJSONArray("audio_features");
+                    for (int i = 0; i < tracksArray.length(); i ++) {
+                        JSONObject trackObject = tracksArray.getJSONObject(i);
+                        JSONObject expandedObject = expandedArray.getJSONObject(i);
+
+                        // Get artists and put into string array
+                        String[] artists = new String[10];
+                        JSONArray artistArray = trackObject.getJSONArray("artists");
+                    }
+
+                    for (invTrack track : trackList) {
+                        displayList.add(String.format("Title: %s\nArtist: %s Album: %s", track.getTitle(), track.getTrackArtist()[0], track.getAlbum()));
+                    }
+
+                    // use ListView to display results
+                    ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(),
+                            android.R.layout.simple_list_item_1, displayList);
+                    ListView listView = (ListView) getView().findViewById(R.id.tracksListView);
+                    listView.setAdapter(adapter);
+
+                    // Add onItemClickListener
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        StringRequest stringRequest =
+                RemoteAPI.search(listener, Authenticated.AUTH_TOKEN, s, MARKET, "track,artist");
+        queue.add(stringRequest);
     }
 }
