@@ -11,8 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -22,13 +25,6 @@ import java.util.ArrayList;
 
 public class SearchFragment extends Fragment implements View.OnClickListener {
 
-    TextView tV1;
-    TextView tV2;
-    EditText eV1;
-    EditText eV2;
-    EditText eV3;
-    Button advSB;
-    String searchStr;
     JSONObject TOP_TRACKS;
     ArrayList<invTrack> trackList;
 
@@ -52,12 +48,12 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
     public void onClick(View view) {
 
-        tV1 = (TextView) getView().findViewById(R.id.genreInc);
-        tV2 = (TextView) getView().findViewById(R.id.genreExc);
-        eV1 = (EditText) getView().findViewById(R.id.keywordsInput);
-        eV2 = (EditText) getView().findViewById(R.id.genreIncSearch);
-        eV3 = (EditText) getView().findViewById(R.id.genreExcSearch);
-        advSB = (Button) getView().findViewById(R.id.advancedSearch);
+        TextView tV1 = (TextView) getView().findViewById(R.id.genreInc);
+        TextView tV2 = (TextView) getView().findViewById(R.id.genreExc);
+        EditText eV1 = (EditText) getView().findViewById(R.id.keywordsInput);
+        EditText eV2 = (EditText) getView().findViewById(R.id.genreIncSearch);
+        EditText eV3 = (EditText) getView().findViewById(R.id.genreExcSearch);
+        Button advSB = (Button) getView().findViewById(R.id.advancedSearch);
 
         switch (view.getId()) {
             case R.id.advancedSearch:
@@ -69,7 +65,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.findResults:
                 if (advSB.getVisibility() == View.INVISIBLE) {
-                    searchStr = eV1.getText().toString();
+                    String searchStr = eV1.getText().toString();
                     initialSearch(searchStr);
                 }
                 break;
@@ -79,6 +75,14 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     }
 
     public void initialSearch(String s) {
+        ArrayList<String> displayNotes = new ArrayList<>();
+        ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(),
+                android.R.layout.simple_list_item_1, displayNotes);
+        ListView listView = (ListView) getView().findViewById(R.id.tracksListView);
+        listView.setAdapter(adapter);
+
+        // Add onItemClickListener
+
 
     }
 }
