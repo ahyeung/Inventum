@@ -51,12 +51,12 @@ public class TrackInfo extends AppCompatActivity {
         trackTitle.setText(track.getTitle());
         trackArtist.setText(track.getTrackArtistUI());
         trackAlbumInfo.setText(track.getAlbum());
-        popularity.setText(track.getPopularityScore());
-        danceability.setText(track.getDanceability());
-        tempo.setText(track.getTempo());
-        liveness.setText(track.getLiveness());
-        acousiticness.setText(track.getAcousticness());
-        valence.setText(track.getValence());
+        popularity.setText("Popularity: " + track.getPopularityScore());
+        danceability.setText("Danceability: " + track.getDanceability());
+        tempo.setText("Tempo: " + track.getTempo());
+        liveness.setText("Liveness: " + track.getLiveness());
+        acousiticness.setText("Acousticness: " + track.getAcousticness());
+        valence.setText("Mood: " + track.getValence());
 
 
 
