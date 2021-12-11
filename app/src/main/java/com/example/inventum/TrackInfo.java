@@ -2,10 +2,14 @@ package com.example.inventum;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.InputStream;
+import java.net.URL;
 
 public class TrackInfo extends AppCompatActivity {
 
@@ -48,6 +52,9 @@ public class TrackInfo extends AppCompatActivity {
         valence = (TextView) findViewById(R.id.trackValenceScore);
 
         //Get meta data from invTrack track
+        Drawable trackArtDrawable = LoadTrackURL(track.getImage_url());
+        trackArt.setImageDrawable(trackArtDrawable);
+
         trackTitle.setText(track.getTitle());
         trackArtist.setText(track.getTrackArtistUI());
         trackAlbumInfo.setText(track.getAlbum());
@@ -60,5 +67,15 @@ public class TrackInfo extends AppCompatActivity {
 
 
 
+    }
+
+    public static Drawable LoadTrackURL(String url) {
+        try {
+            InputStream stream = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(stream, "src name");
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
