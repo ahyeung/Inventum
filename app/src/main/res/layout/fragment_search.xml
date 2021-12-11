@@ -14,7 +14,7 @@
         android:layout_height="54dp"
         android:text="@string/track_or_playlist"
         android:textOff="Genres"
-        android:textOn="Keywords"
+        android:textOn="Songs/Artists"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -97,6 +97,15 @@
 
     <ListView
         android:id="@+id/tracksListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/keywordsInput"
+        android:visibility="invisible"/>
+
+    <ListView
+        android:id="@+id/resultsList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
