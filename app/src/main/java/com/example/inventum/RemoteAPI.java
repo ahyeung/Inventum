@@ -153,10 +153,10 @@ public class RemoteAPI {
     }
 
     public static StringRequest getRecommendations(Response.Listener<String> listener, String token, String seed_genres, String seed_artists,
-                                                   String seed_tracks, String market, int limit, int target_acousticness, int target_danceability,
-                                                   int target_duration_ms, int target_energy, int target_instrumentalness, int target_liveness,
-                                                   int target_loudness, int target_popularity, int target_speechiness, int target_tempo,
-                                                   int target_valence) {
+                                                   String seed_tracks, String market, float limit, float target_acousticness, float target_danceability,
+                                                   float target_duration_ms, float target_energy, float target_instrumentalness, float target_liveness,
+                                                   float target_loudness, float target_popularity, float target_speechiness, int target_tempo,
+                                                   float target_valence) {
 
         String url = "https://api.spotify.com/v1/recommendations/?";
 
@@ -368,15 +368,7 @@ public class RemoteAPI {
             JSONObject trackObject = tracksArray.getJSONObject(i);
             //JSONObject expandedObject = expandedArray.getJSONObject(i);
 
-            trackArrayList.add(new invTrack(
-                    trackObject.getString("id"),
-                    trackObject.getString("name"),
-                    trackObject.getString("artist"),
-                    trackObject.getJSONObject("album").getString("name"),
-                    trackObject.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url"),
-                    //expandedObject.getString("energy")
-                    ".5"
-            ));
+
         }
 
         return trackArrayList;

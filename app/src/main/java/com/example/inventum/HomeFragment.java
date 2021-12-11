@@ -73,61 +73,85 @@ public class HomeFragment extends Fragment {
                             try {
                                 tracks[0] = new JSONObject(response);
 
-                                ArrayList<invTrack> trackArrayList = new ArrayList<>();
-
-
-                                JSONArray tracksArray = new JSONObject(response).getJSONArray("tracks");
-                                //JSONArray expandedArray = tracks_expanded[0].getJSONArray("audio_features");
-                                for (int i = 0; i < tracksArray.length(); i ++) {
-                                    JSONObject trackObject = tracksArray.getJSONObject(i);
-                                    //JSONObject expandedObject = expandedArray.getJSONObject(i);
-
-                                    trackArrayList.add(new invTrack(
-                                            trackObject.getString("id"),
-                                            trackObject.getString("name"),
-                                            trackObject.getJSONArray("artists").getJSONObject(0).getString("name"),
-                                            trackObject.getJSONObject("album").getString("name"),
-                                            trackObject.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url"),
-                                            //expandedObject.getString("energy")
-                                            ".5"
-                                    ));
-                                }
-
-                                trackList = trackArrayList;
-
-                                ArrayList<String> displayTracks = new ArrayList<>();
-                                for (invTrack track : trackList) {
-                                    displayTracks.add(String.format("Title: %s\nArtist: %s Album: %s", track.getTitle(), track.getArtist(), track.getAlbum()));
-                                }
-
-                                // Use ListView to display notes
-                                ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, displayTracks);
-                                ListView listView = (ListView) getActivity().findViewById(R.id.tracksListView);
-                                listView.setAdapter(adapter);
-
-                                // Add onItemClickListener
-                                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                Response.Listener<String> expanded_listener = new Response.Listener<String>() {
                                     @Override
-                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                        //Intent intent = new Intent(getActivity().getApplicationContext(), ???????.class);
-                                        //intent.putExtra("noteid", Integer.toString(position));
-                                        //startActivity(intent);
+                                    public void onResponse(String response) {
+                                        // Display the first 500 characters of the response string.
+                                        Log.d("Authenticated", response.substring(0,100));
+                                        try {
+                                            tracks_expanded[0] = new JSONObject(response);
+
+                                            ArrayList<invTrack> trackArrayList = new ArrayList<>();
+
+
+                                            JSONArray tracksArray = tracks[0].getJSONArray("tracks");
+                                            JSONArray expandedArray = tracks_expanded[0].getJSONArray("audio_features");
+                                            for (int i = 0; i < tracksArray.length(); i ++) {
+                                                JSONObject trackObject = tracksArray.getJSONObject(i);
+                                                JSONObject expandedObject = expandedArray.getJSONObject(i);
+
+                                                // Get artists and put into string array
+                                                String[] artists = new String[10];
+                                                JSONArray artistArray = trackObject.getJSONArray("artists");
+                                                for (int j = 0; j < artistArray.length(); j++) {
+                                                    artists[j] = artistArray.getJSONObject(j).getString("name");
+                                                }
+
+                                                // Parse the two responses to get the desired information
+                                                trackArrayList.add(new invTrack(
+                                                        trackObject.getString("id"),
+                                                        trackObject.getString("name"),
+                                                        artists,
+                                                        trackObject.getJSONObject("album").getString("name"),
+                                                        trackObject.getJSONObject("album").getString("type"),
+                                                        trackObject.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url"),
+                                                        expandedObject.getString("energy"),
+                                                        expandedObject.getString("danceability"),
+                                                        expandedObject.getString("liveness"),
+                                                        expandedObject.getString("acousticness"),
+                                                        trackObject.getString("popularity"),
+                                                        expandedObject.getString("valence"),
+                                                        expandedObject.getString("tempo"),
+                                                        expandedObject.getString("speechiness"),
+                                                        expandedObject.getString("loudness"),
+                                                        expandedObject.getString("instrumentalness"),
+                                                        trackObject.getString("duration_ms")
+                                               ));
+                                            }
+
+                                            trackList = trackArrayList;
+
+                                            ArrayList<String> displayTracks = new ArrayList<>();
+                                            for (invTrack track : trackList) {
+                                                displayTracks.add(String.format("Title: %s\nArtist: %s Album: %s", track.getTitle(), track.getTrackArtist()[0], track.getAlbum()));
+                                            }
+
+                                            // Use ListView to display notes
+                                            ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, displayTracks);
+                                            ListView listView = (ListView) getActivity().findViewById(R.id.tracksListView);
+                                            listView.setAdapter(adapter);
+
+                                            // Add onItemClickListener
+                                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                @Override
+                                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                                    //Intent intent = new Intent(getActivity().getApplicationContext(), ???????.class);
+                                                    //intent.putExtra("noteid", Integer.toString(position));
+                                                    //startActivity(intent);
+                                                }
+                                            });
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
-                                });
+                                };
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    };
+                                RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+                                StringRequest expandedRequest = RemoteAPI.getTracksAudioFeatures(expanded_listener, Authenticated.AUTH_TOKEN, trackIDs);
+                                queue.add(expandedRequest);
 
-                    Response.Listener<String> expanded_listener = new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            // Display the first 500 characters of the response string.
-                            Log.d("Authenticated", response.substring(0,100));
-                            try {
-                                tracks_expanded[0] = new JSONObject(response);
+
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -136,12 +160,8 @@ public class HomeFragment extends Fragment {
 
                     RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
                     StringRequest trackRequest = RemoteAPI.getTracks(track_listener, Authenticated.AUTH_TOKEN, trackIDs, Authenticated.MARKET);
-                    StringRequest expandedRequest = RemoteAPI.getTracksAudioFeatures(expanded_listener, Authenticated.AUTH_TOKEN, trackIDs);
                     StringRequest tracks_response = RemoteAPI.getTracks(track_listener, Authenticated.AUTH_TOKEN, trackIDs, Authenticated.MARKET);
                     queue.add(trackRequest);
-                    queue.add(expandedRequest);
-
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();

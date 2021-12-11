@@ -9,21 +9,49 @@ package com.example.inventum;
  */
 public class invTrack {
 
-    String trackID;
-    String trackTitle;
-    String trackArtist;
-    String trackAlbum;
+    String trackID; //API side track identification
     String image_url;
 
-    String trackEnergy;
+    //descriptive track meta data
+    String trackTitle;
+    String[] trackArtist;
+    String trackArtistUI;
+    String trackAlbum;
+    String albumType;
+    String popularity;
+    String danceability;
+    String liveness;
+    String tempo;
+    String acousticness;
+    String valence;
+    String energy;
 
-    public invTrack(String id, String title, String artist, String album, String image_url, String energy) {
+    // Other metadata
+    String speechiness;
+    String loudness;
+    String instrumentalness;
+    String duration_ms;
+
+    public invTrack(String id, String title, String[] artist, String album, String albumType, String image_url, String energy,
+                    String danceability, String liveness, String acousticness, String popularity, String valence, String tempo,
+                    String speechiness, String loudness, String instrumentalness, String duration_ms) {
         this.trackID = id;
         this.trackTitle = title;
         this.trackArtist = artist;
         this.trackAlbum = album;
+        this.albumType = albumType;
         this.image_url = image_url;
-        this.trackEnergy = energy;
+        this.energy = energy;
+        this.danceability = danceability;
+        this.liveness = liveness;
+        this.acousticness = acousticness;
+        this.popularity = popularity;
+        this.valence = valence;
+        this.tempo = tempo;
+        this.speechiness = speechiness;
+        this.loudness = loudness;
+        this.instrumentalness = instrumentalness;
+        this.duration_ms = duration_ms;
     }
 
     public String getID() {
@@ -34,7 +62,7 @@ public class invTrack {
         return trackTitle;
     }
 
-    public String getArtist() {
+    public String[] getTrackArtist() {
         return trackArtist;
     }
 
@@ -47,6 +75,20 @@ public class invTrack {
     }
 
     public String getEnergy() {
-        return trackEnergy;
+        return energy;
     }
+
+    public String getAlbumType() {return albumType;}
+
+    public String getDanceability() {return danceability;}
+
+    public String getPopularityScore() {return popularity;}
+
+    public String getLiveness() {return liveness;}
+
+    public String getTempo() {return tempo;}
+
+    public String getAcousticness() {return acousticness;}
+
+    public String getValence() {return valence;}
 }
