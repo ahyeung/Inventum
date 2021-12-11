@@ -83,13 +83,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         Button advSB = (Button) getView().findViewById(R.id.advancedSearch);
 
         switch (view.getId()) {
-            case R.id.advancedSearch:
-                tV1.setVisibility(View.VISIBLE);
-                tV2.setVisibility(View.VISIBLE);
-                eV2.setVisibility(View.VISIBLE);
-                eV3.setVisibility(View.VISIBLE);
-                advSB.setVisibility(View.INVISIBLE);
-                break;
             case R.id.findResults:
                 if (advSB.getVisibility() == View.INVISIBLE) {
                     String searchStr = eV1.getText().toString();

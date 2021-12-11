@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class CustomAdapter extends BaseAdapter implements ListAdapter {
-    private ArrayList<String> list = new ArrayList<String>();
+    private ArrayList<String> list;
     private Context context;
 
     public CustomAdapter(ArrayList<String> list, Context context) {
@@ -49,8 +49,11 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
         chooseButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //do something
+                switch (v.getId()) {
+                    case R.id.advancedSearch:
 
+                        break;
+                }
             }
         });
 
