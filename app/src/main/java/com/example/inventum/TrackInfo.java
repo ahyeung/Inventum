@@ -33,10 +33,10 @@ public class TrackInfo extends AppCompatActivity {
             track = (invTrack) getIntent().getSerializableExtra("user");
         }
 
-        trackArt = (ImageView) findViewById(R.id.trackArt);
+        trackArt = (ImageView) findViewById(R.id.trackArtView);
         likeStatus = (ImageView) findViewById(R.id.likeStatus);
 
-        trackTitle = (TextView) findViewById(R.id.topTracksTitle);
+        trackTitle = (TextView) findViewById(R.id.trackName);
         trackArtist = (TextView) findViewById(R.id.artistName);
         trackAlbumInfo = (TextView) findViewById(R.id.albumName);
         popularity = (TextView) findViewById(R.id.trackPopularity);
