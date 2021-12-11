@@ -56,6 +56,18 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        android:id="@+id/trackAcousticness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="244dp"
+        android:layout_marginBottom="240dp"
+        android:text="Acousticness: SCORE"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
         android:id="@+id/trackPopularity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -81,7 +93,7 @@
         android:id="@+id/trackTempoScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="58dp"
+        android:layout_marginEnd="68dp"
         android:text="Tempo: SCORE"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
@@ -103,7 +115,7 @@
         android:id="@+id/trackValenceScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="12dp"
         android:text="Valence: SCORE"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
@@ -114,8 +126,8 @@
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
         android:backgroundTint="@color/inventum"
         android:text="Back"
         android:textColor="@color/black"
@@ -133,5 +145,15 @@
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/trackValenceScore"
         app:layout_constraintTop_toBottomOf="@+id/trackValenceScore" />
+
+    <ImageView
+        android:id="@+id/likeStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="7dp"
+        app:layout_constraintBottom_toTopOf="@+id/trackAcousticness"
+        app:layout_constraintStart_toStartOf="@+id/trackAcousticness"
+        app:srcCompat="@android:drawable/btn_star_big_off" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
