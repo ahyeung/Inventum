@@ -368,15 +368,7 @@ public class RemoteAPI {
             JSONObject trackObject = tracksArray.getJSONObject(i);
             //JSONObject expandedObject = expandedArray.getJSONObject(i);
 
-            trackArrayList.add(new invTrack(
-                    trackObject.getString("id"),
-                    trackObject.getString("name"),
-                    trackObject.getString("artist"),
-                    trackObject.getJSONObject("album").getString("name"),
-                    trackObject.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url"),
-                    //expandedObject.getString("energy")
-                    ".5"
-            ));
+
         }
 
         return trackArrayList;

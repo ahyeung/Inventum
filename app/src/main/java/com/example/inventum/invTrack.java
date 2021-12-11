@@ -24,15 +24,23 @@ public class invTrack {
     String tempo;
     String acousticness;
     String valence;
-    String trackEnergy;
+    String energy;
 
-    public invTrack(String id, String title, String[] artist, String album, String image_url, String energy) {
+    public invTrack(String id, String title, String[] artist, String album, String albumType, String image_url, String energy,
+                    String danceability, String liveness, String acousticness, String popularity, String valence, String tempo) {
         this.trackID = id;
         this.trackTitle = title;
         this.trackArtist = artist;
         this.trackAlbum = album;
+        this.albumType = albumType;
         this.image_url = image_url;
-        this.trackEnergy = energy;
+        this.energy = energy;
+        this.danceability = danceability;
+        this.liveness = liveness;
+        this.acousticness = acousticness;
+        this.popularity = popularity;
+        this.valence = valence;
+        this.tempo = tempo;
     }
 
     public String getID() {
@@ -56,7 +64,7 @@ public class invTrack {
     }
 
     public String getEnergy() {
-        return trackEnergy;
+        return energy;
     }
 
     public String getAlbumType() {return albumType;}
