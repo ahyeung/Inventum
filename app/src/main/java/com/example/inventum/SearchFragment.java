@@ -15,9 +15,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import java.security.acl.Group;
+import java.util.ArrayList;
 
 public class SearchFragment extends Fragment implements View.OnClickListener {
+
+    TextView tV1;
+    TextView tV2;
+    EditText eV1;
+    EditText eV2;
+    EditText eV3;
+    Button advSB;
+    String searchStr;
+    JSONObject TOP_TRACKS;
+    ArrayList<invTrack> trackList;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -35,31 +48,37 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         return v;
     }
 
+
+
     public void onClick(View view) {
-//        Fragment fragment = new AdvSearchFragment();
-//        FragmentManager manager = getParentFragmentManager();
-//        FragmentTransaction transaction = manager.beginTransaction();
-//        transaction.replace(R.id.search, new AdvSearchFragment()).commit();
+
+        tV1 = (TextView) getView().findViewById(R.id.genreInc);
+        tV2 = (TextView) getView().findViewById(R.id.genreExc);
+        eV1 = (EditText) getView().findViewById(R.id.keywordsInput);
+        eV2 = (EditText) getView().findViewById(R.id.genreIncSearch);
+        eV3 = (EditText) getView().findViewById(R.id.genreExcSearch);
+        advSB = (Button) getView().findViewById(R.id.advancedSearch);
+
         switch (view.getId()) {
             case R.id.advancedSearch:
-                TextView tV1 = (TextView) getView().findViewById(R.id.genreInc);
-                TextView tV2 = (TextView) getView().findViewById(R.id.genreExc);
-                EditText eV1 = (EditText) getView().findViewById(R.id.genreIncSearch);
-                EditText eV2 = (EditText) getView().findViewById(R.id.genreExcSearch);
-                Button b = (Button) getView().findViewById(R.id.advancedSearch);
                 tV1.setVisibility(View.VISIBLE);
                 tV2.setVisibility(View.VISIBLE);
-                eV1.setVisibility(View.VISIBLE);
                 eV2.setVisibility(View.VISIBLE);
-                b.setVisibility(View.INVISIBLE);
+                eV3.setVisibility(View.VISIBLE);
+                advSB.setVisibility(View.INVISIBLE);
                 break;
             case R.id.findResults:
-                // FIXME
+                if (advSB.getVisibility() == View.INVISIBLE) {
+                    searchStr = eV1.getText().toString();
+                    initialSearch(searchStr);
+                }
                 break;
             default:
                 break;
         }
     }
 
-    public
+    public void initialSearch(String s) {
+
+    }
 }
