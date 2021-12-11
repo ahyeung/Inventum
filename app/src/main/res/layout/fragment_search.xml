@@ -83,50 +83,6 @@
         app:layout_constraintVertical_bias="0.02"
         android:visibility="invisible" />
 
-    <TextView
-        android:id="@+id/genreExc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text= "Genres Excluded"
-        android:textSize="26sp"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/genreIncSearch"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias="0.15"
-        android:visibility="invisible" />
-
-    <EditText
-        android:id="@+id/genreExcSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/black"
-        android:minWidth="200dp"
-        android:minHeight="40dp"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/genreExc"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias="0.1"
-        android:visibility="invisible" />
-
-<!--    <Button-->
-<!--        android:id="@+id/advancedSearch"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Advanced Search"-->
-<!--        android:backgroundTint="@color/inventum"-->
-<!--        android:textColor="@color/black"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/genreExcSearch"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.3"-->
-<!--        android:onClick="onClick"-->
-<!--        android:visibility="invisible"/>-->
-
     <Button
         android:id="@+id/findResults"
         android:layout_width="wrap_content"

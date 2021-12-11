@@ -76,19 +76,13 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
 
         TextView tV1 = (TextView) getView().findViewById(R.id.genreInc);
-        TextView tV2 = (TextView) getView().findViewById(R.id.genreExc);
         EditText eV1 = (EditText) getView().findViewById(R.id.keywordsInput);
         EditText eV2 = (EditText) getView().findViewById(R.id.genreIncSearch);
-        EditText eV3 = (EditText) getView().findViewById(R.id.genreExcSearch);
-        Button advSB = (Button) getView().findViewById(R.id.advancedSearch);
 
         switch (view.getId()) {
             case R.id.findResults:
-                if (advSB.getVisibility() == View.INVISIBLE) {
-                    String searchStr = eV1.getText().toString();
-                    initialSearch(searchStr);
-                    advSB.setVisibility(View.VISIBLE);
-                }
+                String searchStr = eV1.getText().toString();
+                initialSearch(searchStr);
                 break;
             default:
                 break;
