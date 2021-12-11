@@ -112,20 +112,20 @@
         app:layout_constraintVertical_bias="0.1"
         android:visibility="invisible" />
 
-    <Button
-        android:id="@+id/advancedSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Advanced Search"
-        android:backgroundTint="@color/inventum"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/genreExcSearch"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias="0.3"
-        android:onClick="onClick"
-        android:visibility="invisible"/>
+<!--    <Button-->
+<!--        android:id="@+id/advancedSearch"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Advanced Search"-->
+<!--        android:backgroundTint="@color/inventum"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/genreExcSearch"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.3"-->
+<!--        android:onClick="onClick"-->
+<!--        android:visibility="invisible"/>-->
 
     <Button
         android:id="@+id/findResults"
@@ -134,11 +134,11 @@
         android:text="Find Results"
         android:backgroundTint="@color/inventum"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/advancedSearch"
+        app:layout_constraintTop_toBottomOf="@+id/keywordsInput"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintVertical_bias="0.8"
         android:onClick="onClick" />
 
     <ListView
