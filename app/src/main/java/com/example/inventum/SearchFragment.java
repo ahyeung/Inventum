@@ -10,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -42,6 +44,30 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         aSearch.setOnClickListener(this);
         Button findR = (Button) v.findViewById(R.id.findResults);
         findR.setOnClickListener(this);
+        ToggleButton toggle = (ToggleButton) v.findViewById(R.id.toggleButton);
+        toggle.setChecked(true);
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Log.d("TRUE", "KEYWORDS************");
+                    TextView searchTitle = (TextView) getActivity().findViewById(R.id.basicSearch);
+                    searchTitle.setText("Keywords");
+                    EditText keywords = (EditText) getActivity().findViewById(R.id.keywordsInput);
+                    EditText genres = (EditText) getActivity().findViewById(R.id.genreIncSearch);
+                    genres.setVisibility(View.INVISIBLE);
+                    keywords.setVisibility(View.VISIBLE);
+
+                } else {
+                    Log.d("FALSE", "GENRES************");
+                    TextView searchTitle = (TextView) getActivity().findViewById(R.id.basicSearch);
+                    searchTitle.setText("Genres");
+                    EditText keywords = (EditText) getActivity().findViewById(R.id.keywordsInput);
+                    EditText genres = (EditText) getActivity().findViewById(R.id.genreIncSearch);
+                    keywords.setVisibility(View.INVISIBLE);
+                    genres.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         return v;
     }
 

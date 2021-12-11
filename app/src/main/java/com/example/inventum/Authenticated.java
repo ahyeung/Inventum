@@ -49,6 +49,7 @@ public class Authenticated extends AppCompatActivity {
     static String AUTH_TOKEN = "";
     private static final int REQUEST_CODE = 1337;
     static String MARKET = "";
+    static String ID_EXTRA = "";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +83,12 @@ public class Authenticated extends AppCompatActivity {
         StringRequest stringRequest = RemoteAPI.getUser(listener, AUTH_TOKEN);
         queue.add(stringRequest);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
+        ID_EXTRA = getIntent().getStringExtra("track");
+        if (ID_EXTRA != null && !ID_EXTRA.isEmpty()) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new SearchFragment()).commit();
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
+        }
     }
 
     @Override
