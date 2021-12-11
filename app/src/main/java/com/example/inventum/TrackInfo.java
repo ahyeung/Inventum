@@ -9,7 +9,10 @@ import android.widget.TextView;
 
 public class TrackInfo extends AppCompatActivity {
 
-    invTrack track;
+    String [] artists = {"NONE"};
+    invTrack track = new invTrack("ID", "FAILED TO LOAD", artists, "NO DATA", "NO DATA", "NO DATA", "NO DATA",
+            "NO DATA", "NO DATA", "NO DATA", "NO DATA", "NO DATA", "NO DATA",
+            "NO DATA", "NO DATA", "NO DATA", "NO DATA");
 
     ImageView trackArt;
     ImageView likeStatus;
@@ -29,9 +32,7 @@ public class TrackInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_info);
 
-        if (getIntent().getExtras() != null) {
-            track = (invTrack) getIntent().getSerializableExtra("user");
-        }
+        track = HomeFragment.trackList.get(getIntent().getIntExtra("trackPosition", 0));
 
         trackArt = (ImageView) findViewById(R.id.trackArtView);
         likeStatus = (ImageView) findViewById(R.id.likeStatus);
@@ -46,18 +47,18 @@ public class TrackInfo extends AppCompatActivity {
         acousiticness = (TextView) findViewById(R.id.trackAcousticness);
         valence = (TextView) findViewById(R.id.trackValenceScore);
 
-//        String string = "";
-//        String [] sArray = new String[] {""};
-//
-//        invTrack track = new invTrack(string, string, sArray, string, string, string, string,
-//                string, string, string, string, string, string,
-//                string, string, string, string);
-
-        //Get String from inventum object
+        //Get meta data from invTrack track
         trackTitle.setText(track.getTitle());
         trackArtist.setText(track.getTrackArtistUI());
         trackAlbumInfo.setText(track.getAlbum());
         popularity.setText(track.getPopularityScore());
+        danceability.setText(track.getDanceability());
+        tempo.setText(track.getTempo());
+        liveness.setText(track.getLiveness());
+        acousiticness.setText(track.getAcousticness());
+        valence.setText(track.getValence());
+
+
 
     }
 }
