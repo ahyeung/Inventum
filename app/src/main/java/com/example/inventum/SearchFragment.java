@@ -90,10 +90,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     //MARKET = jsonObject.getString("country");
-                    Log.d("Search", response);
+                    Log.d("Search", response.substring(0, 500));
 
-                    JSONArray artists = jsonObject.getJSONArray("artists");
-                    JSONArray tracks = jsonObject.getJSONArray("tracks");
+                    JSONArray artists = jsonObject.getJSONObject("artists").getJSONArray("items");
+                    JSONArray tracks = jsonObject.getJSONObject("tracks").getJSONArray("items");
 
                     ArrayList<String> itemsList = new ArrayList<>();
                     ArrayList<String> idList = new ArrayList<>();
@@ -117,6 +117,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                             android.R.layout.simple_list_item_1, itemsList);
                     ListView listView = (ListView) getView().findViewById(R.id.tracksListView);
                     listView.setAdapter(adapter);
+
+                    getView().findViewById(R.id.tracksListView).setVisibility(View.VISIBLE);
 
                     // Add onItemClickListener
 
