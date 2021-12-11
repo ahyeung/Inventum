@@ -1,5 +1,7 @@
 package com.example.inventum;
 
+import java.io.Serializable;
+
 /**
  * Inventum track object storing track specific information. This only holds track art, Title, and
  * artist.
@@ -7,7 +9,7 @@ package com.example.inventum;
  * Primarily for testing purposes as of now, will likely use spotify "Track" class when ready
  *
  */
-public class invTrack {
+public class invTrack implements Serializable {
 
     String trackID; //API side track identification
     String image_url;

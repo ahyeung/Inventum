@@ -28,7 +28,7 @@ import java.util.concurrent.ExecutionException;
 public class HomeFragment extends Fragment {
 
     JSONObject TOP_TRACKS;
-    ArrayList<invTrack> trackList;
+    public static ArrayList<invTrack> trackList;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -135,9 +135,12 @@ public class HomeFragment extends Fragment {
                                             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                                 @Override
                                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                                    //Intent intent = new Intent(getActivity().getApplicationContext(), ???????.class);
-                                                    //intent.putExtra("noteid", Integer.toString(position));
-                                                    //startActivity(intent);
+                                                    Log.d("ItemClick", Integer.toString(position));
+                                                    Log.d("ItemClick", Integer.toString(((int)id)));
+                                                    invTrack trackExtra = trackList.get(position);
+                                                    Intent intent = new Intent(getActivity().getApplicationContext(), TrackInfo.class);
+                                                    intent.putExtra("trackPosition", position);
+                                                    startActivity(intent);
                                                 }
                                             });
                                         } catch (JSONException e) {
