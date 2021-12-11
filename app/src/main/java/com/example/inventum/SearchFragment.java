@@ -81,7 +81,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     }
 
     public void initialSearch(String s) {
-        ArrayList<String> displayList = new ArrayList<>();
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
         // Populate ListView
@@ -92,27 +91,29 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     JSONObject jsonObject = new JSONObject(response);
                     MARKET = jsonObject.getString("country");
 
-                    tracks_expanded[0] = new JSONObject(response);
+                    JSONArray artists = jsonObject.getJSONArray("artists");
+                    JSONArray tracks = jsonObject.getJSONArray("tracks");
 
-                    ArrayList<invTrack> trackArrayList = new ArrayList<>();
-                    JSONArray tracksArray = tracks[0].getJSONArray("tracks");
-                    JSONArray expandedArray = tracks_expanded[0].getJSONArray("audio_features");
-                    for (int i = 0; i < tracksArray.length(); i ++) {
-                        JSONObject trackObject = tracksArray.getJSONObject(i);
-                        JSONObject expandedObject = expandedArray.getJSONObject(i);
+                    ArrayList<String> itemsList = new ArrayList<>();
+                    ArrayList<String> idList = new ArrayList<>();
 
-                        // Get artists and put into string array
-                        String[] artists = new String[10];
-                        JSONArray artistArray = trackObject.getJSONArray("artists");
+                    for (int i = 0; i < tracks.length(); i ++) {
+                        JSONObject trackObject = tracks.getJSONObject(i);
+
+                        itemsList.add("Song: " + trackObject.getString("name"));
+                        idList.add(trackObject.getString("id"));
                     }
 
-                    for (invTrack track : trackList) {
-                        displayList.add(String.format("Title: %s\nArtist: %s Album: %s", track.getTitle(), track.getTrackArtist()[0], track.getAlbum()));
+                    for (int i = 0; i < artists.length(); i ++) {
+                        JSONObject trackObject = artists.getJSONObject(i);
+
+                        itemsList.add("Artist: " + trackObject.getString("name"));
+                        idList.add(trackObject.getString("id"));
                     }
 
                     // use ListView to display results
                     ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(),
-                            android.R.layout.simple_list_item_1, displayList);
+                            android.R.layout.simple_list_item_1, itemsList);
                     ListView listView = (ListView) getView().findViewById(R.id.tracksListView);
                     listView.setAdapter(adapter);
 
