@@ -2,9 +2,11 @@ package com.example.inventum;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -65,7 +67,9 @@ public class TrackInfo extends AppCompatActivity {
         acousiticness.setText("Acousticness: " + track.getAcousticness());
         valence.setText("Mood: " + track.getValence());
 
+    }
 
+    public void searchClicked(View view) {
 
     }
 
