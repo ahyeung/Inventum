@@ -109,10 +109,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     }
 
                     // use ListView to display results
-                    ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(),
-                            android.R.layout.simple_list_item_1, itemsList);
+//                    CustomAdapter adapter = new CustomAdapter(getActivity().getApplicationContext(),
+//                            android.R.layout.simple_list_item_1, itemsList);
                     ListView listView = (ListView) getView().findViewById(R.id.tracksListView);
-                    listView.setAdapter(adapter);
+                    listView.setAdapter(new CustomAdapter(itemsList, getActivity().getApplicationContext()));
 
                     getView().findViewById(R.id.tracksListView).setVisibility(View.VISIBLE);
 
