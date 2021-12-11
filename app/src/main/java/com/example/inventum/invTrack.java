@@ -9,15 +9,24 @@ package com.example.inventum;
  */
 public class invTrack {
 
-    String trackID;
-    String trackTitle;
-    String trackArtist;
-    String trackAlbum;
+    String trackID; //API side track identification
     String image_url;
 
+    //descriptive track meta data
+    String trackTitle;
+    String[] trackArtist;
+    String trackArtistUI;
+    String trackAlbum;
+    String albumType;
+    String popularity;
+    String danceability;
+    String liveness;
+    String tempo;
+    String acousticness;
+    String valence;
     String trackEnergy;
 
-    public invTrack(String id, String title, String artist, String album, String image_url, String energy) {
+    public invTrack(String id, String title, String[] artist, String album, String image_url, String energy) {
         this.trackID = id;
         this.trackTitle = title;
         this.trackArtist = artist;
@@ -34,7 +43,7 @@ public class invTrack {
         return trackTitle;
     }
 
-    public String getArtist() {
+    public String[] getTrackArtist() {
         return trackArtist;
     }
 
@@ -49,4 +58,18 @@ public class invTrack {
     public String getEnergy() {
         return trackEnergy;
     }
+
+    public String getAlbumType() {return albumType;}
+
+    public String getDanceability() {return danceability;}
+
+    public String getPopularityScore() {return popularity;}
+
+    public String getLiveness() {return liveness;}
+
+    public String getTempo() {return tempo;}
+
+    public String getAcousticness() {return acousticness;}
+
+    public String getValence() {return valence;}
 }
