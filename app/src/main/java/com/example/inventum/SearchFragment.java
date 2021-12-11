@@ -50,10 +50,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Log.d("TRUE", "KEYWORDS************");
+                    Log.d("TRUE", "SONGS/ARTISTS************");
                     TextView searchTitle = (TextView) getActivity().findViewById(R.id.basicSearch);
-                    searchTitle.setText("Keywords");
-                    EditText keywords = (EditText) getActivity().findViewById(R.id.keywordsInput);
+                    searchTitle.setText("Songs/Artists");
+                    EditText keywords = (EditText) getActivity().findViewById(R.id.searchBar);
                     EditText genres = (EditText) getActivity().findViewById(R.id.genreIncSearch);
                     genres.setVisibility(View.INVISIBLE);
                     keywords.setVisibility(View.VISIBLE);
@@ -62,7 +62,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     Log.d("FALSE", "GENRES************");
                     TextView searchTitle = (TextView) getActivity().findViewById(R.id.basicSearch);
                     searchTitle.setText("Genres");
-                    EditText keywords = (EditText) getActivity().findViewById(R.id.keywordsInput);
+                    EditText keywords = (EditText) getActivity().findViewById(R.id.searchBar);
                     EditText genres = (EditText) getActivity().findViewById(R.id.genreIncSearch);
                     keywords.setVisibility(View.INVISIBLE);
                     genres.setVisibility(View.VISIBLE);
@@ -86,7 +86,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
 
         TextView tV1 = (TextView) getView().findViewById(R.id.genreInc);
-        EditText eV1 = (EditText) getView().findViewById(R.id.keywordsInput);
+        EditText eV1 = (EditText) getView().findViewById(R.id.searchBar);
         EditText eV2 = (EditText) getView().findViewById(R.id.genreIncSearch);
 
         switch (view.getId()) {

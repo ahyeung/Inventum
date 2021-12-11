@@ -25,7 +25,7 @@
         android:id="@+id/basicSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Keywords"
+        android:text="Songs/Artists"
         android:textSize="26sp"
         android:textColor="#000000"
         app:layout_constraintTop_toBottomOf="@+id/toggleButton"
@@ -36,12 +36,12 @@
 
 
     <EditText
-        android:id="@+id/keywordsInput"
+        android:id="@+id/searchBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:width="330dp"
         android:background="@color/black"
-        android:hint="Artists, Songs, Lyrics and More"
+        android:hint="the searchbar..."
         android:minWidth="200dp"
         android:minHeight="40dp"
         android:textColor="@color/white"
@@ -90,7 +90,7 @@
         android:text="Find Results"
         android:backgroundTint="@color/inventum"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/keywordsInput"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -103,7 +103,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/keywordsInput"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar"
         android:visibility="invisible"/>
 
     <ListView
@@ -112,7 +112,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/keywordsInput"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar"
         android:visibility="invisible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
