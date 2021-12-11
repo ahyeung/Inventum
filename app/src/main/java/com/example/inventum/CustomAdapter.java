@@ -45,15 +45,19 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
         tvContact.setText(list.get(position));
 
         //Handle buttons and add onClickListeners
-        Button chooseButton = (Button)view.findViewById(R.id.chooseButton);
-        chooseButton.setOnClickListener(new View.OnClickListener(){
+        Button simpleSearch = (Button)view.findViewById(R.id.simpleSearch);
+        Button advancedSearch = (Button)view.findViewById(R.id.advancedSearch);
+        simpleSearch.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.advancedSearch:
 
-                        break;
-                }
+            }
+        });
+
+        advancedSearch.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
