@@ -27,11 +27,7 @@ import java.util.ArrayList;
 
 public class SearchFragment extends Fragment implements View.OnClickListener {
 
-    JSONObject TOP_TRACKS;
-    ArrayList<invTrack> trackList;
     static String MARKET = "";
-    final JSONObject[] tracks = {null};
-    final JSONObject[] tracks_expanded = {null};
 
     public SearchFragment() {
         // Required empty public constructor
