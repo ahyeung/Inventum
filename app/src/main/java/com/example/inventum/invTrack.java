@@ -80,4 +80,6 @@ public class invTrack {
     public String getAcousticness() {return acousticness;}
 
     public String getValence() {return valence;}
+
+    public String getTrackArtistUI() {return trackArtistUI;}
 }
