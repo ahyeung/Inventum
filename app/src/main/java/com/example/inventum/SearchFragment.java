@@ -40,7 +40,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_search, container, false);
-        aSearch.setOnClickListener(this);
         Button findR = (Button) v.findViewById(R.id.findResults);
         findR.setOnClickListener(this);
         ToggleButton toggle = (ToggleButton) v.findViewById(R.id.toggleButton);
