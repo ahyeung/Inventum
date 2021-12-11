@@ -51,16 +51,6 @@ public class HomeFragment extends Fragment {
 
                     String trackIDs = RemoteAPI.parseTopTracksResponse(TOP_TRACKS);
                     Log.d("Home", trackIDs);
-                    /*
-                    try {
-                        //trackList = RemoteAPI.getTrackList(Authenticated.AUTH_TOKEN, trackIDs, Authenticated.MARKET, getActivity().getApplicationContext());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }*/
 
                     final JSONObject[] tracks = {null};
                     final JSONObject[] tracks_expanded = {null};

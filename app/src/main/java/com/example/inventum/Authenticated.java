@@ -29,6 +29,7 @@ import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,6 +52,8 @@ public class Authenticated extends AppCompatActivity {
     static String MARKET = "";
     static String ID_EXTRA = "";
 
+    static String[] genres;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authenticated);
@@ -62,9 +65,31 @@ public class Authenticated extends AppCompatActivity {
         AUTH_TOKEN = intent.getStringExtra("token");
         Log.w("Authenticated", "///////////TOKEN///////// " + AUTH_TOKEN);
 
-        // Get user info
+        // Get genre list
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
+        Response.Listener<String> genre_listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Display the first 500 characters of the response string.
+                Log.d("Authenticated", response.substring(0,50));
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray genreArray = jsonObject.getJSONArray("genres");
+                    genres = new String[genreArray.length() + 1];
+                    for (int i = 0; i < genreArray.length(); i++) {
+                        genres[i] = genreArray.getString(i);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        StringRequest genreRequest = RemoteAPI.getGenres(genre_listener, AUTH_TOKEN);
+        queue.add(genreRequest);
+
+        // Get user info
         Response.Listener<String> listener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -156,7 +181,7 @@ public class Authenticated extends AppCompatActivity {
         };
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        executor.scheduleAtFixedRate(helloRunnable, 0, 3500, TimeUnit.SECONDS);
+        executor.scheduleAtFixedRate(helloRunnable, 3500, 3500, TimeUnit.SECONDS);
 
         // Instantiate RequestQueue
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());

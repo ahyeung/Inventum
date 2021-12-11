@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -25,11 +26,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SearchFragment extends Fragment implements View.OnClickListener {
 
     static String MARKET = "";
+    public static ArrayList<String> idList = new ArrayList<>();
 
     public SearchFragment() {
         // Required empty public constructor
@@ -66,6 +69,15 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 }
             }
         });
+        AutoCompleteTextView autocomplete = (AutoCompleteTextView)
+                getActivity().findViewById(R.id.genreIncSearch);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (getActivity().getApplicationContext(),android.R.layout.select_dialog_item, Authenticated.genres);
+
+        //autocomplete.setThreshold(2);
+        //autocomplete.setAdapter(adapter);
+
         return v;
     }
 
@@ -103,7 +115,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     JSONArray tracks = jsonObject.getJSONObject("tracks").getJSONArray("items");
 
                     ArrayList<String> itemsList = new ArrayList<>();
-                    ArrayList<String> idList = new ArrayList<>();
+                    //ArrayList<String> idList = new ArrayList<>();
 
                     for (int i = 0; i < tracks.length(); i ++) {
                         JSONObject trackObject = tracks.getJSONObject(i);

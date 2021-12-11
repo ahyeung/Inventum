@@ -153,12 +153,12 @@ public class RemoteAPI {
     }
 
     public static StringRequest getRecommendations(Response.Listener<String> listener, String token, String seed_genres, String seed_artists,
-                                                   String seed_tracks, String market, float limit, float target_acousticness, float target_danceability,
+                                                   String seed_tracks, String market, int limit, float target_acousticness, float target_danceability,
                                                    float target_duration_ms, float target_energy, float target_instrumentalness, float target_liveness,
                                                    float target_loudness, float target_popularity, float target_speechiness, int target_tempo,
                                                    float target_valence) {
 
-        String url = "https://api.spotify.com/v1/recommendations/?";
+        String url = "https://api.spotify.com/v1/recommendations?";
 
         if (seed_genres != null && !seed_genres.isEmpty()) {
             if (url.endsWith("?")) {
