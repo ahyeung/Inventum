@@ -1,7 +1,9 @@
 package com.example.inventum;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -36,6 +38,7 @@ import java.util.Arrays;
 public class SearchFragment extends Fragment implements View.OnClickListener {
 
     static String MARKET = "";
+    SharedPreferences sharedPreferences;
     public static ArrayList<String> idList = new ArrayList<>();
     public static ArrayList<String> itemsList = new ArrayList<>();
     public static ArrayList<String> genreList = new ArrayList<>();
@@ -48,6 +51,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        sharedPreferences = this.getActivity().getSharedPreferences("com.example.inventum", Context.MODE_PRIVATE);
         View v = inflater.inflate(R.layout.fragment_search, container, false);
 
         Button findR = (Button) v.findViewById(R.id.findResults);
@@ -177,7 +181,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-        Log.d("SearchToken", ">>>>>>>>>>>>>>>>>TOKEN: " + RemoteAPI.TOKEN);
+        Log.d("SearchToken", ">>>>>>>>>>>>>>>>>TOKEN: " + sharedPreferences.getString("token", RemoteAPI.TOKEN));
         Log.d("TrackSearchFragment", "ID: " + Authenticated.ID_EXTRA);
         if (Authenticated.ID_EXTRA != null && !Authenticated.ID_EXTRA.isEmpty()) {
             trackSearch(Authenticated.ID_EXTRA);
@@ -308,7 +312,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         };
 
         StringRequest stringRequest =
-                RemoteAPI.search(listener, Authenticated.AUTH_TOKEN, s, MARKET, "track,artist");
+                RemoteAPI.search(listener, sharedPreferences.getString("token", Authenticated.AUTH_TOKEN), s, MARKET, "track,artist");
         queue.add(stringRequest);
     }
 
@@ -425,7 +429,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                                 };
 
                                 RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-                                StringRequest expandedRequest = RemoteAPI.getTracksAudioFeatures(expanded_listener, RemoteAPI.TOKEN, trackIDs);
+                                StringRequest expandedRequest = RemoteAPI.getTracksAudioFeatures(expanded_listener, sharedPreferences.getString("token", RemoteAPI.TOKEN), trackIDs);
                                 queue.add(expandedRequest);
 
 
@@ -437,8 +441,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     };
 
                     RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-                    StringRequest trackRequest = RemoteAPI.getTracks(track_listener, RemoteAPI.TOKEN, trackIDs, Authenticated.MARKET);
-                    StringRequest tracks_response = RemoteAPI.getTracks(track_listener, Authenticated.AUTH_TOKEN, trackIDs, Authenticated.MARKET);
+                    StringRequest trackRequest = RemoteAPI.getTracks(track_listener, sharedPreferences.getString("token", RemoteAPI.TOKEN), trackIDs, Authenticated.MARKET);
+                    StringRequest tracks_response = RemoteAPI.getTracks(track_listener, sharedPreferences.getString("token", Authenticated.AUTH_TOKEN), trackIDs, Authenticated.MARKET);
                     queue.add(trackRequest);
 
                 } catch (JSONException e) {
@@ -447,7 +451,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
             }
         };
 
-        StringRequest searchRequest = RemoteAPI.getRecommendations(search_listener, RemoteAPI.TOKEN, "", "", id,
+        StringRequest searchRequest = RemoteAPI.getRecommendations(search_listener, sharedPreferences.getString("token", RemoteAPI.TOKEN), "", "", id,
                 Authenticated.MARKET, 10, -1, -1, -1, -1, -1,
                 -1, -1, -1, -1, -1, -1);
         queue.add(searchRequest);

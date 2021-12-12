@@ -3,6 +3,7 @@ package com.example.inventum;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,11 +31,14 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<String> list;
     private Context context;
     private Activity activity;
+    SharedPreferences sharedPreferences;
 
     public CustomAdapter(ArrayList<String> list, Context context, Activity activity) {
         this.list = list;
         this.context = context;
         this.activity = activity;
+        sharedPreferences = activity.getSharedPreferences("com.example.inventum", Context.MODE_PRIVATE);
+
     }
 
     @Override
@@ -184,7 +188,7 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                                         };
 
                                         RequestQueue queue = Volley.newRequestQueue(context.getApplicationContext());
-                                        StringRequest expandedRequest = RemoteAPI.getTracksAudioFeatures(expanded_listener, Authenticated.AUTH_TOKEN, trackIDs);
+                                        StringRequest expandedRequest = RemoteAPI.getTracksAudioFeatures(expanded_listener, sharedPreferences.getString("token", Authenticated.AUTH_TOKEN), trackIDs);
                                         queue.add(expandedRequest);
 
 
@@ -196,8 +200,8 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                             };
 
                             RequestQueue queue = Volley.newRequestQueue(context.getApplicationContext());
-                            StringRequest trackRequest = RemoteAPI.getTracks(track_listener, Authenticated.AUTH_TOKEN, trackIDs, Authenticated.MARKET);
-                            StringRequest tracks_response = RemoteAPI.getTracks(track_listener, Authenticated.AUTH_TOKEN, trackIDs, Authenticated.MARKET);
+                            StringRequest trackRequest = RemoteAPI.getTracks(track_listener, sharedPreferences.getString("token", Authenticated.AUTH_TOKEN), trackIDs, Authenticated.MARKET);
+                            StringRequest tracks_response = RemoteAPI.getTracks(track_listener, sharedPreferences.getString("token", Authenticated.AUTH_TOKEN), trackIDs, Authenticated.MARKET);
                             queue.add(trackRequest);
 
                         } catch (JSONException e) {
@@ -213,7 +217,7 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                 } else {
                     artist = SearchFragment.idList.get((Integer)v.getTag());
                 }
-                StringRequest searchRequest = RemoteAPI.getRecommendations(search_listener, Authenticated.AUTH_TOKEN, "", artist, track,
+                StringRequest searchRequest = RemoteAPI.getRecommendations(search_listener, sharedPreferences.getString("token", Authenticated.AUTH_TOKEN), "", artist, track,
                         Authenticated.MARKET, 10, -1, -1, -1, -1, -1,
                         -1, -1, -1, -1, -1, -1);
                 queue.add(searchRequest);
