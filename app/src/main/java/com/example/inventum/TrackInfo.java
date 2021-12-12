@@ -100,7 +100,7 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
         valence.setText("Mood: " + track.getValence());
 
         //Check whether liked song
-        if (track.getLiked()) {
+        if (checkLikeStatus()) {
             likeStatus.setText("LIKED");
         } else {
             likeStatus.setText("NOT LIKED");
@@ -113,7 +113,7 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
 
         switch (id) {
             case R.id.likeStatus:
-                if (track.getLiked() == false) {
+                if (!checkLikeStatus()) {
                     track.setLiked(true);
                     likeStatus.setText("LIKED");
                     // Add id to giant string from old preferences and update
@@ -147,6 +147,23 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
                 startActivity(intent);
                 break;
         }
+    }
+
+    public boolean checkLikeStatus() {
+
+        String track_id = track.getID();
+        SharedPreferences sharedPreferences = getSharedPreferences("com.example.inventum", Context.MODE_PRIVATE);
+        String likedList = sharedPreferences.getString("likedArray", "");
+        String new_list = "";
+        String[] likedIds = likedList.split(",");
+
+        for(int i = 0; i < likedIds.length; i++){
+            if(likedIds[i].equals(track_id)){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
