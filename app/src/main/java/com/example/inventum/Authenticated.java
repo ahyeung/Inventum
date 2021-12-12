@@ -119,6 +119,7 @@ public class Authenticated extends AppCompatActivity {
         ID_EXTRA = getIntent().getStringExtra("track");
         if (ID_EXTRA != null && !ID_EXTRA.isEmpty()) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new SearchFragment()).commit();
+            Log.d("TrackSearch", "ID: " + ID_EXTRA);
         } else {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
         }
@@ -189,7 +190,7 @@ public class Authenticated extends AppCompatActivity {
         };
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        executor.scheduleAtFixedRate(helloRunnable, 2000, 3500, TimeUnit.SECONDS);
+        executor.scheduleAtFixedRate(helloRunnable, 0, 2000, TimeUnit.SECONDS);
 
         // Instantiate RequestQueue
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());

@@ -45,6 +45,7 @@ public class RemoteAPI {
             }
             //do stuff with the body...
             Log.e("RemoteAPI", body);
+            //Log.d("Token", Authenticated.AUTH_TOKEN);
         }
     };
 
