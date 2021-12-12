@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
+    android:backgroundTint="@color/black"
     tools:context=".TrackInfo">
 
     <TextView
@@ -71,7 +72,7 @@
         android:id="@+id/trackPopularity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="14dp"
         android:text="Popularity: SCORE"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
@@ -94,11 +95,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="68dp"
+        android:layout_marginTop="14dp"
         android:text="Tempo: SCORE"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/trackDanceScore" />
+        app:layout_constraintStart_toStartOf="@+id/trackAcousticness"
+        app:layout_constraintTop_toBottomOf="@+id/trackAcousticness" />
 
     <TextView
         android:id="@+id/trackLiveness"
@@ -115,11 +117,11 @@
         android:id="@+id/trackValenceScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="14dp"
         android:text="Valence: SCORE"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/trackTempoScore"
+        app:layout_constraintStart_toStartOf="@+id/trackTempoScore"
         app:layout_constraintTop_toBottomOf="@+id/trackTempoScore" />
 
     <Button
@@ -127,31 +129,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginLeft="80dp"
         android:backgroundTint="@color/inventum"
         android:text="Back"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/trackLiveness"
-        app:layout_constraintTop_toBottomOf="@+id/trackLiveness" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trackLiveness"
+        tools:layout_editor_absoluteX="58dp" />
 
     <Button
         android:id="@+id/searchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="1dp"
+        android:layout_marginEnd="80dp"
         android:backgroundTint="@color/inventum"
         android:text="Search"
         android:onClick="searchClicked"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/trackValenceScore"
-        app:layout_constraintTop_toBottomOf="@+id/trackValenceScore" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/backButton" />
 
     <ImageView
         android:id="@+id/likeStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
         android:layout_marginBottom="7dp"
         app:layout_constraintBottom_toTopOf="@+id/trackAcousticness"
         app:layout_constraintStart_toStartOf="@+id/trackAcousticness"

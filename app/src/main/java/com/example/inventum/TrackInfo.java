@@ -59,7 +59,7 @@ public class TrackInfo extends AppCompatActivity {
 
         trackTitle.setText(track.getTitle());
         trackArtist.setText(track.getTrackArtistUI());
-        trackAlbumInfo.setText(track.getAlbum());
+        trackAlbumInfo.setText(track.getAlbumType() + ", " + track.getAlbum());
         popularity.setText("Popularity: " + track.getPopularityScore());
         danceability.setText("Danceability: " + track.getDanceability());
         tempo.setText("Tempo: " + track.getTempo());
