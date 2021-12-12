@@ -101,7 +101,7 @@
         android:id="@+id/findGenreResults"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Find Genre Results"
+        android:text="Find Results"
         android:backgroundTint="@color/inventum"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/searchBar"
