@@ -184,7 +184,7 @@ public class Authenticated extends AppCompatActivity {
         };
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        executor.scheduleAtFixedRate(helloRunnable, 3500, 3500, TimeUnit.SECONDS);
+        executor.scheduleAtFixedRate(helloRunnable, 2000, 3500, TimeUnit.SECONDS);
 
         // Instantiate RequestQueue
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());

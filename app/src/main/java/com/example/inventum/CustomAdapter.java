@@ -162,15 +162,14 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                                                             Log.d("ItemClick", Integer.toString(((int)id)));
                                                             invTrack trackExtra = Authenticated.trackList.get(position);
                                                             Intent intent = new Intent(context.getApplicationContext(), TrackInfo.class);
+                                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                             intent.putExtra("trackPosition", position);
                                                             context.startActivity(intent);
                                                         }
                                                     });
 
-                                                    Intent intent = new Intent(context.getApplicationContext(), Authenticated.class);
-                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                    intent.putExtra("track", "1");
-                                                    context.startActivity(intent);
+                                                    activity.findViewById(R.id.resultsList).setVisibility(View.VISIBLE);
+                                                    activity.findViewById(R.id.tracksListView).setVisibility((View.INVISIBLE));
 
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
