@@ -3,11 +3,14 @@ package com.example.inventum;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -56,6 +59,7 @@ public class Authenticated extends AppCompatActivity {
     static String[] genres;
     public static ArrayList<invTrack> trackList;
 
+    AutoCompleteTextView autocomplete;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,10 +83,11 @@ public class Authenticated extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray genreArray = jsonObject.getJSONArray("genres");
-                    genres = new String[genreArray.length() + 1];
+                    genres = new String[genreArray.length()];
                     for (int i = 0; i < genreArray.length(); i++) {
                         genres[i] = genreArray.getString(i);
                     }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

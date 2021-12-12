@@ -74,6 +74,7 @@
         android:minWidth="200dp"
         android:minHeight="40dp"
         android:textColor="@color/white"
+        android:popupBackground="@color/inventum"
         android:hint="the searchbar..."
         app:layout_constraintTop_toBottomOf="@+id/basicSearch"
         app:layout_constraintBottom_toBottomOf="parent"

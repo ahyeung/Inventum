@@ -31,6 +31,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SearchFragment extends Fragment implements View.OnClickListener {
 
@@ -81,19 +82,22 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 }
             }
         });
-        AutoCompleteTextView autocomplete = (AutoCompleteTextView)
-                getActivity().findViewById(R.id.genreIncSearch);
+
+        AutoCompleteTextView autocomplete = (AutoCompleteTextView) v.findViewById(R.id.genreIncSearch);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (getActivity().getApplicationContext(),android.R.layout.select_dialog_item, Authenticated.genres);
+                (getActivity().getApplicationContext(), android.R.layout.simple_dropdown_item_1line, Authenticated.genres);
 
-        //autocomplete.setThreshold(2);
-        //autocomplete.setAdapter(adapter);
+        Log.d("Genres", Arrays.toString(Authenticated.genres));
+        autocomplete.setThreshold(2);
+        autocomplete.setAdapter(adapter);
 
         return v;
     }
 
+    public void onViewCreated() {
 
+    }
 
     public void onClick(View view) {
         EditText eV1 = (EditText) getView().findViewById(R.id.searchBar);
