@@ -110,10 +110,10 @@ public class TrackInfo extends AppCompatActivity {
     }
 
     private class LoadImage extends AsyncTask <String, Void, Bitmap> {
-        ImageView trackArt;
+        ImageView art;
 
         public LoadImage(ImageView trackArt) {
-            this.trackArt = trackArt;
+            art = trackArt;
 
         }
 
@@ -134,7 +134,7 @@ public class TrackInfo extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
-            trackArt.setImageBitmap(bitmap);
+            art.setImageBitmap(bitmap);
         }
     }
 }
