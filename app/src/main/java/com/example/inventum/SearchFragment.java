@@ -59,8 +59,12 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     searchTitle.setText("Songs/Artists");
                     EditText keywords = (EditText) getActivity().findViewById(R.id.searchBar);
                     EditText genres = (EditText) getActivity().findViewById(R.id.genreIncSearch);
+                    Button findGenreResults = (Button) getActivity().findViewById(R.id.findGenreResults);
+                    Button findResults = (Button) getActivity().findViewById(R.id.findResults);
                     genres.setVisibility(View.INVISIBLE);
                     keywords.setVisibility(View.VISIBLE);
+                    findGenreResults.setVisibility(View.INVISIBLE);
+                    findResults.setVisibility(View.VISIBLE);
 
                 } else {
                     Log.d("FALSE", "GENRES************");
@@ -68,8 +72,12 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     searchTitle.setText("Genres");
                     EditText keywords = (EditText) getActivity().findViewById(R.id.searchBar);
                     EditText genres = (EditText) getActivity().findViewById(R.id.genreIncSearch);
+                    Button findGenreResults = (Button) getActivity().findViewById(R.id.findGenreResults);
+                    Button findResults = (Button) getActivity().findViewById(R.id.findResults);
                     keywords.setVisibility(View.INVISIBLE);
                     genres.setVisibility(View.VISIBLE);
+                    findGenreResults.setVisibility(View.VISIBLE);
+                    findResults.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -135,7 +143,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     listView.setAdapter(new CustomAdapter(itemsList, getActivity().getApplicationContext(), getActivity()));
 
                     getView().findViewById(R.id.tracksListView).setVisibility(View.VISIBLE);
-                    getView().findViewById(R.id.findResults).setVisibility(View.INVISIBLE);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
