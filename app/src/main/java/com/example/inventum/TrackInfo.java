@@ -95,11 +95,8 @@ public class TrackInfo extends AppCompatActivity {
         valence.setText("Mood: " + track.getValence());
 
         //Check whether liked song
-        boolean liked = true;
+        likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_on"));
 
-        if (liked) {
-            likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_on"));
-        }
 
     }
 
@@ -114,7 +111,6 @@ public class TrackInfo extends AppCompatActivity {
 
         public LoadImage(ImageView trackArt) {
             this.art = trackArt;
-
         }
 
         @Override
