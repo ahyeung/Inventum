@@ -65,11 +65,12 @@ public class invTrack implements Serializable {
         for (int i = 0; i < trackArtist.length; i++) {
             if (trackArtist.length == 1) {
                 this.trackArtistUI = trackArtist[0];
-            } else {
-                if (trackArtist[i] != null) {
-                    this.trackArtistUI = trackArtistUI + ", " + trackArtist[i];
-                }
+            } else if (trackArtist[i] != null && i != 0) {
+                this.trackArtistUI = trackArtistUI + ", " + trackArtist[i];
+            } else if (trackArtist[i] != null){
+                this.trackArtistUI = trackArtist[i];
             }
+
         }
 
     }
