@@ -1,15 +1,24 @@
 package com.example.inventum;
 
+import androidx.annotation.BinderThread;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.AsyncTaskLoader;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.renderscript.ScriptGroup;
 import android.view.View;
+import android.view.inputmethod.InputBinding;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
@@ -20,6 +29,8 @@ public class TrackInfo extends AppCompatActivity {
             "NO DATA", "NO DATA", "NO DATA", "NO DATA", "NO DATA", "NO DATA",
             "NO DATA", "NO DATA", "NO DATA", "NO DATA");
 
+    ScriptGroup.Binding binding;
+    Handler trackHandler;
     ImageView trackArt;
     ImageView likeStatus;
 
@@ -54,8 +65,15 @@ public class TrackInfo extends AppCompatActivity {
         valence = (TextView) findViewById(R.id.trackValenceScore);
 
         //Get meta data from invTrack track
-        Drawable trackArtDrawable = LoadTrackURL(track.getImage_url());
-        trackArt.setImageDrawable(trackArtDrawable);
+        //Glide.with(this).load(track.getImage_url()).into(trackArt);
+        try {
+            InputStream stream = new URL(track.getImage_url()).openStream();
+            LoadImage loadImage = new LoadImage(trackArt);
+            loadImage.execute(track.getImage_url());
+
+        } catch (Exception e) {
+            trackArt.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_on"));
+        }
 
         trackTitle.setText(track.getTitle());
         trackArtist.setText(track.getTrackArtistUI());
@@ -82,13 +100,32 @@ public class TrackInfo extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public static Drawable LoadTrackURL(String url) {
-        try {
-            InputStream stream = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(stream, "src name");
-            return d;
-        } catch (Exception e) {
-            return null;
+    private class LoadImage extends AsyncTask <String, Void, Bitmap> {
+        ImageView trackArt;
+
+        public LoadImage(ImageView trackArt) {
+            this.trackArt = trackArt;
+
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... strings) {
+            String link = strings[0];
+            Bitmap bitmap = null;
+
+            try {
+                InputStream stream = new URL(link).openStream();
+                bitmap = BitmapFactory.decodeStream(stream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return bitmap;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            trackArt.setImageBitmap(bitmap);
         }
     }
 }
