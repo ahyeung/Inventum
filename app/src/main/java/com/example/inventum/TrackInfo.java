@@ -92,7 +92,11 @@ public class TrackInfo extends AppCompatActivity {
         valence.setText("Mood: " + track.getValence());
 
         //Check whether liked song
-        likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_on"));
+        if (track.getLiked()) {
+            likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_on"));
+        } else {
+            likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_off"));
+        }
 
 
     }
@@ -101,6 +105,16 @@ public class TrackInfo extends AppCompatActivity {
         Intent intent = new Intent(this, Authenticated.class);
         intent.putExtra("track", track.getID());
         startActivity(intent);
+    }
+
+    public void likedClicked(View view) {
+        if (track.getLiked() == false) {
+            track.setLiked(true);
+            likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_on"));
+        } else {
+            track.setLiked(false);
+            likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_off"));
+        }
     }
 
     private class LoadImage extends AsyncTask <String, Void, Bitmap> {

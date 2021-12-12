@@ -149,13 +149,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/backButton" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/likeStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
+        android:onClick="likedClicked"
         app:layout_constraintBottom_toTopOf="@+id/trackAcousticness"
         app:layout_constraintStart_toStartOf="@+id/trackAcousticness"
         app:srcCompat="@android:drawable/btn_star_big_off" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

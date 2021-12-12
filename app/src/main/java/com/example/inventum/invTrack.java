@@ -55,6 +55,7 @@ public class invTrack implements Serializable {
         this.loudness = loudness;
         this.instrumentalness = instrumentalness;
         this.duration_ms = duration_ms;
+        this.liked = false;
 
         BuildStrings();
 
