@@ -149,16 +149,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/backButton" />
 
-    <ImageButton
+    <Button
         android:id="@+id/likeStatus"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginBottom="7dp"
         android:onClick="onClick"
-        android:background="@android:drawable/btn_star_big_off"
+        android:backgroundTint="@color/inventum"
+        android:text="LIKE STATUS"
         app:layout_constraintBottom_toTopOf="@+id/trackAcousticness"
         app:layout_constraintStart_toStartOf="@+id/trackAcousticness"
-
     />
 
 

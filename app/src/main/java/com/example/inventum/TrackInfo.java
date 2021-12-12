@@ -16,6 +16,7 @@ import android.renderscript.ScriptGroup;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputBinding;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
             "NO DATA", "NO DATA", "NO DATA", "NO DATA");
 
     ImageView trackArt;
-    ImageButton likeStatus;
+    Button likeStatus;
     TextView trackTitle;
     TextView trackArtist;
     TextView trackAlbumInfo;
@@ -51,7 +52,7 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
         track = Authenticated.trackList.get(getIntent().getIntExtra("trackPosition", 0));
 
         trackArt = (ImageView) findViewById(R.id.trackArtView);
-        likeStatus = (ImageButton) findViewById(R.id.likeStatus);
+        likeStatus = (Button) findViewById(R.id.likeStatus);
 
         trackTitle = (TextView) findViewById(R.id.trackName);
         trackArtist = (TextView) findViewById(R.id.artistName);
@@ -98,9 +99,9 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
 
         //Check whether liked song
         if (track.getLiked()) {
-            likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_on"));
+            likeStatus.setText("LIKED");
         } else {
-            likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_off"));
+            likeStatus.setText("NOT LIKED");
         }
     }
 
@@ -128,10 +129,10 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
             case R.id.likeStatus:
                 if (track.getLiked() == false) {
                     track.setLiked(true);
-                    //likeStatus.setBackground(Drawable.createFromPath("@android:drawable/btn_star_big_on"));
+                    likeStatus.setText("LIKED");
                 } else {
                     track.setLiked(false);
-                    //likeStatus.setBackground(Drawable.createFromPath("@android:drawable/btn_star_big_off"));
+                    likeStatus.setText("NOT LIKED");
                 }
                 break;
 
