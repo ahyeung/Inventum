@@ -137,7 +137,7 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
                         }
                     }
                     // New list without the unliked song
-                    sharedPreferences.edit().putString("likedArray", likedList).apply();
+                    sharedPreferences.edit().putString("likedArray", new_list).apply();
                 }
                 break;
 
