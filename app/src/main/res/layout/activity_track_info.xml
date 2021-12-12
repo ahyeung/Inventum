@@ -151,7 +151,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:onClick="onClick"
-        android:backgroundTint="@color/inventum"
+        android:background="@drawable/rounded_white"
         android:text="LIKE STATUS"
         app:layout_constraintTop_toTopOf="@+id/albumName"
         app:layout_constraintStart_toStartOf="@+id/searchButton"
