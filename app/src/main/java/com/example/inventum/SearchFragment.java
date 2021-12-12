@@ -92,9 +92,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         autocomplete.setThreshold(2);
         autocomplete.setAdapter(adapter);
 
-        //Log.d("TrackSearch", "ID: " + Authenticated.ID_EXTRA);
+        Log.d("SearchToken", ">>>>>>>>>>>>>>>>>TOKEN: " + RemoteAPI.TOKEN);
+        Log.d("TrackSearchFragment", "ID: " + Authenticated.ID_EXTRA);
         if (Authenticated.ID_EXTRA != null && !Authenticated.ID_EXTRA.isEmpty()) {
-            //trackSearch(Authenticated.ID_EXTRA);
+            trackSearch(Authenticated.ID_EXTRA);
             //Authenticated.ID_EXTRA = "";
         }
 
@@ -253,12 +254,12 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                                                     Log.d("ItemClick", Integer.toString(((int)id)));
                                                     invTrack trackExtra = Authenticated.trackList.get(position);
                                                     Intent intent = new Intent(getActivity().getApplicationContext(), TrackInfo.class);
-                                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     intent.putExtra("trackPosition", position);
                                                     getActivity().startActivity(intent);
                                                 }
                                             });
 
+                                            Log.d("Search", "HERE HERE");
                                             getView().findViewById(R.id.resultsList).setVisibility(View.VISIBLE);
                                             getView().findViewById(R.id.tracksListView).setVisibility((View.INVISIBLE));
                                             getView().findViewById(R.id.searchBar).setVisibility((View.INVISIBLE));
@@ -274,7 +275,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                                 };
 
                                 RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-                                StringRequest expandedRequest = RemoteAPI.getTracksAudioFeatures(expanded_listener, Authenticated.AUTH_TOKEN, trackIDs);
+                                StringRequest expandedRequest = RemoteAPI.getTracksAudioFeatures(expanded_listener, RemoteAPI.TOKEN, trackIDs);
                                 queue.add(expandedRequest);
 
 
@@ -286,7 +287,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     };
 
                     RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-                    StringRequest trackRequest = RemoteAPI.getTracks(track_listener, Authenticated.AUTH_TOKEN, trackIDs, Authenticated.MARKET);
+                    StringRequest trackRequest = RemoteAPI.getTracks(track_listener, RemoteAPI.TOKEN, trackIDs, Authenticated.MARKET);
                     StringRequest tracks_response = RemoteAPI.getTracks(track_listener, Authenticated.AUTH_TOKEN, trackIDs, Authenticated.MARKET);
                     queue.add(trackRequest);
 
@@ -296,7 +297,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
             }
         };
 
-        StringRequest searchRequest = RemoteAPI.getRecommendations(search_listener, Authenticated.AUTH_TOKEN, "", "", id,
+        StringRequest searchRequest = RemoteAPI.getRecommendations(search_listener, RemoteAPI.TOKEN, "", "", id,
                 Authenticated.MARKET, 10, -1, -1, -1, -1, -1,
                 -1, -1, -1, -1, -1, -1);
         queue.add(searchRequest);

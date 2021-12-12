@@ -25,6 +25,8 @@ import java.util.concurrent.ExecutionException;
 
 public class RemoteAPI {
 
+    public static String TOKEN;
+
     public static Response.ErrorListener errorListener = new Response.ErrorListener() {
 
         @Override
