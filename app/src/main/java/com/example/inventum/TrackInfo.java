@@ -98,8 +98,6 @@ public class TrackInfo extends AppCompatActivity {
         } else {
             likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_off"));
         }
-
-
     }
 
     public void searchClicked(View view) {
