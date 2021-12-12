@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class TrackInfo extends AppCompatActivity implements View.OnClickListener {
@@ -78,9 +79,8 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
                 Log.e("message", "STRING" + track.getImage_url());
             }
 
-            InputStream stream = new URL(image).openStream();
-            LoadImage loadImage = new LoadImage(trackArt);
-            loadImage.execute(image);
+            new ImageLoadTask(image, trackArt).execute();
+            trackArt.setImageBitmap(getBitmapFromURL(image));
 
         } catch (Exception e) {
             trackArt.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_on"));
@@ -127,33 +127,57 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-    private class LoadImage extends AsyncTask <String, Void, Bitmap> {
-        ImageView art;
+    public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 
-        public LoadImage(ImageView trackArt) {
-            this.art = trackArt;
+        private String url;
+        private ImageView imageView;
+
+        public ImageLoadTask(String url, ImageView imageView) {
+            this.url = url;
+            this.imageView = imageView;
         }
 
         @Override
-        protected Bitmap doInBackground(String... strings) {
-            String link = strings[0];
-            Bitmap bitmap = null;
-
+        protected Bitmap doInBackground(Void... params) {
             try {
-                InputStream stream = new URL(link).openStream();
-                bitmap = BitmapFactory.decodeStream(stream);
-                Log.e("bitmap", "FAILED TO BUILD BITMAP FROM INPUT STREAM");
-            } catch (IOException e) {
-                Log.e("bitmap", "FAILED TO BUILD BITMAP FROM INPUT STREAM");
+                URL urlConnection = new URL(url);
+                HttpURLConnection connection = (HttpURLConnection) urlConnection
+                        .openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                InputStream input = connection.getInputStream();
+                Bitmap myBitmap = BitmapFactory.decodeStream(input);
+                return myBitmap;
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            return bitmap;
+            return null;
         }
 
         @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            Log.e("bitmap", "entered on execute, bitmap: " + bitmap.toString());
-            trackArt.setImageBitmap(bitmap);
+        protected void onPostExecute(Bitmap result) {
+            super.onPostExecute(result);
+            imageView.setImageBitmap(result);
+        }
+
+    }
+
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            Log.e("src",src);
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            Log.e("Bitmap","returned");
+            return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("Exception",e.getMessage());
+            return null;
         }
     }
+
 }
