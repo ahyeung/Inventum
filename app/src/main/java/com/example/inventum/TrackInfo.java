@@ -72,6 +72,8 @@ public class TrackInfo extends AppCompatActivity {
 
             if (image.equals(null)) {
                 Log.e("message", "STRING URL RETURNS NULL");
+            } else {
+                Log.e("message", "STRING" + track.getImage_url());
             }
 
             InputStream stream = new URL(image).openStream();
