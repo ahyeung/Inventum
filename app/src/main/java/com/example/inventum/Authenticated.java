@@ -70,6 +70,7 @@ public class Authenticated extends AppCompatActivity {
 
         Intent intent = getIntent();
         AUTH_TOKEN = intent.getStringExtra("token");
+        RemoteAPI.TOKEN = AUTH_TOKEN;
         Log.w("Authenticated", "///////////TOKEN///////// " + AUTH_TOKEN);
 
         // Get genre list
@@ -119,6 +120,7 @@ public class Authenticated extends AppCompatActivity {
         ID_EXTRA = getIntent().getStringExtra("track");
         if (ID_EXTRA != null && !ID_EXTRA.isEmpty()) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new SearchFragment()).commit();
+            Log.d("TrackSearch", "ID: " + ID_EXTRA);
         } else {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
         }
@@ -189,7 +191,7 @@ public class Authenticated extends AppCompatActivity {
         };
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        executor.scheduleAtFixedRate(helloRunnable, 2000, 3500, TimeUnit.SECONDS);
+        executor.scheduleAtFixedRate(helloRunnable, 0, 2000, TimeUnit.SECONDS);
 
         // Instantiate RequestQueue
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
@@ -294,6 +296,7 @@ public class Authenticated extends AppCompatActivity {
                     // Handle successful response
                     Log.d("MyActivity", "Connected");
                     AUTH_TOKEN = response.getAccessToken();
+                    RemoteAPI.TOKEN = AUTH_TOKEN;
                     Log.d("MyActivity", "Token: " + AUTH_TOKEN);
                     Log.w("MyActivity", "-------------- Expires in: " + response.getExpiresIn());
                     break;

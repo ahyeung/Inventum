@@ -25,6 +25,8 @@ import java.util.concurrent.ExecutionException;
 
 public class RemoteAPI {
 
+    public static String TOKEN;
+
     public static Response.ErrorListener errorListener = new Response.ErrorListener() {
 
         @Override
@@ -45,6 +47,7 @@ public class RemoteAPI {
             }
             //do stuff with the body...
             Log.e("RemoteAPI", body);
+            //Log.d("Token", Authenticated.AUTH_TOKEN);
         }
     };
 
