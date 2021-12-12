@@ -73,30 +73,30 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         toggle.setChecked(true);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                EditText keywords = (EditText) getActivity().findViewById(R.id.searchBar);
+                EditText genres = (EditText) getActivity().findViewById(R.id.genreIncSearch);
+                Button findGenreResults = (Button) getActivity().findViewById(R.id.findGenreResults);
+                Button findAdvGenreResults = (Button) getActivity().findViewById(R.id.findAdvGenreResults);
+                Button findResults = (Button) getActivity().findViewById(R.id.findResults);
+
                 if (isChecked) {
                     Log.d("TRUE", "SONGS/ARTISTS************");
                     TextView searchTitle = (TextView) getActivity().findViewById(R.id.basicSearch);
                     searchTitle.setText("Songs/Artists");
-                    EditText keywords = (EditText) getActivity().findViewById(R.id.searchBar);
-                    EditText genres = (EditText) getActivity().findViewById(R.id.genreIncSearch);
-                    Button findGenreResults = (Button) getActivity().findViewById(R.id.findGenreResults);
-                    Button findResults = (Button) getActivity().findViewById(R.id.findResults);
-                    genres.setVisibility(View.INVISIBLE);
                     keywords.setVisibility(View.VISIBLE);
+                    genres.setVisibility(View.INVISIBLE);
                     findGenreResults.setVisibility(View.INVISIBLE);
+                    findAdvGenreResults.setVisibility(View.INVISIBLE);
                     findResults.setVisibility(View.VISIBLE);
 
                 } else {
                     Log.d("FALSE", "GENRES************");
                     TextView searchTitle = (TextView) getActivity().findViewById(R.id.basicSearch);
                     searchTitle.setText("Genres");
-                    EditText keywords = (EditText) getActivity().findViewById(R.id.searchBar);
-                    EditText genres = (EditText) getActivity().findViewById(R.id.genreIncSearch);
-                    Button findGenreResults = (Button) getActivity().findViewById(R.id.findGenreResults);
-                    Button findResults = (Button) getActivity().findViewById(R.id.findResults);
                     keywords.setVisibility(View.INVISIBLE);
                     genres.setVisibility(View.VISIBLE);
                     findGenreResults.setVisibility(View.VISIBLE);
+                    findAdvGenreResults.setVisibility(View.VISIBLE);
                     findResults.setVisibility(View.INVISIBLE);
                 }
             }

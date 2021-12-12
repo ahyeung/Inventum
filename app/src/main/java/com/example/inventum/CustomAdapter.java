@@ -175,6 +175,7 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                                                     activity.findViewById(R.id.basicSearch).setVisibility((View.INVISIBLE));
                                                     activity.findViewById(R.id.findResults).setVisibility(View.INVISIBLE);
                                                     activity.findViewById(R.id.findGenreResults).setVisibility(View.INVISIBLE);
+                                                    activity.findViewById(R.id.findAdvGenreResults).setVisibility(View.INVISIBLE);
 
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
@@ -243,13 +244,13 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                 activity.findViewById(R.id.livenessBar).setVisibility(View.VISIBLE);
                 activity.findViewById(R.id.moodTitle).setVisibility(View.VISIBLE);
                 activity.findViewById(R.id.moodBar).setVisibility(View.VISIBLE);
-                activity.findViewById(R.id.findGenreResults).setVisibility(View.INVISIBLE);
                 activity.findViewById(R.id.tracksListView).setVisibility(View.INVISIBLE);
                 activity.findViewById(R.id.searchBar).setVisibility(View.INVISIBLE);
                 activity.findViewById(R.id.toggleButton).setVisibility(View.INVISIBLE);
                 activity.findViewById(R.id.basicSearch).setVisibility(View.INVISIBLE);
                 activity.findViewById(R.id.findResults).setVisibility(View.INVISIBLE);
                 activity.findViewById(R.id.findGenreResults).setVisibility(View.INVISIBLE);
+                activity.findViewById(R.id.findAdvGenreResults).setVisibility(View.INVISIBLE);
 
             }
         });
