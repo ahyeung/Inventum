@@ -30,11 +30,8 @@ public class TrackInfo extends AppCompatActivity {
             "NO DATA", "NO DATA", "NO DATA", "NO DATA", "NO DATA", "NO DATA",
             "NO DATA", "NO DATA", "NO DATA", "NO DATA");
 
-    ScriptGroup.Binding binding;
-    Handler trackHandler;
     ImageView trackArt;
     ImageView likeStatus;
-
     TextView trackTitle;
     TextView trackArtist;
     TextView trackAlbumInfo;
@@ -78,7 +75,7 @@ public class TrackInfo extends AppCompatActivity {
 
             InputStream stream = new URL(image).openStream();
             LoadImage loadImage = new LoadImage(trackArt);
-            loadImage.execute(track.getImage_url());
+            loadImage.execute(image);
 
         } catch (Exception e) {
             trackArt.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_on"));
@@ -128,12 +125,13 @@ public class TrackInfo extends AppCompatActivity {
             }
 
             return bitmap;
+
         }
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             Log.e("bitmap", "entered on exectute, bitmap: " + bitmap.toString());
-            this.art.setImageBitmap(bitmap);
+            trackArt.setImageBitmap(bitmap);
         }
     }
 }
