@@ -54,20 +54,23 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         sharedPreferences = this.getActivity().getSharedPreferences("com.example.inventum", Context.MODE_PRIVATE);
         View v = inflater.inflate(R.layout.fragment_search, container, false);
 
-        Button findR = (Button) v.findViewById(R.id.findResults);
+        EditText keywords = (EditText) v.findViewById(R.id.searchBar);
+        EditText genres = (EditText) v.findViewById(R.id.genreIncSearch);
         Button genreButton1 = (Button) v.findViewById(R.id.genreButton1);
         Button genreButton2 = (Button) v.findViewById(R.id.genreButton2);
         Button genreButton3 = (Button) v.findViewById(R.id.genreButton3);
         Button genreButton4 = (Button) v.findViewById(R.id.genreButton4);
         Button genreButton5 = (Button) v.findViewById(R.id.genreButton5);
         Button findGenreResults = (Button) v.findViewById(R.id.findGenreResults);
-        findR.setOnClickListener(this);
+        Button findAdvGenreResults = (Button) v.findViewById(R.id.findAdvGenreResults);
+        Button findResults = (Button) v.findViewById(R.id.findResults);
         genreButton1.setOnClickListener(this);
         genreButton2.setOnClickListener(this);
         genreButton3.setOnClickListener(this);
         genreButton4.setOnClickListener(this);
         genreButton5.setOnClickListener(this);
         findGenreResults.setOnClickListener(this);
+        findResults.setOnClickListener(this);
 
         genreList.add("");
         genreList.add("");
@@ -79,21 +82,35 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         toggle.setChecked(true);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                EditText keywords = (EditText) getActivity().findViewById(R.id.searchBar);
-                EditText genres = (EditText) getActivity().findViewById(R.id.genreIncSearch);
-                Button findGenreResults = (Button) getActivity().findViewById(R.id.findGenreResults);
-                Button findAdvGenreResults = (Button) getActivity().findViewById(R.id.findAdvGenreResults);
-                Button findResults = (Button) getActivity().findViewById(R.id.findResults);
 
                 if (isChecked) {
                     Log.d("TRUE", "SONGS/ARTISTS************");
                     TextView searchTitle = (TextView) getActivity().findViewById(R.id.basicSearch);
                     searchTitle.setText("Songs/Artists");
                     keywords.setVisibility(View.VISIBLE);
+                    findResults.setVisibility(View.VISIBLE);
                     genres.setVisibility(View.INVISIBLE);
                     findGenreResults.setVisibility(View.INVISIBLE);
                     findAdvGenreResults.setVisibility(View.INVISIBLE);
-                    findResults.setVisibility(View.VISIBLE);
+
+                    // hide all selected genres
+                    genreButton1.setVisibility(View.INVISIBLE);
+                    genreButton2.setVisibility(View.INVISIBLE);
+                    genreButton3.setVisibility(View.INVISIBLE);
+                    genreButton4.setVisibility(View.INVISIBLE);
+                    genreButton5.setVisibility(View.INVISIBLE);
+
+                    // reset genreList array
+                    genreList.set(0, "");
+                    genreList.set(1, "");
+                    genreList.set(2, "");
+                    genreList.set(3, "");
+                    genreList.set(4, "");
+                    genreButton1.setText("");
+                    genreButton2.setText("");
+                    genreButton3.setText("");
+                    genreButton4.setText("");
+                    genreButton5.setText("");
 
                 } else {
                     Log.d("FALSE", "GENRES************");
