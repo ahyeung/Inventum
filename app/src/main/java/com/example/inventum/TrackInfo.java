@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-public class TrackInfo extends AppCompatActivity {
+public class TrackInfo extends AppCompatActivity implements View.OnClickListener {
 
     String [] artists = {"NONE"};
     invTrack track = new invTrack("ID", "FAILED TO LOAD", artists, "NO DATA", "NO DATA", "NO DATA", "NO DATA",
@@ -100,19 +100,40 @@ public class TrackInfo extends AppCompatActivity {
         }
     }
 
-    public void searchClicked(View view) {
-        Intent intent = new Intent(this, Authenticated.class);
-        intent.putExtra("track", track.getID());
-        startActivity(intent);
-    }
+//    public void searchClicked(View view) {
+//        Intent intent = new Intent(this, Authenticated.class);
+//        intent.putExtra("track", track.getID());
+//        startActivity(intent);
+//    }
+//
+//    public void likedClicked(View view) {
+//        if (track.getLiked() == false) {
+//            track.setLiked(true);
+//            likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_on"));
+//        } else {
+//            track.setLiked(false);
+//            likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_off"));
+//        }
+//    }
 
-    public void likedClicked(View view) {
-        if (track.getLiked() == false) {
-            track.setLiked(true);
-            likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_on"));
-        } else {
-            track.setLiked(false);
-            likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_off"));
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+
+        switch (id) {
+            case R.id.likeStatus:
+                if (track.getLiked() == false) {
+                    track.setLiked(true);
+                    likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_on"));
+                } else {
+                    track.setLiked(false);
+                    likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_off"));
+                }
+
+            case R.id.searchButton:
+                Intent intent = new Intent(this, Authenticated.class);
+                intent.putExtra("track", track.getID());
+                startActivity(intent);
         }
     }
 
