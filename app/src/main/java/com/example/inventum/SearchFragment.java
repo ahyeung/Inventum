@@ -96,7 +96,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         Log.d("TrackSearchFragment", "ID: " + Authenticated.ID_EXTRA);
         if (Authenticated.ID_EXTRA != null && !Authenticated.ID_EXTRA.isEmpty()) {
             trackSearch(Authenticated.ID_EXTRA);
-            //Authenticated.ID_EXTRA = "";
+            Authenticated.ID_EXTRA = "";
         }
 
         return v;
