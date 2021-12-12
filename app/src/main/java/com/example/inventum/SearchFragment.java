@@ -88,11 +88,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
 
     public void onClick(View view) {
-
-        TextView tV1 = (TextView) getView().findViewById(R.id.genreInc);
         EditText eV1 = (EditText) getView().findViewById(R.id.searchBar);
-        EditText eV2 = (EditText) getView().findViewById(R.id.genreIncSearch);
-
         switch (view.getId()) {
             case R.id.findResults:
                 String searchStr = eV1.getText().toString();
@@ -112,14 +108,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    //MARKET = jsonObject.getString("country");
                     Log.d("Search", response.substring(0, 500));
 
                     JSONArray artists = jsonObject.getJSONObject("artists").getJSONArray("items");
                     JSONArray tracks = jsonObject.getJSONObject("tracks").getJSONArray("items");
-
-                    //ArrayList<String> itemsList = new ArrayList<>();
-                    //ArrayList<String> idList = new ArrayList<>();
 
                     for (int i = 0; i < tracks.length(); i ++) {
                         JSONObject trackObject = tracks.getJSONObject(i);
@@ -150,9 +142,5 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         StringRequest stringRequest =
                 RemoteAPI.search(listener, Authenticated.AUTH_TOKEN, s, MARKET, "track,artist");
         queue.add(stringRequest);
-    }
-
-    public static void simpleSearch(View v) {
-
     }
 }
