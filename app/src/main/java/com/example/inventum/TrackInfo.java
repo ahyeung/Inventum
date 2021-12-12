@@ -113,7 +113,7 @@ public class TrackInfo extends AppCompatActivity {
         ImageView art;
 
         public LoadImage(ImageView trackArt) {
-            art = trackArt;
+            this.art = trackArt;
 
         }
 
@@ -126,6 +126,7 @@ public class TrackInfo extends AppCompatActivity {
                 InputStream stream = new URL(link).openStream();
                 bitmap = BitmapFactory.decodeStream(stream);
             } catch (IOException e) {
+                Log.e("message", "FAILED TO BUILD BITMAP FROM INPUT STREAM");
                 e.printStackTrace();
             }
 
@@ -134,7 +135,7 @@ public class TrackInfo extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
-            art.setImageBitmap(bitmap);
+            this.art.setImageBitmap(bitmap);
         }
     }
 }
