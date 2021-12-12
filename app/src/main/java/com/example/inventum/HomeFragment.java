@@ -1,5 +1,7 @@
 package com.example.inventum;
 
+import static com.example.inventum.Authenticated.trackList;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -28,7 +30,6 @@ import java.util.concurrent.ExecutionException;
 public class HomeFragment extends Fragment {
 
     JSONObject TOP_TRACKS;
-    public static ArrayList<invTrack> trackList;
 
     public HomeFragment() {
         // Required empty public constructor

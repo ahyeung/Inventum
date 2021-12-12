@@ -1,5 +1,6 @@
 package com.example.inventum;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -28,10 +29,12 @@ import java.util.ArrayList;
 public class CustomAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<String> list;
     private Context context;
+    private Activity activity;
 
-    public CustomAdapter(ArrayList<String> list, Context context) {
+    public CustomAdapter(ArrayList<String> list, Context context, Activity activity) {
         this.list = list;
         this.context = context;
+        this.activity = activity;
     }
 
     @Override
@@ -67,6 +70,7 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
             public void onClick(View v) {
                 Log.d("Search", SearchFragment.idList.get((Integer)v.getTag()));
 
+                //SearchFragment.simpleSearch(v);
                 RequestQueue queue = Volley.newRequestQueue(context.getApplicationContext());
 
                 Response.Listener<String> search_listener = new Response.Listener<String>() {
@@ -75,10 +79,10 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                         // Display the first 500 characters of the response string.
                         Log.d("Authenticated", response.substring(0,50));
                         try {
-                            TOP_TRACKS = new JSONObject(response);
-                            Log.d("Home", TOP_TRACKS.toString());
+                            JSONObject tracksObject = new JSONObject(response);
+                            Log.d("Home", tracksObject.toString());
 
-                            String trackIDs = RemoteAPI.parseTopTracksResponse(TOP_TRACKS);
+                            String trackIDs = RemoteAPI.parseRecommendationsResult(tracksObject);
                             Log.d("Home", trackIDs);
 
                             final JSONObject[] tracks = {null};
@@ -138,16 +142,16 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                                                         ));
                                                     }
 
-                                                    trackList = trackArrayList;
+                                                    Authenticated.trackList = trackArrayList;
 
                                                     ArrayList<String> displayTracks = new ArrayList<>();
-                                                    for (invTrack track : trackList) {
+                                                    for (invTrack track : Authenticated.trackList) {
                                                         displayTracks.add(String.format("Title: %s\nArtist: %s Album: %s", track.getTitle(), track.getTrackArtist()[0], track.getAlbum()));
                                                     }
 
                                                     // Use ListView to display notes
-                                                    ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, displayTracks);
-                                                    ListView listView = (ListView) findViewById(R.id.tracksListView);
+                                                    ArrayAdapter adapter = new ArrayAdapter(context.getApplicationContext(), android.R.layout.simple_list_item_1, displayTracks);
+                                                    ListView listView = (ListView) activity.findViewById(R.id.resultsList);
                                                     listView.setAdapter(adapter);
 
                                                     // Add onItemClickListener
@@ -156,12 +160,17 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                                                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                                             Log.d("ItemClick", Integer.toString(position));
                                                             Log.d("ItemClick", Integer.toString(((int)id)));
-                                                            invTrack trackExtra = trackList.get(position);
+                                                            invTrack trackExtra = Authenticated.trackList.get(position);
                                                             Intent intent = new Intent(context.getApplicationContext(), TrackInfo.class);
+                                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                             intent.putExtra("trackPosition", position);
-                                                            startActivity(intent);
+                                                            context.startActivity(intent);
                                                         }
                                                     });
+
+                                                    activity.findViewById(R.id.resultsList).setVisibility(View.VISIBLE);
+                                                    activity.findViewById(R.id.tracksListView).setVisibility((View.INVISIBLE));
+
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
                                                 }
