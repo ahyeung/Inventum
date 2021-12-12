@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -119,11 +121,13 @@ public class Authenticated extends AppCompatActivity {
         queue.add(stringRequest);
 
         ID_EXTRA = getIntent().getStringExtra("track");
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
+
         if (ID_EXTRA != null && !ID_EXTRA.isEmpty()) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, new SearchFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new SearchFragment()).commitAllowingStateLoss();
+            getSupportFragmentManager().executePendingTransactions();
             Log.d("TrackSearch", "ID: " + ID_EXTRA);
-        } else {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
         }
     }
 
@@ -192,7 +196,7 @@ public class Authenticated extends AppCompatActivity {
         };
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        executor.scheduleAtFixedRate(helloRunnable, 0, 2000, TimeUnit.SECONDS);
+        executor.scheduleAtFixedRate(helloRunnable, 2000, 2000, TimeUnit.SECONDS);
 
         // Instantiate RequestQueue
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
@@ -248,14 +252,15 @@ public class Authenticated extends AppCompatActivity {
             }
         };
 
+        SharedPreferences sharedPreferences = getSharedPreferences("com.example.inventum", Context.MODE_PRIVATE);
         // Get the requested track
-        StringRequest stringRequest = RemoteAPI.getTrack(listener, AUTH_TOKEN, trackID, market);
+        StringRequest stringRequest = RemoteAPI.getTrack(listener, sharedPreferences.getString("token", AUTH_TOKEN), trackID, market);
 
         // Get track features
-        StringRequest stringRequest1 = RemoteAPI.getTrackAudioFeatures(listener1, AUTH_TOKEN, trackID);
+        StringRequest stringRequest1 = RemoteAPI.getTrackAudioFeatures(listener1, sharedPreferences.getString("token", AUTH_TOKEN), trackID);
 
         // Get multiple tracks
-        StringRequest stringRequest2 = RemoteAPI.getTracks(listener2, AUTH_TOKEN, trackIDs, MARKET);
+        StringRequest stringRequest2 = RemoteAPI.getTracks(listener2, sharedPreferences.getString("token", AUTH_TOKEN), trackIDs, MARKET);
 
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
@@ -298,6 +303,8 @@ public class Authenticated extends AppCompatActivity {
                     Log.d("MyActivity", "Connected");
                     AUTH_TOKEN = response.getAccessToken();
                     RemoteAPI.TOKEN = AUTH_TOKEN;
+                    SharedPreferences sharedPreferences = getSharedPreferences("com.example.inventum", Context.MODE_PRIVATE);
+                    sharedPreferences.edit().putString("token", AUTH_TOKEN).apply();
                     Log.d("MyActivity", "Token: " + AUTH_TOKEN);
                     Log.w("MyActivity", "-------------- Expires in: " + response.getExpiresIn());
                     break;

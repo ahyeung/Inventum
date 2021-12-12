@@ -2,7 +2,9 @@ package com.example.inventum;
 
 import static com.example.inventum.Authenticated.trackList;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -30,7 +32,7 @@ import java.util.concurrent.ExecutionException;
 public class HomeFragment extends Fragment {
 
     JSONObject TOP_TRACKS;
-
+    SharedPreferences sharedPreferences;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -40,6 +42,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        sharedPreferences = this.getActivity().getSharedPreferences("com.example.inventum", Context.MODE_PRIVATE);
 
         Response.Listener<String> listener = new Response.Listener<String>() {
             @Override
@@ -141,7 +144,7 @@ public class HomeFragment extends Fragment {
                                 };
 
                                 RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-                                StringRequest expandedRequest = RemoteAPI.getTracksAudioFeatures(expanded_listener, Authenticated.AUTH_TOKEN, trackIDs);
+                                StringRequest expandedRequest = RemoteAPI.getTracksAudioFeatures(expanded_listener, sharedPreferences.getString("token", Authenticated.AUTH_TOKEN), trackIDs);
                                 queue.add(expandedRequest);
 
 
@@ -153,8 +156,8 @@ public class HomeFragment extends Fragment {
                     };
 
                     RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-                    StringRequest trackRequest = RemoteAPI.getTracks(track_listener, Authenticated.AUTH_TOKEN, trackIDs, Authenticated.MARKET);
-                    StringRequest tracks_response = RemoteAPI.getTracks(track_listener, Authenticated.AUTH_TOKEN, trackIDs, Authenticated.MARKET);
+                    StringRequest trackRequest = RemoteAPI.getTracks(track_listener, sharedPreferences.getString("token", Authenticated.AUTH_TOKEN), trackIDs, Authenticated.MARKET);
+                    StringRequest tracks_response = RemoteAPI.getTracks(track_listener, sharedPreferences.getString("token", Authenticated.AUTH_TOKEN), trackIDs, Authenticated.MARKET);
                     queue.add(trackRequest);
 
                 } catch (JSONException e) {
@@ -163,7 +166,7 @@ public class HomeFragment extends Fragment {
             }
         };
 
-        StringRequest stringRequest = RemoteAPI.getGlobalTopSongs(listener, Authenticated.AUTH_TOKEN, Authenticated.MARKET);
+        StringRequest stringRequest = RemoteAPI.getGlobalTopSongs(listener, sharedPreferences.getString("token", Authenticated.AUTH_TOKEN), Authenticated.MARKET);
         queue.add(stringRequest);
 
 

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -27,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String CLIENT_ID = "fbbdb761618c4c6db1d1be2f596a6560";
     private static final String REDIRECT_URI = "http://localhost:8888/callback";
-    private SpotifyAppRemote mSpotifyAppRemote;
-    private NavigationBarView bottomNavigationView;
 
     // Request code will be used to verify if result comes from the login activity. Can be set to any integer.
     private static final int REQUEST_CODE = 1337;
@@ -40,36 +39,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void authenticateUser(View v) {
-        /*
-            ConnectionParams connectionParams =
-                    new ConnectionParams.Builder(CLIENT_ID)
-                            .setRedirectUri(REDIRECT_URI)
-                            .showAuthView(true)
-                            .build();
-
-            SpotifyAppRemote.connect(this, connectionParams,
-
-                    new Connector.ConnectionListener() {
-
-                        public void onConnected(SpotifyAppRemote spotifyAppRemote) {
-                            mSpotifyAppRemote = spotifyAppRemote;
-                            Log.d("MainActivity", "Connected! Yay!");
-
-                            // Now you can start interacting with App Remote
-                            //connected();
-                            Intent intent = new Intent(MainActivity.this, Authenticated.class);
-                            startActivity(intent);
-
-                        }
-
-                        public void onFailure(Throwable throwable) {
-                            Log.e("MyActivity", throwable.getMessage(), throwable);
-
-                            // Something went wrong when attempting to connect! Handle errors here
-                        }
-                    });
-         */
-
         AuthorizationRequest.Builder builder =
                 new AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI);
 
@@ -93,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
                     // Handle successful response
                     Log.d("MyActivity", "Connected");
                     AUTH_TOKEN = response.getAccessToken();
-                    Log.d("MyActivity", "Token: " + AUTH_TOKEN);
-                    Log.w("MyActivity", "-------------- Expires in: " + response.getExpiresIn());
+                    SharedPreferences sharedPreferences = getSharedPreferences("com.example.inventum", Context.MODE_PRIVATE);
+                    sharedPreferences.edit().putString("token", AUTH_TOKEN).apply();
                     Intent connect = new Intent(MainActivity.this, Authenticated.class);
                     connect.putExtra("token", AUTH_TOKEN);
                     startActivity(connect);
