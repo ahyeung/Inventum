@@ -67,7 +67,6 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
         // Testing an added click listener
         likeStatus.setOnClickListener(this);
 
-
         //Get meta data from invTrack track
         //Glide.with(this).load(track.getImage_url()).into(trackArt);
         try {
@@ -104,22 +103,6 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
             likeStatus.setText("NOT LIKED");
         }
     }
-
-//    public void searchClicked(View view) {
-//        Intent intent = new Intent(this, Authenticated.class);
-//        intent.putExtra("track", track.getID());
-//        startActivity(intent);
-//    }
-//
-//    public void likedClicked(View view) {
-//        if (track.getLiked() == false) {
-//            track.setLiked(true);
-//            likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_on"));
-//        } else {
-//            track.setLiked(false);
-//            likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_off"));
-//        }
-//    }
 
     @Override
     public void onClick(View view) {
