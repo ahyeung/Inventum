@@ -4,7 +4,9 @@ import androidx.annotation.BinderThread;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.content.AsyncTaskLoader;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -113,6 +115,19 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
                 if (track.getLiked() == false) {
                     track.setLiked(true);
                     likeStatus.setText("LIKED");
+                    // Add id to giant string from old preferences and update
+                    String track_id = track.getID();
+                    SharedPreferences sharedPreferences = getSharedPreferences("com.example.inventum", Context.MODE_PRIVATE);
+                    try{
+                        //String likedList = sharedPreferences.getString("likedArray", ).toString();
+
+
+                        //sharedPreferences.edit().putString("likedArray", likedList).apply();
+                    } catch(Exception e){
+
+                    }
+
+                    // sharedPreferences.edit().putString("token", AUTH_TOKEN).apply();
                 } else {
                     track.setLiked(false);
                     likeStatus.setText("NOT LIKED");
