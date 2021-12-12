@@ -16,6 +16,7 @@ import android.renderscript.ScriptGroup;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputBinding;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,7 +32,7 @@ public class TrackInfo extends AppCompatActivity {
             "NO DATA", "NO DATA", "NO DATA", "NO DATA");
 
     ImageView trackArt;
-    ImageView likeStatus;
+    ImageButton likeStatus;
     TextView trackTitle;
     TextView trackArtist;
     TextView trackAlbumInfo;
