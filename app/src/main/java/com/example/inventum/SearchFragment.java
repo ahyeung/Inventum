@@ -94,6 +94,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         autocomplete.setAdapter(adapter);
         autocomplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+            // Generate button for every genre, no duplicates
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Button genreButton1 = (Button) getActivity().findViewById(R.id.genreButton1);
@@ -103,6 +104,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 Button genreButton5 = (Button) getActivity().findViewById(R.id.genreButton5);
                 EditText searchBar = (EditText) getActivity().findViewById(R.id.genreIncSearch);
 
+                // fill button if empty with selected genre
                 if (genreButton1.getText().equals("")) {
                     genreButton1.setText(searchBar.getText());
                     genreButton1.setVisibility(View.VISIBLE);
