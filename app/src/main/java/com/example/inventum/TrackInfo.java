@@ -146,6 +146,9 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
                 intent.putExtra("track", track.getID());
                 startActivity(intent);
                 break;
+
+            case R.id.backButton:
+                super.onBackPressed();
         }
     }
 
