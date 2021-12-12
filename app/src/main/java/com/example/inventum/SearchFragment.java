@@ -38,6 +38,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     static String MARKET = "";
     public static ArrayList<String> idList = new ArrayList<>();
     public static ArrayList<String> itemsList = new ArrayList<>();
+    public static ArrayList<String> genreList = new ArrayList<>();
 
     public SearchFragment() {
         // Required empty public constructor
@@ -104,24 +105,59 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
                 if (genreButton1.getText().equals("")) {
                     genreButton1.setText(searchBar.getText());
-                    searchBar.setText("");
                     genreButton1.setVisibility(View.VISIBLE);
+                    SearchFragment.genreList.add(searchBar.getText().toString());
+                    searchBar.setText("");
                 } else if (genreButton2.getText().equals("")) {
                     genreButton2.setText(searchBar.getText());
-                    searchBar.setText("");
-                    genreButton2.setVisibility(View.VISIBLE);
+
+                    if (genreButton2.getText().toString().equals(genreButton1.getText().toString())) {
+                        genreButton2.setText("");
+                    } else {
+                        genreButton2.setVisibility(View.VISIBLE);
+                        SearchFragment.genreList.add(searchBar.getText().toString());
+                        searchBar.setText("");
+                    }
                 } else if (genreButton3.getText().equals("")) {
                     genreButton3.setText(searchBar.getText());
-                    searchBar.setText("");
-                    genreButton3.setVisibility(View.VISIBLE);
+
+                    if (genreButton3.getText().toString().equals(genreButton1.getText().toString()) ||
+                            genreButton3.getText().toString().equals(genreButton2.getText().toString())) {
+                        genreButton3.setText("");
+                    } else {
+                        genreButton3.setVisibility(View.VISIBLE);
+                        SearchFragment.genreList.add(searchBar.getText().toString());
+                        searchBar.setText("");
+                    }
                 } else if (genreButton4.getText().equals("")) {
                     genreButton4.setText(searchBar.getText());
-                    searchBar.setText("");
-                    genreButton4.setVisibility(View.VISIBLE);
+
+                    if (genreButton4.getText().toString().equals(genreButton1.getText().toString()) ||
+                            genreButton4.getText().toString().equals(genreButton2.getText().toString()) ||
+                            genreButton4.getText().toString().equals(genreButton3.getText().toString())) {
+                        genreButton4.setText("");
+                    } else {
+                        genreButton4.setVisibility(View.VISIBLE);
+                        SearchFragment.genreList.add(searchBar.getText().toString());
+                        searchBar.setText("");
+                    }
                 } else if (genreButton5.getText().equals("")) {
                     genreButton5.setText(searchBar.getText());
-                    searchBar.setText("");
-                    genreButton5.setVisibility(View.VISIBLE);
+
+                    if (genreButton5.getText().toString().equals(genreButton1.getText().toString()) ||
+                            genreButton5.getText().toString().equals(genreButton2.getText().toString()) ||
+                            genreButton5.getText().toString().equals(genreButton3.getText().toString()) ||
+                            genreButton5.getText().toString().equals(genreButton4.getText().toString())) {
+                        genreButton5.setText("");
+                    } else {
+                        genreButton5.setVisibility(View.VISIBLE);
+                        SearchFragment.genreList.add(searchBar.getText().toString());
+                        searchBar.setText("");
+                    }
+                }
+
+                for(int i = 0; i < SearchFragment.genreList.size(); i++) {
+                    Log.d("genre list", "Genre List: " + i + SearchFragment.genreList.get(i));
                 }
             }
         });
