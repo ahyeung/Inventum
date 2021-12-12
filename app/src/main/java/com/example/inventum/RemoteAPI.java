@@ -229,7 +229,7 @@ public class RemoteAPI {
         if (target_loudness >= 0 && target_loudness <= 1) {
             url = url + "&target_loudness=" + target_loudness;
         }
-        if (target_popularity >= 0 && target_popularity <= 1) {
+        if (target_popularity >= 0 && target_popularity <= 100) {
             url = url + "&target_popularity=" + target_popularity;
         }
         if (target_speechiness >= 0 && target_speechiness <= 1) {
