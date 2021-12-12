@@ -51,7 +51,7 @@ public class TrackInfo extends AppCompatActivity {
         track = Authenticated.trackList.get(getIntent().getIntExtra("trackPosition", 0));
 
         trackArt = (ImageView) findViewById(R.id.trackArtView);
-        likeStatus = (ImageView) findViewById(R.id.likeStatus);
+        likeStatus = (ImageButton) findViewById(R.id.likeStatus);
 
         trackTitle = (TextView) findViewById(R.id.trackName);
         trackArtist = (TextView) findViewById(R.id.artistName);
