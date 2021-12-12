@@ -129,11 +129,13 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
                     track.setLiked(false);
                     likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_off"));
                 }
+                break;
 
             case R.id.searchButton:
                 Intent intent = new Intent(this, Authenticated.class);
                 intent.putExtra("track", track.getID());
                 startActivity(intent);
+                break;
         }
     }
 
