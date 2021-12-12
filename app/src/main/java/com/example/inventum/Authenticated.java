@@ -263,7 +263,7 @@ public class Authenticated extends AppCompatActivity {
         queue.add(stringRequest2);
     }
 
-    private NavigationBarView.OnItemSelectedListener bottomnavFunction = new NavigationBarView.OnItemSelectedListener() {
+    final private NavigationBarView.OnItemSelectedListener bottomnavFunction = new NavigationBarView.OnItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(MenuItem item) {
             Fragment fragment = null;

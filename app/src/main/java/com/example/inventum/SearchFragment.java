@@ -49,8 +49,26 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_search, container, false);
+
         Button findR = (Button) v.findViewById(R.id.findResults);
+        Button genreButton1 = (Button) v.findViewById(R.id.genreButton1);
+        Button genreButton2 = (Button) v.findViewById(R.id.genreButton2);
+        Button genreButton3 = (Button) v.findViewById(R.id.genreButton3);
+        Button genreButton4 = (Button) v.findViewById(R.id.genreButton4);
+        Button genreButton5 = (Button) v.findViewById(R.id.genreButton5);
         findR.setOnClickListener(this);
+        genreButton1.setOnClickListener(this);
+        genreButton2.setOnClickListener(this);
+        genreButton3.setOnClickListener(this);
+        genreButton4.setOnClickListener(this);
+        genreButton5.setOnClickListener(this);
+
+        genreList.add("");
+        genreList.add("");
+        genreList.add("");
+        genreList.add("");
+        genreList.add("");
+
         ToggleButton toggle = (ToggleButton) v.findViewById(R.id.toggleButton);
         toggle.setChecked(true);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -94,21 +112,16 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         autocomplete.setAdapter(adapter);
         autocomplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            // Generate button for every genre, no duplicates
+            // Generate button for every genre selected, no duplicates
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Button genreButton1 = (Button) getActivity().findViewById(R.id.genreButton1);
-                Button genreButton2 = (Button) getActivity().findViewById(R.id.genreButton2);
-                Button genreButton3 = (Button) getActivity().findViewById(R.id.genreButton3);
-                Button genreButton4 = (Button) getActivity().findViewById(R.id.genreButton4);
-                Button genreButton5 = (Button) getActivity().findViewById(R.id.genreButton5);
                 EditText searchBar = (EditText) getActivity().findViewById(R.id.genreIncSearch);
 
                 // fill button if empty with selected genre
                 if (genreButton1.getText().equals("")) {
                     genreButton1.setText(searchBar.getText());
                     genreButton1.setVisibility(View.VISIBLE);
-                    SearchFragment.genreList.add(searchBar.getText().toString());
+                    SearchFragment.genreList.set(0, searchBar.getText().toString());
                     searchBar.setText("");
                 } else if (genreButton2.getText().equals("")) {
                     genreButton2.setText(searchBar.getText());
@@ -117,7 +130,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                         genreButton2.setText("");
                     } else {
                         genreButton2.setVisibility(View.VISIBLE);
-                        SearchFragment.genreList.add(searchBar.getText().toString());
+                        SearchFragment.genreList.set(1, searchBar.getText().toString());
                         searchBar.setText("");
                     }
                 } else if (genreButton3.getText().equals("")) {
@@ -128,7 +141,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                         genreButton3.setText("");
                     } else {
                         genreButton3.setVisibility(View.VISIBLE);
-                        SearchFragment.genreList.add(searchBar.getText().toString());
+                        SearchFragment.genreList.set(2, searchBar.getText().toString());
                         searchBar.setText("");
                     }
                 } else if (genreButton4.getText().equals("")) {
@@ -140,7 +153,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                         genreButton4.setText("");
                     } else {
                         genreButton4.setVisibility(View.VISIBLE);
-                        SearchFragment.genreList.add(searchBar.getText().toString());
+                        SearchFragment.genreList.set(3, searchBar.getText().toString());
                         searchBar.setText("");
                     }
                 } else if (genreButton5.getText().equals("")) {
@@ -153,7 +166,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                         genreButton5.setText("");
                     } else {
                         genreButton5.setVisibility(View.VISIBLE);
-                        SearchFragment.genreList.add(searchBar.getText().toString());
+                        SearchFragment.genreList.set(4, searchBar.getText().toString());
                         searchBar.setText("");
                     }
                 }
@@ -180,6 +193,71 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
             case R.id.findResults:
                 String searchStr = eV1.getText().toString();
                 initialSearch(searchStr);
+                break;
+            case R.id.genreButton1:
+                Log.d("genreButton1", "REMOVE BUTTON 1");
+
+                Button genreButton1 = (Button) getActivity().findViewById(R.id.genreButton1);
+                genreButton1.setText("");
+                genreList.set(0, "");
+                genreButton1.setVisibility(View.INVISIBLE);
+
+                // test arraylist
+                for(int i = 0; i < SearchFragment.genreList.size(); i++) {
+                    Log.d("Genre List Array", i + SearchFragment.genreList.get(i));
+                }
+                break;
+            case R.id.genreButton2:
+                Log.d("genreButton2", "REMOVE BUTTON 2");
+
+                Button genreButton2 = (Button) getActivity().findViewById(R.id.genreButton2);
+                genreButton2.setText("");
+                genreList.set(1, "");
+                genreButton2.setVisibility(View.INVISIBLE);
+
+                // test arraylist
+                for(int i = 0; i < SearchFragment.genreList.size(); i++) {
+                    Log.d("Genre List Array", i + SearchFragment.genreList.get(i));
+                }
+                break;
+            case R.id.genreButton3:
+                Log.d("genreButton3", "REMOVE BUTTON 3");
+
+                Button genreButton3 = (Button) getActivity().findViewById(R.id.genreButton3);
+                genreButton3.setText("");
+                genreList.set(2, "");
+                genreButton3.setVisibility(View.INVISIBLE);
+
+                // test arraylist
+                for(int i = 0; i < SearchFragment.genreList.size(); i++) {
+                    Log.d("Genre List Array", i + SearchFragment.genreList.get(i));
+                }
+                break;
+            case R.id.genreButton4:
+                Log.d("genreButton4", "REMOVE BUTTON 4");
+
+                Button genreButton4 = (Button) getActivity().findViewById(R.id.genreButton4);
+                genreButton4.setText("");
+                genreList.set(3, "");
+                genreButton4.setVisibility(View.INVISIBLE);
+
+                // test arraylist
+                for(int i = 0; i < SearchFragment.genreList.size(); i++) {
+                    Log.d("Genre List Array", i + SearchFragment.genreList.get(i));
+                }
+                break;
+            case R.id.genreButton5:
+                Log.d("genreButton5", "REMOVE BUTTON 5");
+
+                Button genreButton5 = (Button) getActivity().findViewById(R.id.genreButton5);
+                genreButton5.setText("");
+                genreList.set(4, "");
+                genreButton5.setVisibility(View.INVISIBLE);
+
+                // test arraylist
+                for(int i = 0; i < SearchFragment.genreList.size(); i++) {
+                    Log.d("Genre List Array", i + SearchFragment.genreList.get(i));
+                }
                 break;
             default:
                 break;
