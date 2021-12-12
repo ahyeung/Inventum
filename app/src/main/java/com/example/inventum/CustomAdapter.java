@@ -169,7 +169,6 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                                                     });
 
                                                     activity.findViewById(R.id.resultsList).setVisibility(View.VISIBLE);
-                                                    activity.findViewById(R.id.advSearchResult).setVisibility(View.VISIBLE);
                                                     activity.findViewById(R.id.tracksListView).setVisibility((View.INVISIBLE));
                                                     activity.findViewById(R.id.searchBar).setVisibility((View.INVISIBLE));
                                                     activity.findViewById(R.id.toggleButton).setVisibility((View.INVISIBLE));
@@ -219,7 +218,7 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                 String info = SearchFragment.itemsList.get((Integer)v.getTag());
                 TextView name = (TextView) activity.findViewById(R.id.advSearchResult);
                 name.setText("Based on " + info);
-                activity.findViewById(R.id.advSearchResult).setVisibility((View.VISIBLE));
+                activity.findViewById(R.id.advSearchResult).setVisibility(View.VISIBLE);
             }
         });
 
@@ -233,11 +232,11 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
 
                 TextView name = (TextView) activity.findViewById(R.id.advSearchResult);
                 name.setText("Based on: " + info);
-                activity.findViewById(R.id.advSearchResult).setVisibility((View.VISIBLE));
-                activity.findViewById(R.id.tracksListView).setVisibility((View.INVISIBLE));
-                activity.findViewById(R.id.searchBar).setVisibility((View.INVISIBLE));
-                activity.findViewById(R.id.toggleButton).setVisibility((View.INVISIBLE));
-                activity.findViewById(R.id.basicSearch).setVisibility((View.INVISIBLE));
+                activity.findViewById(R.id.advSearchResult).setVisibility(View.VISIBLE);
+                activity.findViewById(R.id.tracksListView).setVisibility(View.INVISIBLE);
+                activity.findViewById(R.id.searchBar).setVisibility(View.INVISIBLE);
+                activity.findViewById(R.id.toggleButton).setVisibility(View.INVISIBLE);
+                activity.findViewById(R.id.basicSearch).setVisibility(View.INVISIBLE);
 
             }
         });
