@@ -148,7 +148,7 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
                 break;
 
             case R.id.backButton:
-                super.onBackPressed();
+                finish();
         }
     }
 
