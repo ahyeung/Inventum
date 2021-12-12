@@ -34,6 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -50,9 +51,11 @@ public class Authenticated extends AppCompatActivity {
     static String AUTH_TOKEN = "";
     private static final int REQUEST_CODE = 1337;
     static String MARKET = "";
-    static String ID_EXTRA = "";
+    public static String ID_EXTRA = "";
 
     static String[] genres;
+    public static ArrayList<invTrack> trackList;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

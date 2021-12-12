@@ -1,5 +1,7 @@
 package com.example.inventum;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -133,7 +136,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
                     // use ListView to display results
                     ListView listView = (ListView) getView().findViewById(R.id.tracksListView);
-                    listView.setAdapter(new CustomAdapter(itemsList, getActivity().getApplicationContext()));
+                    listView.setAdapter(new CustomAdapter(itemsList, getActivity().getApplicationContext(), getActivity()));
 
                     getView().findViewById(R.id.tracksListView).setVisibility(View.VISIBLE);
 
@@ -146,5 +149,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         StringRequest stringRequest =
                 RemoteAPI.search(listener, Authenticated.AUTH_TOKEN, s, MARKET, "track,artist");
         queue.add(stringRequest);
+    }
+
+    public static void simpleSearch(View v) {
+
     }
 }

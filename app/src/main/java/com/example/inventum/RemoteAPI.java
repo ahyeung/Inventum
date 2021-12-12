@@ -326,6 +326,26 @@ public class RemoteAPI {
         return trackIDs;
     }
 
+    public static String parseRecommendationsResult(JSONObject response) {
+        String trackIDs = "";
+
+        try {
+            JSONArray array = response.getJSONArray("tracks");
+            for (int i = 1; i < array.length(); i++) {
+                JSONObject object = array.getJSONObject(i);
+                trackIDs = trackIDs + object.getString("id") + ",";
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if (!trackIDs.isEmpty()) {
+            return trackIDs.substring(0, trackIDs.length() - 1);
+        }
+        return trackIDs;
+    }
+
     public static ArrayList<invTrack> getTrackList(String token, String trackIDs, String market, Context applicationContext) throws JSONException, ExecutionException, InterruptedException {
         final JSONObject[] tracks = {null};
         final JSONObject[] tracks_expanded = {null};

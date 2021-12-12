@@ -38,7 +38,7 @@ public class TrackInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_info);
 
-        track = HomeFragment.trackList.get(getIntent().getIntExtra("trackPosition", 0));
+        track = Authenticated.trackList.get(getIntent().getIntExtra("trackPosition", 0));
 
         trackArt = (ImageView) findViewById(R.id.trackArtView);
         likeStatus = (ImageView) findViewById(R.id.likeStatus);
