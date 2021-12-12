@@ -111,7 +111,6 @@ public class TrackInfo extends AppCompatActivity {
 
     private class LoadImage extends AsyncTask <String, Void, Bitmap> {
         ImageView art;
-        Bitmap bitmap;
 
         public LoadImage(ImageView trackArt) {
             this.art = trackArt;
@@ -126,19 +125,19 @@ public class TrackInfo extends AppCompatActivity {
             try {
                 InputStream stream = new URL(link).openStream();
                 bitmap = BitmapFactory.decodeStream(stream);
-                Log.e("message", "MUCH SUCCESS");
+                Log.e("bitmap", "FAILED TO BUILD BITMAP FROM INPUT STREAM");
             } catch (IOException e) {
-                Log.e("message", "FAILED TO BUILD BITMAP FROM INPUT STREAM");
+                Log.e("bitmap", "FAILED TO BUILD BITMAP FROM INPUT STREAM");
                 e.printStackTrace();
             }
 
-            this.bitmap = bitmap;
             return bitmap;
         }
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
-            this.art.setImageBitmap(this.bitmap);
+            Log.e("bitmap", "entered on exectute, bitmap: " + bitmap.toString());
+            this.art.setImageBitmap(bitmap);
         }
     }
 }
