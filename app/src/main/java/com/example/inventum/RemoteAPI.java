@@ -136,6 +136,26 @@ public class RemoteAPI {
         };
     }
 
+    public static StringRequest getUserTracks(Response.Listener<String> listener, String token) {
+
+        String url = "https://api.spotify.com/v1/me/top/tracks?time_rante=short_term&limit=20";
+
+        // Request a string response from the provided URL.
+        return new StringRequest(Request.Method.GET, url,
+                listener, errorListener) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String auth = "Bearer " + token;
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization:", auth);
+                params.put("Host", "api.spotify.com");
+
+                return params;
+            }
+        };
+    }
+
     public static StringRequest getUser(Response.Listener<String> listener, String token) {
 
         String url = "https://api.spotify.com/v1/me/";
@@ -320,6 +340,25 @@ public class RemoteAPI {
                 trackIDs = trackIDs + object.getJSONObject("track").getString("id") + ",";
             }
 
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if (!trackIDs.isEmpty()) {
+            return trackIDs.substring(0, trackIDs.length() - 1);
+        }
+        return trackIDs;
+    }
+
+    public static String parseUserTracksResponse(JSONObject response) {
+        String trackIDs = "";
+
+        try {
+            JSONArray array = response.getJSONArray("items");
+            for (int i = 1; i < array.length(); i++) {
+                JSONObject object = array.getJSONObject(i);
+                trackIDs = trackIDs + object.getString("id");
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
