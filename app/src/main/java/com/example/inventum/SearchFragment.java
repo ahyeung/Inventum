@@ -102,6 +102,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     public void initialSearch(String s) {
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
+        itemsList = new ArrayList<>();
+        idList = new ArrayList<>();
+
         // Populate ListView
         Response.Listener<String> listener = new Response.Listener<String>() {
             @Override
