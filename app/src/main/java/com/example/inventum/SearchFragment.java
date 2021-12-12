@@ -214,47 +214,36 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 initialSearch(searchStr);
                 break;
             case R.id.genreButton1:
-                Log.d("genreButton1", "REMOVE BUTTON 1");
-
                 Button genreButton1 = (Button) getActivity().findViewById(R.id.genreButton1);
                 genreButton1.setText("");
                 genreList.set(0, "");
                 genreButton1.setVisibility(View.INVISIBLE);
                 break;
             case R.id.genreButton2:
-                Log.d("genreButton2", "REMOVE BUTTON 2");
-
                 Button genreButton2 = (Button) getActivity().findViewById(R.id.genreButton2);
                 genreButton2.setText("");
                 genreList.set(1, "");
                 genreButton2.setVisibility(View.INVISIBLE);
                 break;
             case R.id.genreButton3:
-                Log.d("genreButton3", "REMOVE BUTTON 3");
-
                 Button genreButton3 = (Button) getActivity().findViewById(R.id.genreButton3);
                 genreButton3.setText("");
                 genreList.set(2, "");
                 genreButton3.setVisibility(View.INVISIBLE);
                 break;
             case R.id.genreButton4:
-                Log.d("genreButton4", "REMOVE BUTTON 4");
-
                 Button genreButton4 = (Button) getActivity().findViewById(R.id.genreButton4);
                 genreButton4.setText("");
                 genreList.set(3, "");
                 genreButton4.setVisibility(View.INVISIBLE);
                 break;
             case R.id.genreButton5:
-                Log.d("genreButton5", "REMOVE BUTTON 5");
-
                 Button genreButton5 = (Button) getActivity().findViewById(R.id.genreButton5);
                 genreButton5.setText("");
                 genreList.set(4, "");
                 genreButton5.setVisibility(View.INVISIBLE);
                 break;
             case R.id.findGenreResults:
-                Log.d("findgenreresults", "THISWORKS GENRERESULTS");
                 genreSimpleSearch();
                 ListView resultsList = (ListView) getActivity().findViewById(R.id.resultsList);
                 resultsList.setVisibility(View.VISIBLE);

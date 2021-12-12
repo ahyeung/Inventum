@@ -258,6 +258,7 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                 activity.findViewById(R.id.speechinessBar).setVisibility(View.VISIBLE);
                 activity.findViewById(R.id.instrumentalnessTitle).setVisibility(View.VISIBLE);
                 activity.findViewById(R.id.instrumentalnessBar).setVisibility(View.VISIBLE);
+                activity.findViewById(R.id.findAdvResults).setVisibility(View.VISIBLE);
 
                 activity.findViewById(R.id.tracksListView).setVisibility(View.INVISIBLE);
                 activity.findViewById(R.id.searchBar).setVisibility(View.INVISIBLE);
