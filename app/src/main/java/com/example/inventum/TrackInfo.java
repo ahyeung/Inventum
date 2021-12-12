@@ -67,6 +67,13 @@ public class TrackInfo extends AppCompatActivity {
         acousiticness.setText("Acousticness: " + track.getAcousticness());
         valence.setText("Mood: " + track.getValence());
 
+        //Check whether liked song
+        boolean liked = true;
+
+        if (liked) {
+            likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_on"));
+        }
+
     }
 
     public void searchClicked(View view) {
