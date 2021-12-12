@@ -124,7 +124,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     for (int i = 0; i < tracks.length(); i ++) {
                         JSONObject trackObject = tracks.getJSONObject(i);
 
-                        itemsList.add("Song: " + trackObject.getString("name"));
+                        itemsList.add("Song: " + trackObject.getString("name") + " by " + trackObject.getJSONArray("artists").getJSONObject(0).getString("name"));
                         idList.add(trackObject.getString("id"));
                     }
 
