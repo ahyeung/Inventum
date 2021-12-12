@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class TrackInfo extends AppCompatActivity implements View.OnClickListener {
 
@@ -118,19 +119,25 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
                     // Add id to giant string from old preferences and update
                     String track_id = track.getID();
                     SharedPreferences sharedPreferences = getSharedPreferences("com.example.inventum", Context.MODE_PRIVATE);
-                    try{
-                        //String likedList = sharedPreferences.getString("likedArray", ).toString();
-
-
-                        //sharedPreferences.edit().putString("likedArray", likedList).apply();
-                    } catch(Exception e){
-
-                    }
-
-                    // sharedPreferences.edit().putString("token", AUTH_TOKEN).apply();
+                    String likedList = sharedPreferences.getString("likedArray", "");
+                    likedList = likedList + track_id + ",";
+                    sharedPreferences.edit().putString("likedArray", likedList).apply();
                 } else {
                     track.setLiked(false);
                     likeStatus.setText("NOT LIKED");
+                    String track_id = track.getID();
+                    SharedPreferences sharedPreferences = getSharedPreferences("com.example.inventum", Context.MODE_PRIVATE);
+                    String likedList = sharedPreferences.getString("likedArray", "");
+                    String new_list = "";
+                    String[] likedIds = likedList.split(",");
+
+                    for(int i = 0; i < likedIds.length; i++){
+                        if(!likedIds[i].equals(track_id)){
+                            new_list = new_list + likedIds[i] + ",";
+                        }
+                    }
+                    // New list without the unliked song
+                    sharedPreferences.edit().putString("likedArray", likedList).apply();
                 }
                 break;
 

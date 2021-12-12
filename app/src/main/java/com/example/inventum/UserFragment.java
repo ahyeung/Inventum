@@ -1,14 +1,34 @@
 package com.example.inventum;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.ToggleButton;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import static com.example.inventum.Authenticated.trackList;
+
 public class UserFragment extends Fragment implements View.OnClickListener {
+    String trackIDs;
     public UserFragment() {
         // Required empty public constructor
     }
@@ -29,7 +49,10 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             case R.id.toggleButton:
                 String text = (String) toggle.getText();
                 if(text.equals("Starred")){
-                    Log.d("UserFrag", "Text: " + text);
+                    //SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("com.example.inventum", Context.MODE_PRIVATE);
+                    //String trackIDs = sharedPreferences.getString("likedArray", "");
+                    //Log.d("UserFrag", "about to populate with\n" + trackIDs);
+                    populate_liked(view);
                 }
                 if(text.equals("Your Tracks")){
                     Log.d("UserFrag", "Text: " + text);
@@ -39,5 +62,123 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 Log.d("message", "Wrong button");
                 break;
         }
+    }
+
+    public void populate_liked(View view){
+        Log.d("populate", "entering the liked!");
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("com.example.inventum", Context.MODE_PRIVATE);
+        trackIDs = sharedPreferences.getString("likedArray", "");
+
+        // NOTE: Api error likely here
+        if(trackIDs.charAt(trackIDs.length()-1) == ','){
+            trackIDs = trackIDs.substring(0, trackIDs.length()-1); // Removes our last char
+        }
+
+        Log.d("populate", "Track IDs " + trackIDs);
+
+        final JSONObject[] tracks = {null};
+        final JSONObject[] tracks_expanded = {null};
+        //String finalTrackIDs = trackIDs;
+
+        Response.Listener<String> track_listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Display the first 500 characters of the response string.
+                Log.d("Authenticated", response.substring(0,500));
+                try {
+                    tracks[0] = new JSONObject(response);
+
+                    Response.Listener<String> expanded_listener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // Display the first 500 characters of the response string.
+                            Log.d("Authenticated", response.substring(0,100));
+                            try {
+                                tracks_expanded[0] = new JSONObject(response);
+
+                                ArrayList<invTrack> trackArrayList = new ArrayList<>();
+
+                                JSONArray tracksArray = tracks[0].getJSONArray("tracks");
+                                JSONArray expandedArray = tracks_expanded[0].getJSONArray("audio_features");
+                                for (int i = 0; i < tracksArray.length(); i ++) {
+                                    JSONObject trackObject = tracksArray.getJSONObject(i);
+                                    JSONObject expandedObject = expandedArray.getJSONObject(i);
+
+                                    // Get artists and put into string array
+                                    String[] artists = new String[10];
+                                    JSONArray artistArray = trackObject.getJSONArray("artists");
+                                    for (int j = 0; j < artistArray.length(); j++) {
+                                        artists[j] = artistArray.getJSONObject(j).getString("name");
+                                    }
+
+                                    // Parse the two responses to get the desired information
+                                    trackArrayList.add(new invTrack(
+                                            trackObject.getString("id"),
+                                            trackObject.getString("name"),
+                                            artists,
+                                            trackObject.getJSONObject("album").getString("name"),
+                                            trackObject.getJSONObject("album").getString("type"),
+                                            trackObject.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url"),
+                                            expandedObject.getString("energy"),
+                                            expandedObject.getString("danceability"),
+                                            expandedObject.getString("liveness"),
+                                            expandedObject.getString("acousticness"),
+                                            trackObject.getString("popularity"),
+                                            expandedObject.getString("valence"),
+                                            expandedObject.getString("tempo"),
+                                            expandedObject.getString("speechiness"),
+                                            expandedObject.getString("loudness"),
+                                            expandedObject.getString("instrumentalness"),
+                                            trackObject.getString("duration_ms")
+                                    ));
+                                }
+
+                                trackList = trackArrayList;
+
+                                ArrayList<String> displayTracks = new ArrayList<>();
+                                for (invTrack track : trackList) {
+                                    displayTracks.add(String.format("Title: %s\nArtist: %s Album: %s", track.getTitle(), track.getTrackArtist()[0], track.getAlbum()));
+                                }
+
+                                // Use ListView to display notes
+                                ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, displayTracks);
+                                ListView listView = (ListView) getActivity().findViewById(R.id.UserListView);
+                                listView.setAdapter(adapter);
+
+                                // Add onItemClickListener
+                                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        Log.d("ItemClick", Integer.toString(position));
+                                        Log.d("ItemClick", Integer.toString(((int)id)));
+                                        invTrack trackExtra = trackList.get(position);
+                                        Intent intent = new Intent(getActivity().getApplicationContext(), TrackInfo.class);
+                                        intent.putExtra("trackPosition", position);
+                                        startActivity(intent);
+                                    }
+                                });
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+
+                    RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+                    StringRequest expandedRequest = RemoteAPI.getTracksAudioFeatures(expanded_listener, sharedPreferences.getString("token", Authenticated.AUTH_TOKEN), trackIDs);
+                    queue.add(expandedRequest);
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        StringRequest trackRequest = RemoteAPI.getTracks(track_listener, sharedPreferences.getString("token", Authenticated.AUTH_TOKEN), trackIDs, Authenticated.MARKET);
+        StringRequest tracks_response = RemoteAPI.getTracks(track_listener, sharedPreferences.getString("token", Authenticated.AUTH_TOKEN), trackIDs, Authenticated.MARKET);
+        queue.add(trackRequest);
+
     }
 }

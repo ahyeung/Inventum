@@ -8,7 +8,7 @@
     tools:context=".UserFragment">
 
     <ListView
-        android:id="@+id/tracksListView"
+        android:id="@+id/UserListView"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginBottom="120dp"
