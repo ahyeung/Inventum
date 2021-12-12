@@ -63,6 +63,10 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
         acousiticness = (TextView) findViewById(R.id.trackAcousticness);
         valence = (TextView) findViewById(R.id.trackValenceScore);
 
+        // Testing an added click listener
+        likeStatus.setOnClickListener(this);
+
+
         //Get meta data from invTrack track
         //Glide.with(this).load(track.getImage_url()).into(trackArt);
         try {
@@ -124,10 +128,10 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
             case R.id.likeStatus:
                 if (track.getLiked() == false) {
                     track.setLiked(true);
-                    likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_on"));
+                    //likeStatus.setBackground(Drawable.createFromPath("@android:drawable/btn_star_big_on"));
                 } else {
                     track.setLiked(false);
-                    likeStatus.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_off"));
+                    //likeStatus.setBackground(Drawable.createFromPath("@android:drawable/btn_star_big_off"));
                 }
                 break;
 
@@ -159,14 +163,12 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
                 Log.e("bitmap", "FAILED TO BUILD BITMAP FROM INPUT STREAM");
                 e.printStackTrace();
             }
-
             return bitmap;
-
         }
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
-            Log.e("bitmap", "entered on exectute, bitmap: " + bitmap.toString());
+            Log.e("bitmap", "entered on execute, bitmap: " + bitmap.toString());
             trackArt.setImageBitmap(bitmap);
         }
     }

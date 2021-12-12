@@ -30,13 +30,14 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 String text = (String) toggle.getText();
                 if(text.equals("Starred")){
                     Log.d("UserFrag", "Text: " + text);
-
                 }
                 if(text.equals("Your Tracks")){
                     Log.d("UserFrag", "Text: " + text);
                 }
+                break;
             default:
                 Log.d("message", "Wrong button");
+                break;
         }
     }
 }
