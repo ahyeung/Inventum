@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.renderscript.ScriptGroup;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputBinding;
 import android.widget.ImageView;
@@ -67,7 +68,13 @@ public class TrackInfo extends AppCompatActivity {
         //Get meta data from invTrack track
         //Glide.with(this).load(track.getImage_url()).into(trackArt);
         try {
-            InputStream stream = new URL(track.getImage_url()).openStream();
+            String image = track.getImage_url();
+
+            if (image.equals(null)) {
+                Log.e("message", "STRING URL RETURNS NULL");
+            }
+
+            InputStream stream = new URL(image).openStream();
             LoadImage loadImage = new LoadImage(trackArt);
             loadImage.execute(track.getImage_url());
 
