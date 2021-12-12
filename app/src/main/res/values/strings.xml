@@ -7,4 +7,5 @@
     <string name="friends">Friends</string>
     <string name="your_tracks">Your Tracks</string>
     <string name="track_or_playlist">Track or Playlist</string>
+    <string name="starred">Starred</string>
 </resources>
