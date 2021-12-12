@@ -452,7 +452,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         };
 
         StringRequest searchRequest = RemoteAPI.getRecommendations(search_listener, sharedPreferences.getString("token", RemoteAPI.TOKEN), "", "", id,
-                Authenticated.MARKET, 10, -1, -1, -1, -1, -1,
+                Authenticated.MARKET, 20, -1, -1, -1, -1, -1,
                 -1, -1, -1, -1, -1, -1);
         queue.add(searchRequest);
     }
