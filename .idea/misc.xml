@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/music/Documents/GitHub/Inventum/app/src/main/res/layout/fragment_search.xml" value="0.12943262411347517" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/drawable/backwithborder.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/drawable/gradient.xml" value="0.23697916666666666" />
@@ -10,13 +11,10 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/drawable/inventum_background.xml" value="0.34923076923076923" />
-        <entry key="app/src/main/res/drawable/list_view_edge.xml" value="0.24114583333333334" />
-        <entry key="app/src/main/res/drawable/list_view_edge_user.xml" value="0.24114583333333334" />
-        <entry key="app/src/main/res/drawable/rounded_white.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_simple_search.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_song_info.xml" value="0.2006340579710145" />
-        <entry key="app/src/main/res/layout/activity_track_info.xml" value="0.28945215658390516" />
+        <entry key="app/src/main/res/layout/activity_track_info.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_adv_search.xml" value="0.15080398975112458" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.25" />
