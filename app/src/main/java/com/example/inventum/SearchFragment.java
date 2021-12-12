@@ -36,6 +36,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
     static String MARKET = "";
     public static ArrayList<String> idList = new ArrayList<>();
+    public static ArrayList<String> itemsList = new ArrayList<>();
 
     public SearchFragment() {
         // Required empty public constructor
@@ -117,7 +118,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     JSONArray artists = jsonObject.getJSONObject("artists").getJSONArray("items");
                     JSONArray tracks = jsonObject.getJSONObject("tracks").getJSONArray("items");
 
-                    ArrayList<String> itemsList = new ArrayList<>();
+                    //ArrayList<String> itemsList = new ArrayList<>();
                     //ArrayList<String> idList = new ArrayList<>();
 
                     for (int i = 0; i < tracks.length(); i ++) {

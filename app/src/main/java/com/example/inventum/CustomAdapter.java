@@ -170,6 +170,7 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
 
                                                     activity.findViewById(R.id.resultsList).setVisibility(View.VISIBLE);
                                                     activity.findViewById(R.id.tracksListView).setVisibility((View.INVISIBLE));
+                                                    //TODO: make everything invisible
 
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
@@ -219,7 +220,8 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
         advancedSearch.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                Log.d("Search", SearchFragment.itemsList.get((Integer)v.getTag()));
+                String info = SearchFragment.itemsList.get((Integer)v.getTag());
             }
         });
 
