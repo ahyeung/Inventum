@@ -176,10 +176,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                         searchBar.setText("");
                     }
                 }
-
-                for(int i = 0; i < SearchFragment.genreList.size(); i++) {
-                    Log.d("genre list", "Genre List: " + i + SearchFragment.genreList.get(i));
-                }
             }
         });
 
@@ -207,11 +203,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 genreButton1.setText("");
                 genreList.set(0, "");
                 genreButton1.setVisibility(View.INVISIBLE);
-
-                // test arraylist
-                for(int i = 0; i < SearchFragment.genreList.size(); i++) {
-                    Log.d("Genre List Array", i + SearchFragment.genreList.get(i));
-                }
                 break;
             case R.id.genreButton2:
                 Log.d("genreButton2", "REMOVE BUTTON 2");
@@ -220,11 +211,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 genreButton2.setText("");
                 genreList.set(1, "");
                 genreButton2.setVisibility(View.INVISIBLE);
-
-                // test arraylist
-                for(int i = 0; i < SearchFragment.genreList.size(); i++) {
-                    Log.d("Genre List Array", i + SearchFragment.genreList.get(i));
-                }
                 break;
             case R.id.genreButton3:
                 Log.d("genreButton3", "REMOVE BUTTON 3");
@@ -233,11 +219,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 genreButton3.setText("");
                 genreList.set(2, "");
                 genreButton3.setVisibility(View.INVISIBLE);
-
-                // test arraylist
-                for(int i = 0; i < SearchFragment.genreList.size(); i++) {
-                    Log.d("Genre List Array", i + SearchFragment.genreList.get(i));
-                }
                 break;
             case R.id.genreButton4:
                 Log.d("genreButton4", "REMOVE BUTTON 4");
@@ -246,11 +227,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 genreButton4.setText("");
                 genreList.set(3, "");
                 genreButton4.setVisibility(View.INVISIBLE);
-
-                // test arraylist
-                for(int i = 0; i < SearchFragment.genreList.size(); i++) {
-                    Log.d("Genre List Array", i + SearchFragment.genreList.get(i));
-                }
                 break;
             case R.id.genreButton5:
                 Log.d("genreButton5", "REMOVE BUTTON 5");
@@ -259,11 +235,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 genreButton5.setText("");
                 genreList.set(4, "");
                 genreButton5.setVisibility(View.INVISIBLE);
-
-                // test arraylist
-                for(int i = 0; i < SearchFragment.genreList.size(); i++) {
-                    Log.d("Genre List Array", i + SearchFragment.genreList.get(i));
-                }
                 break;
             case R.id.findGenreResults:
                 Log.d("findgenreresults", "THISWORKS GENRERESULTS");
@@ -561,14 +532,20 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                                                 }
                                             });
 
-                                            Log.d("Search", "HERE HERE");
                                             getView().findViewById(R.id.resultsList).setVisibility(View.VISIBLE);
-                                            getView().findViewById(R.id.tracksListView).setVisibility((View.INVISIBLE));
-                                            getView().findViewById(R.id.searchBar).setVisibility((View.INVISIBLE));
-                                            getView().findViewById(R.id.toggleButton).setVisibility((View.INVISIBLE));
-                                            getView().findViewById(R.id.basicSearch).setVisibility((View.INVISIBLE));
+                                            getView().findViewById(R.id.tracksListView).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.searchBar).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.toggleButton).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.basicSearch).setVisibility(View.INVISIBLE);
                                             getView().findViewById(R.id.findResults).setVisibility(View.INVISIBLE);
                                             getView().findViewById(R.id.findGenreResults).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.findAdvGenreResults).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.genreIncSearch).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.genreButton1).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.genreButton2).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.genreButton3).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.genreButton4).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.genreButton5).setVisibility(View.INVISIBLE);
 
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -605,10 +582,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 genre_seeds = genre_seeds + genreList.get(i) + ",";
             }
         }
-        Log.d("GenreString", genre_seeds);
-
         genre_seeds = genre_seeds.substring(0, genre_seeds.length() - 1);
-        Log.d("GenreString", genre_seeds);
 
         StringRequest searchRequest = RemoteAPI.getRecommendations(search_listener, sharedPreferences.getString("token", RemoteAPI.TOKEN), genre_seeds, "", "",
                 Authenticated.MARKET, 20, -1, -1, -1, -1, -1,
