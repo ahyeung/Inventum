@@ -91,6 +91,40 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         Log.d("Genres", Arrays.toString(Authenticated.genres));
         autocomplete.setThreshold(2);
         autocomplete.setAdapter(adapter);
+        autocomplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Button genreButton1 = (Button) getActivity().findViewById(R.id.genreButton1);
+                Button genreButton2 = (Button) getActivity().findViewById(R.id.genreButton2);
+                Button genreButton3 = (Button) getActivity().findViewById(R.id.genreButton3);
+                Button genreButton4 = (Button) getActivity().findViewById(R.id.genreButton4);
+                Button genreButton5 = (Button) getActivity().findViewById(R.id.genreButton5);
+                EditText searchBar = (EditText) getActivity().findViewById(R.id.genreIncSearch);
+
+                if (genreButton1.getText().equals("")) {
+                    genreButton1.setText(searchBar.getText());
+                    searchBar.setText("");
+                    genreButton1.setVisibility(View.VISIBLE);
+                } else if (genreButton2.getText().equals("")) {
+                    genreButton2.setText(searchBar.getText());
+                    searchBar.setText("");
+                    genreButton2.setVisibility(View.VISIBLE);
+                } else if (genreButton3.getText().equals("")) {
+                    genreButton3.setText(searchBar.getText());
+                    searchBar.setText("");
+                    genreButton3.setVisibility(View.VISIBLE);
+                } else if (genreButton4.getText().equals("")) {
+                    genreButton4.setText(searchBar.getText());
+                    searchBar.setText("");
+                    genreButton4.setVisibility(View.VISIBLE);
+                } else if (genreButton5.getText().equals("")) {
+                    genreButton5.setText(searchBar.getText());
+                    searchBar.setText("");
+                    genreButton5.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         Log.d("SearchToken", ">>>>>>>>>>>>>>>>>TOKEN: " + RemoteAPI.TOKEN);
         Log.d("TrackSearchFragment", "ID: " + Authenticated.ID_EXTRA);
