@@ -10,8 +10,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="@+id/advancedSearch"
-        app:layout_constraintLeft_toLeftOf="@+id/simpleSearch" />
+        app:layout_constraintRight_toLeftOf="@+id/advancedSearch"
+        app:layout_constraintLeft_toRightOf="@+id/simpleSearch" />
 
     <Button
         android:id="@+id/simpleSearch"

@@ -132,6 +132,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     listView.setAdapter(new CustomAdapter(itemsList, getActivity().getApplicationContext(), getActivity()));
 
                     getView().findViewById(R.id.tracksListView).setVisibility(View.VISIBLE);
+                    getView().findViewById(R.id.findResults).setVisibility(View.INVISIBLE);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
