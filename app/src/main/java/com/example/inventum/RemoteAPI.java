@@ -357,7 +357,7 @@ public class RemoteAPI {
             JSONArray array = response.getJSONArray("items");
             for (int i = 1; i < array.length(); i++) {
                 JSONObject object = array.getJSONObject(i);
-                trackIDs = trackIDs + object.getString("id");
+                trackIDs = trackIDs + object.getString("id") + ",";
             }
         } catch (JSONException e) {
             e.printStackTrace();
