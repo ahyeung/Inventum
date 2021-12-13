@@ -141,6 +141,20 @@
         app:layout_constraintHorizontal_bias="0.8"
         android:visibility="invisible"/>
 
+    <Button
+        android:id="@+id/finalFindAdvGenreResults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find Results"
+        android:backgroundTint="@color/inventum"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias="0.8"
+        android:visibility="invisible" />
+
     <ListView
         android:id="@+id/tracksListView"
         android:layout_width="match_parent"

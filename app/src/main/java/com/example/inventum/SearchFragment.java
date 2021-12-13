@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -63,13 +64,16 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         Button genreButton5 = (Button) v.findViewById(R.id.genreButton5);
         Button findGenreResults = (Button) v.findViewById(R.id.findGenreResults);
         Button findAdvGenreResults = (Button) v.findViewById(R.id.findAdvGenreResults);
+        Button finalFindAdvGenreResults = (Button) v.findViewById(R.id.finalFindAdvGenreResults);
         Button findResults = (Button) v.findViewById(R.id.findResults);
         genreButton1.setOnClickListener(this);
         genreButton2.setOnClickListener(this);
         genreButton3.setOnClickListener(this);
         genreButton4.setOnClickListener(this);
         genreButton5.setOnClickListener(this);
+        findAdvGenreResults.setOnClickListener(this);
         findGenreResults.setOnClickListener(this);
+        finalFindAdvGenreResults.setOnClickListener(this);
         findResults.setOnClickListener(this);
 
         genreList.add("");
@@ -247,6 +251,13 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 genreSimpleSearch();
                 ListView resultsList = (ListView) getActivity().findViewById(R.id.resultsList);
                 resultsList.setVisibility(View.VISIBLE);
+                break;
+            case R.id.findAdvGenreResults:
+                genreAdvSearch();
+                break;
+            case R.id.finalFindAdvGenreResults:
+                genreFinalAdvSearch();
+                break;
             default:
                 break;
         }
@@ -615,5 +626,193 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         getView().findViewById(R.id.speechinessBar).setVisibility(View.VISIBLE);
         getView().findViewById(R.id.instrumentalnessTitle).setVisibility(View.VISIBLE);
         getView().findViewById(R.id.instrumentalnessBar).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.finalFindAdvGenreResults).setVisibility(View.VISIBLE);
+
+        getView().findViewById(R.id.findAdvGenreResults).setVisibility(View.INVISIBLE);
+        getView().findViewById(R.id.findGenreResults).setVisibility(View.INVISIBLE);
+        getView().findViewById(R.id.toggleButton).setVisibility(View.INVISIBLE);
+    }
+
+    private void genreFinalAdvSearch() {
+        RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+
+        Response.Listener<String> search_listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Display the first 500 characters of the response string.
+                Log.d("Authenticated", response.substring(0,50));
+                try {
+                    JSONObject tracksObject = new JSONObject(response);
+                    Log.d("Home", tracksObject.toString());
+
+                    String trackIDs = RemoteAPI.parseRecommendationsResult(tracksObject);
+                    Log.d("Home", trackIDs);
+
+                    final JSONObject[] tracks = {null};
+                    final JSONObject[] tracks_expanded = {null};
+
+                    Response.Listener<String> track_listener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // Display the first 500 characters of the response string.
+                            Log.d("Authenticated", response.substring(0,500));
+                            try {
+                                tracks[0] = new JSONObject(response);
+
+                                Response.Listener<String> expanded_listener = new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        // Display the first 500 characters of the response string.
+                                        Log.d("Authenticated", response.substring(0,100));
+                                        try {
+                                            tracks_expanded[0] = new JSONObject(response);
+
+                                            ArrayList<invTrack> trackArrayList = new ArrayList<>();
+
+
+                                            JSONArray tracksArray = tracks[0].getJSONArray("tracks");
+                                            JSONArray expandedArray = tracks_expanded[0].getJSONArray("audio_features");
+                                            for (int i = 0; i < tracksArray.length(); i ++) {
+                                                JSONObject trackObject = tracksArray.getJSONObject(i);
+                                                JSONObject expandedObject = expandedArray.getJSONObject(i);
+
+                                                // Get artists and put into string array
+                                                String[] artists = new String[10];
+                                                JSONArray artistArray = trackObject.getJSONArray("artists");
+                                                for (int j = 0; j < artistArray.length(); j++) {
+                                                    artists[j] = artistArray.getJSONObject(j).getString("name");
+                                                }
+
+                                                // Parse the two responses to get the desired information
+                                                trackArrayList.add(new invTrack(
+                                                        trackObject.getString("id"),
+                                                        trackObject.getString("name"),
+                                                        artists,
+                                                        trackObject.getJSONObject("album").getString("name"),
+                                                        trackObject.getJSONObject("album").getString("type"),
+                                                        trackObject.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url"),
+                                                        expandedObject.getString("energy"),
+                                                        expandedObject.getString("danceability"),
+                                                        expandedObject.getString("liveness"),
+                                                        expandedObject.getString("acousticness"),
+                                                        trackObject.getString("popularity"),
+                                                        expandedObject.getString("valence"),
+                                                        expandedObject.getString("tempo"),
+                                                        expandedObject.getString("speechiness"),
+                                                        expandedObject.getString("loudness"),
+                                                        expandedObject.getString("instrumentalness"),
+                                                        trackObject.getString("duration_ms")
+                                                ));
+                                            }
+
+                                            Authenticated.trackList = trackArrayList;
+
+                                            ArrayList<String> displayTracks = new ArrayList<>();
+                                            for (invTrack track : Authenticated.trackList) {
+                                                displayTracks.add(String.format("Title: %s\nArtist: %s Album: %s", track.getTitle(), track.getTrackArtist()[0], track.getAlbum()));
+                                            }
+
+                                            // Use ListView to display notes
+                                            ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, displayTracks);
+                                            ListView listView = (ListView) getActivity().findViewById(R.id.resultsList);
+                                            listView.setAdapter(adapter);
+
+                                            // Add onItemClickListener
+                                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                @Override
+                                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                                    Log.d("ItemClick", Integer.toString(position));
+                                                    Log.d("ItemClick", Integer.toString(((int)id)));
+                                                    invTrack trackExtra = Authenticated.trackList.get(position);
+                                                    Intent intent = new Intent(getActivity().getApplicationContext(), TrackInfo.class);
+                                                    intent.putExtra("trackPosition", position);
+                                                    getActivity().startActivity(intent);
+                                                }
+                                            });
+
+                                            getView().findViewById(R.id.resultsList).setVisibility(View.VISIBLE);
+                                            getView().findViewById(R.id.tracksListView).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.searchBar).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.toggleButton).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.basicSearch).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.findResults).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.findGenreResults).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.findAdvGenreResults).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.genreIncSearch).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.genreButton1).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.genreButton2).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.genreButton3).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.genreButton4).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.genreButton5).setVisibility(View.INVISIBLE);
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                };
+
+                                RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+                                StringRequest expandedRequest = RemoteAPI.getTracksAudioFeatures(expanded_listener, sharedPreferences.getString("token", RemoteAPI.TOKEN), trackIDs);
+                                queue.add(expandedRequest);
+
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+
+                    RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+                    StringRequest trackRequest = RemoteAPI.getTracks(track_listener, sharedPreferences.getString("token", RemoteAPI.TOKEN), trackIDs, Authenticated.MARKET);
+                    StringRequest tracks_response = RemoteAPI.getTracks(track_listener, sharedPreferences.getString("token", Authenticated.AUTH_TOKEN), trackIDs, Authenticated.MARKET);
+                    queue.add(trackRequest);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        SeekBar popularityBar = (SeekBar) getView().findViewById(R.id.popularityBar);
+        SeekBar danceabilityBar = (SeekBar) getView().findViewById(R.id.danceabilityBar);
+        SeekBar tempoBar = (SeekBar) getView().findViewById(R.id.tempoBar);
+        SeekBar livenessBar = (SeekBar) getView().findViewById(R.id.livenessBar);
+        SeekBar energyBar = (SeekBar) getView().findViewById(R.id.energyBar);
+        SeekBar valenceBar = (SeekBar) getView().findViewById(R.id.valenceBar);
+        SeekBar acousticnessBar = (SeekBar) getView().findViewById(R.id.acousticnessBar);
+        SeekBar speechinessBar = (SeekBar) getView().findViewById(R.id.speechinessBar);
+        SeekBar instrumentalnessBar = (SeekBar) getView().findViewById(R.id.instrumentalnessBar);
+
+        int popularityBarInt = popularityBar.getProgress();
+        int danceabilityBarInt = danceabilityBar.getProgress();
+        int tempoBarInt = tempoBar.getProgress();
+        int livenessBarInt = livenessBar.getProgress();
+        int energyBarInt = energyBar.getProgress();
+        int valenceBarInt = valenceBar.getProgress();
+        int acousticnessBarInt = acousticnessBar.getProgress();
+        int speechinessBarInt = speechinessBar.getProgress();
+        int instrumentalnessBarInt = instrumentalnessBar.getProgress();
+
+        float danceabilityBarFloat = danceabilityBarInt/100;
+        float livenessBarFloat = livenessBarInt/100;
+        float energyBarFloat = energyBarInt/100;
+        float valenceBarFloat = valenceBarInt/100;
+        float speechinessBarFloat = speechinessBarInt/100;
+        float instrumentalnessBarFloat = instrumentalnessBarInt/100;
+        float acousticnessBarFloat = acousticnessBarInt/100;
+
+        String genre_seeds = "";
+        for (int i = 0; i < genreList.size(); i++) {
+            if (!genreList.get(i).isEmpty()) {
+                genre_seeds = genre_seeds + genreList.get(i) + ",";
+            }
+        }
+        genre_seeds = genre_seeds.substring(0, genre_seeds.length() - 1);
+
+        StringRequest searchRequest = RemoteAPI.getRecommendations(search_listener, sharedPreferences.getString("token", RemoteAPI.TOKEN), genre_seeds, "", "",
+                Authenticated.MARKET, 20, acousticnessBarFloat, danceabilityBarFloat, -1, energyBarFloat, instrumentalnessBarFloat,
+                livenessBarFloat, -1, popularityBarInt, speechinessBarFloat, tempoBarInt, valenceBarFloat);
+        queue.add(searchRequest);
     }
 }
