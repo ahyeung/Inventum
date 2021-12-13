@@ -744,6 +744,25 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                                             getView().findViewById(R.id.genreButton3).setVisibility(View.INVISIBLE);
                                             getView().findViewById(R.id.genreButton4).setVisibility(View.INVISIBLE);
                                             getView().findViewById(R.id.genreButton5).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.popularityTitle).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.popularityBar).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.danceabilityTitle).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.danceabilityBar).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.tempoTitle).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.tempoBar).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.livenessTitle).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.livenessBar).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.energyTitle).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.energyBar).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.valenceTitle).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.valenceBar).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.acousticnessTitle).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.acousticnessBar).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.speechinessTitle).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.speechinessBar).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.instrumentalnessTitle).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.instrumentalnessBar).setVisibility(View.INVISIBLE);
+                                            getView().findViewById(R.id.finalFindAdvGenreResults).setVisibility(View.INVISIBLE);
 
                                         } catch (JSONException e) {
                                             e.printStackTrace();
