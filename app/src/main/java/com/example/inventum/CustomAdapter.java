@@ -233,9 +233,11 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
             }
         });
 
-        Button advancedSearch = (Button)view.findViewById(R.id.advancedSearch);
+        Button advancedSearch = (Button) view.findViewById(R.id.advancedSearch);
         advancedSearch.setTag(position);
+
         advancedSearch.setOnClickListener(new View.OnClickListener(){
+
             @Override
             public void onClick(View v) {
                 Log.d("Search", SearchFragment.itemsList.get((Integer)v.getTag()));
