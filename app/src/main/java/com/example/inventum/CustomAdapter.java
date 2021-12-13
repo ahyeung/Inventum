@@ -418,6 +418,25 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                                                             activity.findViewById(R.id.genreButton3).setVisibility(View.INVISIBLE);
                                                             activity.findViewById(R.id.genreButton4).setVisibility(View.INVISIBLE);
                                                             activity.findViewById(R.id.genreButton5).setVisibility(View.INVISIBLE);
+                                                            activity.findViewById(R.id.popularityTitle).setVisibility(View.INVISIBLE);
+                                                            activity.findViewById(R.id.popularityBar).setVisibility(View.INVISIBLE);
+                                                            activity.findViewById(R.id.danceabilityTitle).setVisibility(View.INVISIBLE);
+                                                            activity.findViewById(R.id.danceabilityBar).setVisibility(View.INVISIBLE);
+                                                            activity.findViewById(R.id.tempoTitle).setVisibility(View.INVISIBLE);
+                                                            activity.findViewById(R.id.tempoBar).setVisibility(View.INVISIBLE);
+                                                            activity.findViewById(R.id.livenessTitle).setVisibility(View.INVISIBLE);
+                                                            activity.findViewById(R.id.livenessBar).setVisibility(View.INVISIBLE);
+                                                            activity.findViewById(R.id.energyTitle).setVisibility(View.INVISIBLE);
+                                                            activity.findViewById(R.id.energyBar).setVisibility(View.INVISIBLE);
+                                                            activity.findViewById(R.id.valenceTitle).setVisibility(View.INVISIBLE);
+                                                            activity.findViewById(R.id.valenceBar).setVisibility(View.INVISIBLE);
+                                                            activity.findViewById(R.id.acousticnessTitle).setVisibility(View.INVISIBLE);
+                                                            activity.findViewById(R.id.acousticnessBar).setVisibility(View.INVISIBLE);
+                                                            activity.findViewById(R.id.speechinessTitle).setVisibility(View.INVISIBLE);
+                                                            activity.findViewById(R.id.speechinessBar).setVisibility(View.INVISIBLE);
+                                                            activity.findViewById(R.id.instrumentalnessTitle).setVisibility(View.INVISIBLE);
+                                                            activity.findViewById(R.id.instrumentalnessBar).setVisibility(View.INVISIBLE);
+
 
                                                         } catch (JSONException e) {
                                                             e.printStackTrace();
