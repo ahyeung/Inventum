@@ -47,6 +47,9 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
     TextView liveness;
     TextView acousiticness;
     TextView valence;
+    TextView speechiness;
+    TextView energy;
+    TextView instrumentalness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,9 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
         liveness = (TextView) findViewById(R.id.trackLiveness);
         acousiticness = (TextView) findViewById(R.id.trackAcousticness);
         valence = (TextView) findViewById(R.id.trackValenceScore);
+        energy = (TextView) findViewById(R.id.trackEnergy);
+        speechiness = (TextView) findViewById(R.id.trackSpeechiness);
+        instrumentalness = (TextView) findViewById(R.id.trackInstrumentalness);
 
         // Testing an added click listener
         likeStatus.setOnClickListener(this);
@@ -89,6 +95,12 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
             trackArt.setImageDrawable(Drawable.createFromPath("@android:drawable/btn_star_big_on"));
         }
 
+        String title = track.getTitle();
+
+        if (title.length() > 20) {
+            trackTitle.setTextSize(18);
+        }
+
         trackTitle.setText(track.getTitle());
         trackArtist.setText(track.getTrackArtistUI());
         trackAlbumInfo.setText(track.getAlbumType() + ", " + track.getAlbum());
@@ -98,6 +110,10 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
         liveness.setText("Liveness: " + track.getLiveness());
         acousiticness.setText("Acousticness: " + track.getAcousticness());
         valence.setText("Mood: " + track.getValence());
+        speechiness.setText("Speechiness: " + track.getSpeechiness());
+        energy.setText("Energy: " + track.getEnergy());
+        instrumentalness.setText("Instrumentalness: " + track.getInstrumentalness());
+
 
         //Check whether liked song
         if (checkLikeStatus()) {

@@ -81,10 +81,6 @@ public class invTrack implements Serializable {
         this.liked = status;
     }
 
-    public boolean getLiked() {
-        return this.liked;
-    }
-
     public String getID() {
         return trackID;
     }
@@ -122,6 +118,10 @@ public class invTrack implements Serializable {
     public String getAcousticness() {return acousticness;}
 
     public String getValence() {return valence;}
+
+    public String getSpeechiness() {return this.speechiness;}
+
+    public String getInstrumentalness() {return this.instrumentalness;}
 
     public String getTrackArtistUI() {return trackArtistUI;}
 }
