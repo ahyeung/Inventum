@@ -19,18 +19,6 @@
         app:layout_constraintTop_toBottomOf="@+id/toggleButton"
         android:visibility="visible"/>
 
-    <ListView
-        android:id="@+id/StarredListView"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="120dp"
-        android:background="@drawable/list_view_edge_user"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toggleButton"
-        android:visibility="invisible"/>
-
     <ToggleButton
         android:id="@+id/toggleButton"
         android:layout_width="220dp"

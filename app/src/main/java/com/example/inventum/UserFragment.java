@@ -64,14 +64,11 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                         ListView listView = (ListView) getActivity().findViewById(R.id.UserListView);
                         listView.setAdapter(adapter);
                     }
-                    getView().findViewById(R.id.UserListView).setVisibility(View.INVISIBLE);
-                    getView().findViewById(R.id.StarredListView).setVisibility(View.VISIBLE);
+
                 }
-                if(text.equals("YOUR TOP TRACKS")){
+                if(!text.equals("Starred")){
                     Log.d("UserFrag", "Text: " + text);
                     populate_top_tracks(view);
-                    getView().findViewById(R.id.StarredListView).setVisibility(View.INVISIBLE);
-                    getView().findViewById(R.id.UserListView).setVisibility(View.VISIBLE);
                 }
                 break;
         }
@@ -285,7 +282,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
                                 // Use ListView to display notes
                                 ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, displayTracks);
-                                ListView listView = (ListView) getActivity().findViewById(R.id.StarredListView);
+                                ListView listView = (ListView) getActivity().findViewById(R.id.UserListView);
                                 listView.setAdapter(adapter);
 
                                 // Add onItemClickListener
