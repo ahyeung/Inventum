@@ -4,6 +4,7 @@ import androidx.annotation.BinderThread;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.content.AsyncTaskLoader;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,6 +29,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class TrackInfo extends AppCompatActivity implements View.OnClickListener {
 
@@ -74,6 +76,8 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
         speechiness = (TextView) findViewById(R.id.trackSpeechiness);
         instrumentalness = (TextView) findViewById(R.id.trackInstrumentalness);
 
+
+
         // Testing an added click listener
         likeStatus.setOnClickListener(this);
 
@@ -101,19 +105,45 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
             trackTitle.setTextSize(18);
         }
 
+        int size = 20;
+        boolean shrink = false;
+
+        if (this.getWindow().getDecorView().getWidth() < 7) {
+            shrink = true;
+            size = 10;
+        }
+
         trackTitle.setText(track.getTitle());
         trackArtist.setText(track.getTrackArtistUI());
-        trackAlbumInfo.setText(track.getAlbumType() + ", " + track.getAlbum());
-        popularity.setText("Popularity: " + track.getPopularityScore());
-        danceability.setText("Danceability: " + track.getDanceability());
-        tempo.setText("Tempo: " + track.getTempo());
-        liveness.setText("Liveness: " + track.getLiveness());
-        acousiticness.setText("Acousticness: " + track.getAcousticness());
-        valence.setText("Mood: " + track.getValence());
-        speechiness.setText("Speechiness: " + track.getSpeechiness());
-        energy.setText("Energy: " + track.getEnergy());
-        instrumentalness.setText("Instrumentalness: " + track.getInstrumentalness());
 
+        if (shrink) {
+            trackTitle.setTextSize(20);
+            trackArtist.setTextSize(20);
+        }
+
+        trackAlbumInfo.setText(track.getAlbumType() + ": " + track.getAlbum());
+        trackAlbumInfo.setTextSize(size);
+        if (shrink) {
+            trackAlbumInfo.setWidth(400);
+        }
+        popularity.setText("Popularity: " + track.getPopularityScore());
+        popularity.setTextSize(size);
+        danceability.setText("Danceability: " + track.getDanceability());
+        danceability.setTextSize(size);
+        tempo.setText("Tempo: " + track.getTempo());
+        tempo.setTextSize(size);
+        liveness.setText("Liveness: " + track.getLiveness());
+        liveness.setTextSize(size);
+        acousiticness.setText("Acousticness: " + track.getAcousticness());
+        acousiticness.setTextSize(size);
+        valence.setText("Mood: " + track.getValence());
+        valence.setTextSize(size);
+        speechiness.setText("Speechiness: " + track.getSpeechiness());
+        speechiness.setTextSize(size);
+        energy.setText("Energy: " + track.getEnergy());
+        energy.setTextSize(size);
+        instrumentalness.setText("Instrumental: " + track.getInstrumentalness());
+        instrumentalness.setTextSize(size);
 
         //Check whether liked song
         if (checkLikeStatus()) {
