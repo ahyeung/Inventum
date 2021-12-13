@@ -64,10 +64,14 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                         ListView listView = (ListView) getActivity().findViewById(R.id.UserListView);
                         listView.setAdapter(adapter);
                     }
+                    getView().findViewById(R.id.UserListView).setVisibility(View.INVISIBLE);
+                    getView().findViewById(R.id.StarredListView).setVisibility(View.VISIBLE);
                 }
                 if(text.equals("YOUR TOP TRACKS")){
                     Log.d("UserFrag", "Text: " + text);
                     populate_top_tracks(view);
+                    getView().findViewById(R.id.StarredListView).setVisibility(View.INVISIBLE);
+                    getView().findViewById(R.id.UserListView).setVisibility(View.VISIBLE);
                 }
                 break;
         }
@@ -95,7 +99,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                         @Override
                         public void onResponse(String response) {
                             // Display the first 500 characters of the response string.
-                            Log.d("Authenticated", response.substring(0,500));
+                            Log.d("UserTracks", response.substring(0,500));
                             try {
                                 tracks[0] = new JSONObject(response);
 
@@ -103,7 +107,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                                     @Override
                                     public void onResponse(String response) {
                                         // Display the first 500 characters of the response string.
-                                        Log.d("Authenticated", response.substring(0,100));
+                                        Log.d("UserTracks", response.substring(0,100));
                                         try {
                                             tracks_expanded[0] = new JSONObject(response);
 
@@ -198,7 +202,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             }
         };
 
-        StringRequest stringRequest = RemoteAPI.getGlobalTopSongs(listener, sharedPreferences.getString("token", Authenticated.AUTH_TOKEN), Authenticated.MARKET);
+        StringRequest stringRequest = RemoteAPI.getUserTracks(listener, sharedPreferences.getString("token", Authenticated.AUTH_TOKEN));
         queue.add(stringRequest);
     }
 
@@ -223,7 +227,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(String response) {
                 // Display the first 500 characters of the response string.
-                Log.d("Authenticated", response.substring(0,500));
+                Log.d("StarredTracks", response.substring(0,500));
                 try {
                     tracks[0] = new JSONObject(response);
 
@@ -231,7 +235,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                         @Override
                         public void onResponse(String response) {
                             // Display the first 500 characters of the response string.
-                            Log.d("Authenticated", response.substring(0,100));
+                            Log.d("StarredTracks", response.substring(0,100));
                             try {
                                 tracks_expanded[0] = new JSONObject(response);
 
@@ -281,7 +285,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
                                 // Use ListView to display notes
                                 ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, displayTracks);
-                                ListView listView = (ListView) getActivity().findViewById(R.id.UserListView);
+                                ListView listView = (ListView) getActivity().findViewById(R.id.StarredListView);
                                 listView.setAdapter(adapter);
 
                                 // Add onItemClickListener
