@@ -69,6 +69,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         genreButton3.setOnClickListener(this);
         genreButton4.setOnClickListener(this);
         genreButton5.setOnClickListener(this);
+        findAdvGenreResults.setOnClickListener(this);
         findGenreResults.setOnClickListener(this);
         findResults.setOnClickListener(this);
 
@@ -247,6 +248,13 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 genreSimpleSearch();
                 ListView resultsList = (ListView) getActivity().findViewById(R.id.resultsList);
                 resultsList.setVisibility(View.VISIBLE);
+                break;
+            case R.id.findAdvGenreResults:
+                genreAdvSearch();
+                break;
+            case R.id.finalFindAdvGenreResults:
+                genreFinalAdvSearch();
+                break;
             default:
                 break;
         }
@@ -615,5 +623,14 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         getView().findViewById(R.id.speechinessBar).setVisibility(View.VISIBLE);
         getView().findViewById(R.id.instrumentalnessTitle).setVisibility(View.VISIBLE);
         getView().findViewById(R.id.instrumentalnessBar).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.finalFindAdvGenreResults).setVisibility(View.VISIBLE);
+
+        getView().findViewById(R.id.findAdvGenreResults).setVisibility(View.INVISIBLE);
+        getView().findViewById(R.id.findGenreResults).setVisibility(View.INVISIBLE);
+        getView().findViewById(R.id.toggleButton).setVisibility(View.INVISIBLE);
+    }
+
+    private void genreFinalAdvSearch() {
+
     }
 }
