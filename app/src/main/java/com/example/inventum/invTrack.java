@@ -13,7 +13,6 @@ public class invTrack implements Serializable {
 
     String trackID; //API side track identification
     String image_url;
-    boolean liked;
 
     //descriptive track meta data
     String trackTitle;
@@ -55,7 +54,6 @@ public class invTrack implements Serializable {
         this.loudness = loudness;
         this.instrumentalness = instrumentalness;
         this.duration_ms = duration_ms;
-        this.liked = false;
 
         BuildStrings();
 
@@ -75,10 +73,6 @@ public class invTrack implements Serializable {
 
         }
 
-    }
-
-    public void setLiked(Boolean status) {
-        this.liked = status;
     }
 
     public String getID() {

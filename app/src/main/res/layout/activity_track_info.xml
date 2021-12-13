@@ -25,7 +25,6 @@
         android:id="@+id/artistName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,73 +47,45 @@
 
     <TextView
         android:id="@+id/albumName"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:layout_marginEnd="57dp"
-        android:layout_marginTop="20dp"
         android:text="Album: TYPE, NAME"
         android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@id/trackArtView"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/trackAcousticness"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:text="Acousticness: SCORE"
-        android:textColor="#FFFFFF"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/trackPopularity"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintTop_toBottomOf="@+id/trackLiveness" />
-
-    <TextView
-        android:id="@+id/trackSpeechiness"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:text="Speechiness: SCORE"
-        android:textColor="#FFFFFF"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/trackEnergy"
-        app:layout_constraintTop_toBottomOf="@+id/trackEnergy" />
-
-    <TextView
-        android:id="@+id/trackInstrumentalness"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Instrumentalness: SCORE"
-        android:textColor="#FFFFFF"
-        android:textSize="10sp"
-        android:layout_marginTop="7dp"
-        app:layout_constraintStart_toStartOf="@id/trackValenceScore"
-        app:layout_constraintTop_toBottomOf="@+id/trackValenceScore" />
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/trackArtView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintVertical_bias="0.2" />
 
     <TextView
         android:id="@+id/trackPopularity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:text="Popularity: SCORE"
         android:textColor="#FFFFFF"
-        android:textSize="10sp"
-        app:layout_constraintTop_toBottomOf="@id/likeStatus"
-        app:layout_constraintStart_toStartOf="@id/albumName" />
+        android:textSize="20sp"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/albumName"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
         android:id="@+id/trackDanceScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginBottom="1dp"
         android:text="Danceability: SCORE"
         android:textColor="#FFFFFF"
-        android:textSize="10sp"
-        app:layout_constraintTop_toTopOf="@+id/trackPopularity"
-        app:layout_constraintStart_toEndOf="@+id/trackPopularity" />
+        android:textSize="20sp"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/albumName"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
         android:id="@+id/trackTempoScore"
@@ -122,43 +93,97 @@
         android:layout_height="wrap_content"
         android:text="Tempo: SCORE"
         android:textColor="#FFFFFF"
-        android:textSize="10sp"
-        android:layout_marginLeft="25dp"
-        app:layout_constraintStart_toEndOf="@+id/trackDanceScore"
-        app:layout_constraintTop_toTopOf="@+id/trackDanceScore" />
+        android:textSize="20sp"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/albumName"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
         android:id="@+id/trackLiveness"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
         android:text="Liveness: SCORE"
         android:textColor="#FFFFFF"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/trackPopularity"
-        app:layout_constraintTop_toBottomOf="@+id/trackPopularity" />
+        android:textSize="20sp"
+        app:layout_constraintVertical_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/albumName"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
         android:id="@+id/trackEnergy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
         android:text="Energy: SCORE"
         android:textColor="#FFFFFF"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/trackDanceScore"
-        app:layout_constraintTop_toBottomOf="@+id/trackDanceScore" />
+        android:textSize="20sp"
+        app:layout_constraintVertical_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/albumName"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
         android:id="@+id/trackValenceScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
         android:text="Valence: SCORE"
         android:textColor="#FFFFFF"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/trackTempoScore"
-        app:layout_constraintTop_toBottomOf="@+id/trackTempoScore" />
+        android:textSize="20sp"
+        app:layout_constraintVertical_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/albumName"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/trackAcousticness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Acousticness: SCORE"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintVertical_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/albumName"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/trackSpeechiness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Speechiness: SCORE"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintVertical_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/albumName"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/trackInstrumentalness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Instrumentalness: SCORE"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintVertical_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/albumName"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <Button
         android:id="@+id/backButton"
@@ -189,13 +214,16 @@
     <Button
         android:id="@+id/likeStatus"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginEnd="45dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/rounded_white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintVertical_bias="0.55"
         android:onClick="onClick"
-        android:text="LIKE STATUS"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/albumName" />
+        android:text="LIKE STATUS" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
