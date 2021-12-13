@@ -37,7 +37,7 @@
         android:id="@+id/trackArtView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="210dp"
         android:layout_marginBottom="200dp"
         android:scaleType="fitCenter"
         android:src="@android:drawable/ic_dialog_alert"

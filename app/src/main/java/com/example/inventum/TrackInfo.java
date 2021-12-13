@@ -53,6 +53,8 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
     TextView speechiness;
     TextView energy;
     TextView instrumentalness;
+    Button searchButton;
+    Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +78,8 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
         energy = (TextView) findViewById(R.id.trackEnergy);
         speechiness = (TextView) findViewById(R.id.trackSpeechiness);
         instrumentalness = (TextView) findViewById(R.id.trackInstrumentalness);
-
-
+        searchButton = (Button) findViewById(R.id.searchButton);
+        backButton = (Button) findViewById(R.id.backButton);
 
         // Testing an added click listener
         likeStatus.setOnClickListener(this);
