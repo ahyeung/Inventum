@@ -252,6 +252,20 @@ public class Authenticated extends AppCompatActivity {
             }
         };
 
+        Response.Listener<String> listener3 = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Display the first 500 characters of the response string.
+                Log.d("Authenticated", response.substring(0,500));
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    Log.d("Authenticated", jsonObject.getJSONArray("items").getJSONObject(0).getString("id"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
         SharedPreferences sharedPreferences = getSharedPreferences("com.example.inventum", Context.MODE_PRIVATE);
         // Get the requested track
         StringRequest stringRequest = RemoteAPI.getTrack(listener, sharedPreferences.getString("token", AUTH_TOKEN), trackID, market);
@@ -262,10 +276,14 @@ public class Authenticated extends AppCompatActivity {
         // Get multiple tracks
         StringRequest stringRequest2 = RemoteAPI.getTracks(listener2, sharedPreferences.getString("token", AUTH_TOKEN), trackIDs, MARKET);
 
+        // Get user tracks
+        StringRequest stringRequest3 = RemoteAPI.getUserTracks(listener3, sharedPreferences.getString("token", AUTH_TOKEN));
+
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
         queue.add(stringRequest1);
         queue.add(stringRequest2);
+        queue.add(stringRequest3);
     }
 
     final private NavigationBarView.OnItemSelectedListener bottomnavFunction = new NavigationBarView.OnItemSelectedListener() {

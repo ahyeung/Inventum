@@ -138,7 +138,7 @@ public class RemoteAPI {
 
     public static StringRequest getUserTracks(Response.Listener<String> listener, String token) {
 
-        String url = "https://api.spotify.com/v1/me/top/tracks?time_rante=short_term&limit=20";
+        String url = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=20";
 
         // Request a string response from the provided URL.
         return new StringRequest(Request.Method.GET, url,
