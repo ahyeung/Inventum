@@ -222,7 +222,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintVertical_bias="0.55"
+        app:layout_constraintVertical_bias="0.4"
         android:onClick="onClick"
         android:text="LIKE STATUS" />
 
