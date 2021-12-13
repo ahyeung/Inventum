@@ -108,7 +108,7 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
         int size = 20;
         boolean shrink = false;
 
-        if (this.getWindow().getDecorView().getWidth() < 7) {
+        if (this.getWindow().getDecorView().getWidth() < 6) {
             shrink = true;
             size = 10;
         }
@@ -123,9 +123,11 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
 
         trackAlbumInfo.setText(track.getAlbumType() + ": " + track.getAlbum());
         trackAlbumInfo.setTextSize(size);
+
         if (shrink) {
             trackAlbumInfo.setWidth(400);
         }
+
         popularity.setText("Popularity: " + track.getPopularityScore());
         popularity.setTextSize(size);
         danceability.setText("Danceability: " + track.getDanceability());
