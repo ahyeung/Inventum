@@ -8,4 +8,6 @@
     <string name="your_tracks">Your Tracks</string>
     <string name="track_or_playlist">Track or Playlist</string>
     <string name="starred">Starred</string>
+    <string name="your_top_tracks">your_top_tracks</string>
+    <string name="user_top_tracks">Your Top Tracks</string>
 </resources>
