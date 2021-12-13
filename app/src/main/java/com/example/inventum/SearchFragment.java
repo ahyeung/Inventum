@@ -595,4 +595,25 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 -1, -1, -1, -1, -1, -1);
         queue.add(searchRequest);
     }
+
+    public void genreAdvSearch() {
+        getView().findViewById(R.id.popularityTitle).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.popularityBar).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.danceabilityTitle).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.danceabilityBar).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.tempoTitle).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.tempoBar).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.livenessTitle).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.livenessBar).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.energyTitle).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.energyBar).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.valenceTitle).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.valenceBar).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.acousticnessTitle).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.acousticnessBar).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.speechinessTitle).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.speechinessBar).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.instrumentalnessTitle).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.instrumentalnessBar).setVisibility(View.VISIBLE);
+    }
 }
