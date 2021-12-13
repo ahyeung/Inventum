@@ -16,6 +16,7 @@
         android:textOff="Genres"
         android:textOn="Songs/Artists"
         android:background="@drawable/rounded_white"
+        android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
