@@ -130,7 +130,6 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
         switch (id) {
             case R.id.likeStatus:
                 if (!checkLikeStatus()) {
-                    track.setLiked(true);
                     likeStatus.setText("LIKED");
                     // Add id to giant string from old preferences and update
                     String track_id = track.getID();
@@ -139,7 +138,6 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
                     likedList = likedList + track_id + ",";
                     sharedPreferences.edit().putString("likedArray", likedList).apply();
                 } else {
-                    track.setLiked(false);
                     likeStatus.setText("NOT LIKED");
                     String track_id = track.getID();
                     SharedPreferences sharedPreferences = getSharedPreferences("com.example.inventum", Context.MODE_PRIVATE);
