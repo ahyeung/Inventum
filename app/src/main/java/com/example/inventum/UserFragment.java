@@ -49,10 +49,19 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             case R.id.toggleButton:
                 String text = (String) toggle.getText();
                 if(text.equals("Starred")){
-                    //SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("com.example.inventum", Context.MODE_PRIVATE);
-                    //String trackIDs = sharedPreferences.getString("likedArray", "");
-                    //Log.d("UserFrag", "about to populate with\n" + trackIDs);
-                    populate_liked(view);
+                    SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("com.example.inventum", Context.MODE_PRIVATE);
+                    String trackIDs = sharedPreferences.getString("likedArray", "");
+                    Log.d("UserFrag", "about to populate with\n" + trackIDs);
+                    if(trackIDs != null && trackIDs.length() > 0){
+                        Log.d("userfrag", "Is this always true?");
+                        populate_liked(view);
+                    }else{
+                        ArrayList <String> empty_memo = new ArrayList<String>();
+                        empty_memo.add("Please Like a song!");
+                        ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, empty_memo);
+                        ListView listView = (ListView) getActivity().findViewById(R.id.UserListView);
+                        listView.setAdapter(adapter);
+                    }
                 }
                 if(text.equals("Your Tracks")){
                     Log.d("UserFrag", "Text: " + text);
