@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.SeekBar;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -268,6 +269,32 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                 activity.findViewById(R.id.findGenreResults).setVisibility(View.INVISIBLE);
                 activity.findViewById(R.id.findAdvGenreResults).setVisibility(View.INVISIBLE);
 
+                Button findAdvResults = (Button) activity.findViewById(R.id.findAdvResults);
+                findAdvResults.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        SeekBar popularityBar = (SeekBar) activity.findViewById(R.id.popularityBar);
+                        SeekBar danceabilityBar = (SeekBar) activity.findViewById(R.id.danceabilityBar);
+                        SeekBar tempoBar = (SeekBar) activity.findViewById(R.id.tempoBar);
+                        SeekBar livenessBar = (SeekBar) activity.findViewById(R.id.livenessBar);
+                        SeekBar energyBar = (SeekBar) activity.findViewById(R.id.energyBar);
+                        SeekBar valenceBar = (SeekBar) activity.findViewById(R.id.valenceBar);
+                        SeekBar acousticnessBar = (SeekBar) activity.findViewById(R.id.acousticnessBar);
+                        SeekBar speechinessBar = (SeekBar) activity.findViewById(R.id.speechinessBar);
+                        SeekBar instrumentalnessBar = (SeekBar) activity.findViewById(R.id.instrumentalnessBar);
+
+                        int popularityBarInt = popularityBar.getProgress();
+                        int danceabilityBarInt = danceabilityBar.getProgress();
+                        int tempoBarInt = tempoBar.getProgress();
+                        int livenessBarInt = livenessBar.getProgress();
+                        int energyBarInt = energyBar.getProgress();
+                        int valenceBarInt = valenceBar.getProgress();
+                        int acousticnessBarInt = acousticnessBar.getProgress();
+                        int speechinessBarInt = speechinessBar.getProgress();
+                        int instrumentalnessBarInt = instrumentalnessBar.getProgress();
+
+                    }
+                });
             }
         });
 
