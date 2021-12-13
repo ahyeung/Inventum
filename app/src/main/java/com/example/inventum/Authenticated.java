@@ -186,7 +186,7 @@ public class Authenticated extends AppCompatActivity {
                 AuthorizationRequest.Builder builder =
                         new AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI);
 
-                builder.setScopes(new String[]{"streaming", "user-read-private"});
+                builder.setScopes(new String[]{"streaming", "user-read-private", "user-top-read"});
                 AuthorizationRequest request = builder.build();
 
                 AuthorizationClient.openLoginActivity(Authenticated.this, REQUEST_CODE, request);
