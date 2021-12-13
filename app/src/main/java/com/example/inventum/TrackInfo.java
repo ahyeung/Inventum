@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.renderscript.ScriptGroup;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputBinding;
@@ -108,9 +109,16 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
         int size = 20;
         boolean shrink = false;
 
-        if (this.getWindow().getDecorView().getWidth() < 6) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+
+        if (width < 480) {
             shrink = true;
             size = 10;
+        } else {
+            size = 20;
+            shrink = false;
         }
 
         trackTitle.setText(track.getTitle());
