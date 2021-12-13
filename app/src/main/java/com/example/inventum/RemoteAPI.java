@@ -138,7 +138,7 @@ public class RemoteAPI {
 
     public static StringRequest getUserTracks(Response.Listener<String> listener, String token) {
 
-        String url = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=20";
+        String url = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=26";
 
         // Request a string response from the provided URL.
         return new StringRequest(Request.Method.GET, url,
@@ -308,7 +308,7 @@ public class RemoteAPI {
     public static StringRequest getGlobalTopSongs(Response.Listener<String> listener, String token, String market) {
 
         // limit currently set to return 25 tracks
-        String url = "https://api.spotify.com/v1/playlists/37i9dQZEVXbNG2KDcFcKOF/tracks?limit=25";
+        String url = "https://api.spotify.com/v1/playlists/37i9dQZEVXbNG2KDcFcKOF/tracks?limit=50";
 
         if (market != null && !market.isEmpty()) {
             url = url + "&market=" + market;

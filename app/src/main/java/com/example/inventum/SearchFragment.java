@@ -55,6 +55,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         sharedPreferences = this.getActivity().getSharedPreferences("com.example.inventum", Context.MODE_PRIVATE);
         View v = inflater.inflate(R.layout.fragment_search, container, false);
 
+        ListView tracksListView = (ListView) v.findViewById(R.id.tracksListView);
         EditText keywords = (EditText) v.findViewById(R.id.searchBar);
         EditText genres = (EditText) v.findViewById(R.id.genreIncSearch);
         Button genreButton1 = (Button) v.findViewById(R.id.genreButton1);
@@ -125,6 +126,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     findGenreResults.setVisibility(View.VISIBLE);
                     findAdvGenreResults.setVisibility(View.VISIBLE);
                     findResults.setVisibility(View.INVISIBLE);
+                    tracksListView.setVisibility(View.INVISIBLE);
                 }
             }
         });
