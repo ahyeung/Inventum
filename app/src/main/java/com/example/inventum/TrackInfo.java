@@ -113,7 +113,9 @@ public class TrackInfo extends AppCompatActivity implements View.OnClickListener
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int width = displayMetrics.widthPixels;
 
-        if (width < 480) {
+        Log.e("WIDTH", "" + width);
+
+        if (width <= 1080) {
             shrink = true;
             size = 10;
         } else {
